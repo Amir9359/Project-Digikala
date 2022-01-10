@@ -1,0 +1,25 @@
+﻿.breadcrumb-item + .breadcrumb-item {
+    padding-left: 0;
+    padding-right: .1rem;
+}
+
+    .breadcrumb-item + .breadcrumb-item:before {
+        float: right;
+        margin-left: 0.2rem;
+    }
+
+.breadcrumb-link {
+    font-family: Arial;
+    text-decoration: none;
+}
+
+.style-1 {
+    position: relative;
+    left: 1px;
+    width: 100.3% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bredbrandd {
+}

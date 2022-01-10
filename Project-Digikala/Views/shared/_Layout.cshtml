@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DigiKala</title>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Admin/Shared/style.css" rel="stylesheet" />
+    @RenderSection("style", required: false)
+
+</head>
+<body   class="m-0 p-0  " >
+
+    @RenderBody()
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

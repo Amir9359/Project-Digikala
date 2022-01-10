@@ -1,0 +1,144 @@
+﻿@{
+    var id = ViewBag.Id;
+    ViewData["Title"] = (id != null ? "تغییر  کالا" : "افزودن کالا");
+}
+<h3>@(id != null ?   "تغییر  کالا" : "افزودن کالا")</h3>
+
+@section breadcrumb{
+    <nav aria-label="breadcrumb" class="mt-3">
+        <ol class="breadcrumb bg-dark bg-opacity-10">
+            <li class="breadcrumb-item align-text-top "><a class="p-2 m-1  breadcrumb-link" href="/Admin/Home/Index">صفحه اصلی</a></li>
+            <li class="breadcrumb-item " aria-current="page"> @(id != null ?   "تغییر  کالا" : "افزودن کالا") </li>
+        </ol>
+    </nav>
+
+    <div class="card ">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <h1 class="h5">لیست کالا ها</h1>
+            <div>
+                <a class="btn btn-success btn-sm" href="@Url.Action("list")">لیست کالا</a>
+            </div>
+        </div>
+        <div class="card-body ">
+
+            <form action="@Url.Action("save")" class="form-control validnd" method="post" enctype="multipart/form-data" novalidate>
+                @{
+                    if (id != null)
+                    {
+                        <input type="hidden" value="@id" name="id" />
+                    }
+                }
+                <div class="row  mb-3 mt-3">
+                    <label for="PrimaryTitletxt" class="form-label col-md-1">نام اصلی:</label>
+                    <div class="col-md-6">
+                        <input class="form-control " id="PrimaryTitletxt" autocomplete="off" maxlength="50" name="PrimaryTitle" required>
+                        <div class="invalid-feedback">لطفا نام اصلی را وارد کیند</div>
+                    </div>
+                </div>
+
+                <div class="row  mb-3 mt-3">
+                    <label for="SecondaryTitletxt" class="form-label col-md-1">نام ثانویه:</label>
+                    <div class="col-md-6">
+                        <input class="form-control " id="SecondaryTitletxt" autocomplete="off" maxlength="50" name="SecondaryTitle" required>
+                        <div class="invalid-feedback">لطفا نام ثانویه را وارد کیند</div>
+
+                    </div>
+                </div>
+
+                <div class="row  mb-3 mt-3">
+                    <label for="Descriptiontxt" class="form-label col-md-1">توضیحات:</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control " rows="4" maxlength="200" autocomplete="off" id="Descriptiontxt" name="Description" required></textarea>
+                        <div class="invalid-feedback">لطفا توضیحات را وارد کیند</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="Brandtxt" class="form-label col-md-1">برند:</label>
+                    <div class="col-md-6">
+                        <select class="form-select" id="Brandtxt" name="brand" required>
+                            <option selected disabled value="">لطفا انتخاب کنید...</option>
+                            <option value="1">سامسونگ</option>
+                            <option value="2">اپل</option>
+                        </select>
+                        <div class="invalid-feedback">لطفا برند را انتخاب کنید</div>
+
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="ddlgroup" class="form-label col-md-1">گروه:</label>
+                    <div class="col-md-6">
+                        <select class="form-select" id="ddlgroup" name="Group" required>
+                            <option selected disabled value="">لطفا انتخاب کنید...</option>
+                            <option value="1">موبایل</option>
+                            <option value="2">وسایل گوشی</option>
+                        </select>
+                        <div class="invalid-feedback">لطفا گروه را انتخاب کنید</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="ddlState" class="form-label col-md-1">وضعیت:</label>
+                    <div class="col-md-6">
+                        <select class="form-select" id="ddlState" name="state" required>
+                            <option selected disabled value="">لطفا انتخاب کنید...</option>
+                            <option value="1">فعال</option>
+                            <option value="2">غیر فعال</option>
+                        </select>
+                        <div class="invalid-feedback">لطفا وضعیت را انتخاب کنید</div>
+                    </div>
+                </div>
+
+                <div class="row  mb-3 mt-3">
+                    <label for="formPhoto" class="form-label col-md-1">تصویر:</label>
+                    <div class="col-md-6">
+                        <input type="file" class="form-control-File" id="formPhoto" maxlength="50" name="Photo" autocomplete="off" required>
+                        <div class="invalid-feedback">لطفا   Photo را وارد کیند</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success pe-3 ps-3 mb-3">ثبت </button>
+
+                    </div>
+                </div>
+
+            </form>
+
+
+
+
+
+        </div>
+    </div>
+
+}
+@section Scripts{
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.validnd')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}
+
+
