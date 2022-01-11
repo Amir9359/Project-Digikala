@@ -9,5 +9,7 @@ namespace Project_Digikala.Models
 {
     public class @operator:IdentityUser
     {
+        public string Name{ get; set; }
+        public string LastName{ get; set; }
     }
 }

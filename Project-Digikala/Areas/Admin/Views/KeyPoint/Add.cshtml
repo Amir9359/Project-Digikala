@@ -1,0 +1,132 @@
+﻿@model keypoint
+@{
+    var productid = ViewBag.productid;
+    var type = ViewBag.type;
+    var id = ViewBag.Id;
+    var a = (ViewBag.type == (keypointType?)keypointType.Positive ? "مثبت" : "منفی");
+    ViewData["Title"] = (id != null ? "تغییر  نقطه" : "افزودن نقطه") + " " + a;
+}
+ 
+
+@section breadcrumb{
+    <nav aria-label="breadcrumb" class="mt-3">
+        <ol class="breadcrumb bg-dark bg-opacity-10">
+            <li class="breadcrumb-item align-text-top "><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
+            <li class="breadcrumb-item " aria-current="page"> @(id != null ? "تغییر  نقطه" : "افزودن نقطه") @a</li>
+        </ol>
+    </nav>
+ 
+    <h3  class="h4 mb-3"> @(id != null ? "تغییر  نقطه " : "افزودن نقطه ") @a</h3>
+    <div class="card ">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <h1 class="h5">لیست کالا ها</h1>
+            <div>
+                <a class="btn btn-success btn-sm" asp-area="Admin" asp-controller="KeyPoint" asp-action="List"  asp-route-id="@productid" asp-route-keypoint="@type">لیست نقاط @a</a>
+            </div>
+        </div>
+        <div class="card-body ">
+
+            <form asp-area="Admin" asp-controller="KeyPoint" asp-action="save" asp-route-Productid="@productid" asp-route-keypoint="@type" class="form-control validnd" method="post"  novalidate>
+                @{
+                    if (id != null)
+                    {
+                        //edit
+                        <input type="hidden" value="@id" name="id" />
+                        <input type="hidden" value="@type" name="keypoint" />
+                    }
+                    else
+                    {
+                        //add
+                        <input type="hidden" value="@productid" name="Productid" />
+                        <input type="hidden" value="@type" name="keypoint" />
+                    }
+                }
+                <div class="row  mb-3 mt-3">
+                    <label for="Titletxt" class="form-label col-md-1">عنوان:</label>
+                    <div class="col-md-6">
+                        @if (Model != null)
+                        {
+                            <input class="form-control " id="Titletxt" autocomplete="off" value="@Model.Title" maxlength="50" name="Title" required>
+
+                        }
+                        else
+                        {
+                            <input class="form-control " id="Titletxt" autocomplete="off" maxlength="50" name="Title" required>
+
+                        }
+                        <div class="invalid-feedback">لطفا عنوان را وارد کیند</div>
+                    </div>
+                </div>
+
+
+
+                <div class="row mb-3">
+                    <label for="ddlState" class="form-label col-md-1">وضعیت:</label>
+                    <div class="col-md-6">
+                        <select class="form-select" id="ddlState" name="state" required>
+                            @if (Model != null && Model?.Product?.state == Project_Digikala.Models.Products.State.Enabled)
+                            {
+                                <option disabled value="">لطفا انتخاب کنید...</option>
+                                <option selected="selected" value="1">فعال</option>
+                                <option value="2">غیر فعال</option>
+
+                            }
+                            else if (Model != null && Model?.Product?.state == Project_Digikala.Models.Products.State.Disable)
+                            {
+                                <option disabled value="">لطفا انتخاب کنید...</option>
+                                <option value="1">فعال</option>
+                                <option selected="selected" value="2">غیر فعال</option>
+
+                            }
+                            else if (Model?.Product == null)
+                            {
+                                <option selected disabled value="">لطفا انتخاب کنید...</option>
+                                <option value="1">فعال</option>
+                                <option value="2">غیر فعال</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">لطفا وضعیت را انتخاب کنید</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success pe-3 ps-3 mb-3">ثبت نقاط @a </button>
+
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+}
+@section Scripts{
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.validnd')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}
+
+

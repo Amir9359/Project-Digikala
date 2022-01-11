@@ -2,16 +2,226 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>DigiKala</title>
+    <title>فروشگاه اینترنتی | @ViewBag.Title</title>
     <meta name="viewport" content="width=device-width" />
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Admin/Shared/style.css" rel="stylesheet" />
     @RenderSection("style", required: false)
+    <link href="~/Css/Shared/Layout.css" rel="stylesheet" />
+    <link href="~/Css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/Css/Shared/home.css" rel="stylesheet" />
 
 </head>
-<body   class="m-0 p-0  " >
+<body class="m-0 p-0  ">
 
-    @RenderBody()
+    <div class="t2">
+        <header class="header ">
+            <div class="header-container wrapper">
+                <div class="header-tbl">
+                    <div class="header-row">
+                        <div class="header-cell header-logo ">
+                            <a class="tbl-logo-btn" href="/"><img class="tbl-logo-img" src="/Images/Home.png"><img /> </a>
+                        </div>
+
+                        <div class="header-cell header-search ">
+                            <form  class="header-search-form" method="post" asp-action="List" >
+                                <span class="header-search-form-input-wrapper ">
+                                    <input type="submit" class="header-search-form-submit-btn" id="headerSearchSubmitBtn">
+                                    <label for="headerSearchSubmitBtn" class="header-search-form-label mdi mdi-magnify " itemtype="submit"></label>
+                                    <input class="header-search-form-input" name="keyword" placeholder="لطفا نام محصول یا دسته بندی  را وارد کنید ..." autocomplete="off">
+                                </span>
+                            </form>
+                        </div>
+
+                        <div class="header-cell header-action">
+                            <span class="header-action-item header-action-item_border">
+                                <a href="#" class="header-action-btn mdi mdi-cart-outline mdi-24px  cart"><span class="header-action-btn-txt">سبد خرید </span><span class="header-action-btn-cunt">35</span> </a>
+
+                            </span>
+                            <span class="header-action-item">
+                                <a href="#" class="header-action-btn  mdi mdi-chevron-down mdi-24px prof"><span class="header-action-btn-txt"> ورود ، ثبت نام </span></a>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <nav class="nav">
+                <ul class="ul wrapper">
+                    <li class="li">
+                        <a class="a" href="#">محصولات</a>
+                    </li>
+                    <li class="li">
+                        <a class="a" href="#">شگفت انگیزان </a>
+                    </li>
+                    <li class="li li-type-1">
+                        <a class="a" href="#">کالای دیجیتال</a>
+                        <ul class="nav-submenu ">
+                            <li class="nav-submenu-item ">
+                                <a href="#" class="nav-submenu-button">  گوشی موبایل &nbsp;</a>
+                            </li>
+                            <li class="nav-submenu-item">
+                                <a href="#" class="nav-submenu-button"> پاور بانک &nbsp; </a>
+                            </li>
+                            <li class="nav-submenu-item">
+                                <a href="#" class="nav-submenu-button">لپ تاب &nbsp; </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li">
+                        <a class="a" href="#">وسایل نقلیه</a>
+                    </li>
+                    <li class="li type-2">
+                        <a class="a" href="#">آرایشی بهداشتی</a>
+                        <ul class="nav-submenu ">
+                            <li class="nav-submenu-item ">
+                                <a href="#" class="nav-submenu-button" title="لپتاب ، گوشی موبایل ، پاوربانک , هندزفری ، تبلت "> لپتاب ، گوشی موبایل ، پاوربانک , هندزفری ، تبلت   &nbsp;</a>
+                            </li>
+                            <li class="nav-submenu-item">
+                                <a href="#" class="nav-submenu-button"> پاور بانک &nbsp; </a>
+                            </li>
+                            <li class="nav-submenu-item">
+                                <a href="#" class="nav-submenu-button">لپ تاب &nbsp; </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li li_last">
+                        <a class="a" href="#">درباره ما</a>
+                    </li>
+                    <li class="li li_last">
+                        <a class="a" href="#">تماس با ما</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main">
+            <div id="container">
+                @RenderBody()
+
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="footer-detail">
+            <div class="footer-detail-content">
+                <div class="wrapper-footer">
+                    <ul class="footer-badge-wrapper clearfix">
+                        <li class="footer-badge-item">
+                            <a class="footer-badge-link">
+                                <span class="footer-badge-icon mdi mdi-truck"></span>
+                                <span class="footer-badge-title">حمل بار</span>
+                                <span class="footer-badge-desc">حمل سریع بار در سرع ترین راه</span>
+
+                            </a>
+                        </li>
+                        <li class="footer-badge-item">
+                            <a class="footer-badge-link">
+                                <span class="footer-badge-icon mdi mdi-credit-card"></span>
+                                <span class="footer-badge-title">پرداخت در محل </span>
+                                <span class="footer-badge-desc">در محل پرداخت کنید </span>
+
+                            </a>
+                        </li>
+                        <li class="footer-badge-item">
+                            <a class="footer-badge-link">
+                                <span class="footer-badge-icon mdi mdi-headset"></span>
+                                <span class="footer-badge-title">7 روز هفته 24 ساعت</span>
+                                <span class="footer-badge-desc">حمل سریع بار در سرع ترین راه</span>
+
+                            </a>
+                        </li>
+                        <li class="footer-badge-item">
+                            <a class="footer-badge-link">
+                                <span class="footer-badge-icon mdi mdi-archive-arrow-down"></span>
+                                <span class="footer-badge-title"> 7 روز تضمین بازگشت پول</span>
+                                <span class="footer-badge-desc">حمل سریع بار در سرع ترین راه</span>
+
+                            </a>
+                        </li>
+                        <li class="footer-badge-item">
+                            <a class="footer-badge-link">
+                                <span class="footer-badge-icon mdi mdi-check-decagram"></span>
+                                <span class="footer-badge-title"> ضمانت اصل بودن کالا</span>
+                                <span class="footer-badge-desc">حمل سریع بار در سرع ترین راه</span>
+
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-wrapper">
+                <div class="footer-detail-tbl">
+                    <div class="footer-detail-tbl-tr">
+                        <div class="footer-detail-tbl-td">
+                            <a class="footer-detail-tbl-title">  راهنمای خرید</a>
+                            <div class="footer-detail-tbl-content">
+                                <a class="footer-detail-tbl-content-link"> سوالات متداول</a><br>
+                                <a class="footer-detail-tbl-content-link"> شیوه خرید وثبت سفارش</a><br>
+                                <a class="footer-detail-tbl-content-link"> شیوه های پرداخت</a><br>
+                                <a class="footer-detail-tbl-content-link">شرایط استفاده از سایت</a><br>
+                                <a class="footer-detail-tbl-content-link">فرصت های شغلی</a>
+                            </div>
+                        </div>
+                        <div class="footer-detail-tbl-td">
+                            <a class="footer-detail-tbl-title">  مشتریان</a>
+
+                            <div class="footer-detail-tbl-content">
+                                <a class="footer-detail-tbl-content-link"> شرایط ارسال و تحویل کالا</a><br>
+                                <a class="footer-detail-tbl-content-link">  خدمات مرجوعی و گارانتی کالا</a><br>
+                                <a class="footer-detail-tbl-content-link">پیگیری سفارشات</a>
+
+                            </div>
+                        </div>
+
+                        <div class="footer-detail-tbl-td">
+                            <a class="footer-detail-tbl-title"> با فروشگاه</a>
+                            <div class="footer-detail-tbl-content">
+                                <a class="footer-detail-tbl-content-link">  همکاری با سازمان</a><br>
+                                <a class="footer-detail-tbl-content-link"> فرصت های شغلی</a><br>
+                                <a class="footer-detail-tbl-content-link"> شیوه های پرداخت</a><br>
+                                <a class="footer-detail-tbl-content-link">شرایط استفاده از سایت</a><br>
+                                <a class="footer-detail-tbl-content-link">فرصت های شغلی</a>
+                            </div>
+                        </div>
+                        <div class="footer-detail-tbl-td last">
+                            <a class="footer-detail-tbl-title">  پشتیبانی سایت</a>
+                            <div class="footer-detail-tbl-title-wrapper">
+                                <span class="footer-support-icon mdi mdi-phone  icon"></span>
+                                <p class="footer-support-text">081-38264322</p>
+                            </div>
+                            <div class="footer-detail-tbl-title-wrapper">
+                                <span class="footer-support-icon mdi mdi-email  icon"></span>
+                                <a href="#" class="footer-support-text email">amirkhf7864@gmail.com</a>
+                            </div>
+                            <div class="footer-detail-tbl-title-wrapper">
+                                <span class="footer-support-icon mdi mdi-map-marker  "></span>
+                                <address class="footer-support-text address">همدان خیابان پاسداران ، خیابان جوادیه، کوچه صداقت ، مجتمع ولی عصر واحد 16</address>
+                            </div>
+                            <div class="footer-support-icon-action">
+                                <a class="button  mdi mdi-phone phone"> <span class="button-text">تماس با ما</span> </a>
+                                <a class="button link"> <span class="button-text link">درباره ما</span> </a>
+                            </div>
+
+                            <div class="footer-detail-tbl-content"></div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="footer-copy-right">
+            <div class="wrapper-footer">
+                <p class="footer-copy-right-txt">
+                    استفاده از مطالب فروشگاه اینترنتی فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به شرکت   می‌باشد
+                </p>
+            </div>
+        </div>
+    </footer>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/lib/jquery/jquery.min.js"></script>
     @RenderSection("Scripts", required: false)

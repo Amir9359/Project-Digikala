@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>DigiKala</title>
+    <title>@ViewBag.Title </title>
+    @RenderSection("title", required:false)
     <meta name="viewport" content="width=device-width" />
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Admin/Shared/style.css" rel="stylesheet" />
+    <link href="~/Css/Admin/style.css" rel="stylesheet" />
     @RenderSection("style", required: false)
 </head>
 <body>
@@ -18,42 +19,49 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto  mb-2 mb-lg-2">
                     <li class="nav-item">
-                        <a class="nav-link text-white text-opacity-100 " aria-current="page" href="/Admin/Home/Index">صفحه اصلی</a>
+                        <a class="nav-link mt-1 text-white text-opacity-100 " aria-current="page" asp-area="Admin" asp-controller="Home" asp-action="Index">صفحه اصلی</a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle me-3 text-white text-opacity-100 font-monospace " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle me-3 mt-1 text-white text-opacity-100 font-monospace " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             کالا
                         </a>
-                        <ul class="dropdown-menu me-3" style="right:5px; left:auto;margin-right:0;" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item text-right" style=" text-align: right;" href="@Url.Action("list","Product")">لیست کالاها</a></li>
-                            <li> <a class="dropdown-item text-right" style=" text-align: right;" href="@Url.Action("Add","Product")">افرزودن کالا</a></li>
+                        <ul class="dropdown-menu me-3 mt-1 p-0" style="right:5px; left:auto;margin-right:0;" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item text-right" style=" text-align: right;" asp-area="Admin" asp-controller="Product" asp-action="List">لیست کالاها</a></li>
+                            <li> <a class="dropdown-item text-right" style=" text-align: right;" asp-area="Admin" asp-controller="Product" asp-action="Add">افرزودن کالا</a></li>
 
                         </ul>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle me-3 text-white text-opacity-100 font-monospace " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                           برندها
+                        <a class="nav-link dropdown-toggle me-3 mt-1 text-white text-opacity-100 font-monospace " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            برندها
                         </a>
-                        <ul class="dropdown-menu me-3" style="right:5px; left:auto;margin-right:0;" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item text-right" style=" text-align: right;" href="@Url.Action("list","Brand")">لیست برندها</a></li>
-                            <li> <a class="dropdown-item text-right" style=" text-align: right;" href="@Url.Action("Add","Brand")">افرزودن برند</a></li>
+                        <ul class="dropdown-menu me-3 mt-1 p-0" style="right:5px; left:auto;margin-right:0;" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item text-right" style=" text-align: right;" asp-area="Admin" asp-controller="Brand" asp-action="list">لیست برندها</a></li>
+                            <li> <a class="dropdown-item text-right" style=" text-align: right;" asp-area="Admin" asp-controller="Brand" asp-action="Add">افرزودن برند</a></li>
 
                         </ul>
 
 
 
-                <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle me-3 text-white text-opacity-100 font-monospace " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                           گروه ها
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle me-3 mt-1 text-white text-opacity-100 font-monospace " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            گروه ها
                         </a>
-                        <ul class="dropdown-menu me-3" style="right:5px; left:auto;margin-right:0;" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item text-right" style=" text-align: right;" href="@Url.Action("List","Group")">لیست گروه ها</a></li>
-                            <li> <a class="dropdown-item text-right" style=" text-align: right;" href="@Url.Action("Index","Group")">افرزودن گروه</a></li>
-
+                        <ul class="dropdown-menu me-3 mt-1 p-0" style="right:5px; left:auto;margin-right:0;" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item text-right" style="text-align:right;" asp-area="Admin" asp-controller="Group" asp-action="List">لیست گروه ها</a></li>
+                            <li> <a class="dropdown-item text-right" style="text-align:right;" asp-area="Admin" asp-controller="Group" asp-action="Add">افرزودن گروه</a></li>
                         </ul>
 
 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle me-3 mt-1 text-white text-opacity-100 font-monospace " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            برچسب
+                        </a>
+                        <ul class="dropdown-menu me-3 mt-1 p-0" style="right:5px; left:auto;margin-right:0;" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item text-right" style="text-align:right;" asp-area="Admin" asp-controller="Tag" asp-action="List"  >لیست برچسب ها</a></li>
+                            <li> <a class="dropdown-item text-right" style="text-align:right;" asp-area="Admin" asp-controller="Tag" asp-action="Add">افرزودن برچسب</a></li>
+                        </ul>
 
                 </ul>
                 <form class="d-flex mb-2 mb-lg-2 me-auto">

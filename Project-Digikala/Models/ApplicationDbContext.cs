@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Project_Digikala.Models.Products;
 using Project_Digikala.Models.Products.Brands;
 using Project_Digikala.Models.Products.Groups;
+using Project_Digikala.Models.Products.KeyPoints;
+using Project_Digikala.Models.Products.Tags;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +15,20 @@ using System.Threading.Tasks;
 
 namespace Project_Digikala.Models
 {
-    public class ApplicationDbContext:IdentityDbContext<@operator>
+    public class ApplicationDbContext : IdentityDbContext<@operator>
     {
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Product> Products { get; set; }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> op):base(op)
+        public DbSet<keypoint> keypoints { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<TagValue> TagValues { get; set; }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> op) : base(op)
         {
 
         }
 
-        public static async Task CreateAdminAccount(IServiceProvider serviceProvider,IConfiguration configuration)
+        public static async Task CreateAdminAccount(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             UserManager<@operator> Usermanager = serviceProvider.GetRequiredService<UserManager<@operator>>();
             RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();

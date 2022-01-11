@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Project_Digikala.Models.Products.Groups
 {
-    interface IGroupRepository
+    public interface IGroupRepository
     {
         Task AddAsync(Group group);
-        void Update(Group group);
-        Task DeleteAsync(Group group);
+        Task Update(Group group);
+        Task DeleteAsync(int id);
         Task<Group> FindAsync(int id);
-        Task<IEnumerable<Group>> SearchAsync();
+        Task<IEnumerable<Group>> SearchAsync(string title, int? id, State? state);
         Task saveAsync();
     }
 }

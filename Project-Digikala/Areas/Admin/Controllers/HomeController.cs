@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Project_Digikala.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +10,14 @@ using System.Threading.Tasks;
 namespace Project_Digikala.Areas.Admin.Controllers
 {
     public class HomeController : BaseController
-{
-    // GET: HomeController
-    [Area("Admin")]
+    {
+        private UserManager<@operator> UserManager;
+        public HomeController(UserManager<@operator> UserManager) : base(UserManager)
+        {
+            this.UserManager = UserManager;
+        }
+        // GET: HomeController
+        [Area("Admin")]
     public ActionResult Index()
     {
         return View();

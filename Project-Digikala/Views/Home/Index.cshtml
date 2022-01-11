@@ -1,10 +1,243 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@{
+    ViewData["Title"] = "صفحه اصلی";
+}
+@section style{
 
-<head>
+<link href="~/Css/Home/home.css" rel="stylesheet" />
+}
+<div class="wrapper-footer" id="home">
+    <section class="home-section home-top-banner home-round home-section-shadow">
+    </section>
+    <section class="home-section">
+        <div class="home-gallery-wrapper home-round home-section-shadow">
+            <div class="home-gallery-content">
+                <a class="home-gallery-content-item" style="background-image: url('Images/1.jpg' )"></a><a class="home-gallery-content-item " style="background-image: url('Images/02.jpg')"></a><a class="home-gallery-content-item" style="background-image: url('Images/03.jpg')"></a><a class="home-gallery-content-item " style="background: url('Images/06.jpg')"></a>
+            </div>
+            <a class="home-gallery-btn mdi mdi-chevron-right right disable"></a>
+            <a class="home-gallery-btn mdi mdi-chevron-left left"></a>
+            <div class="home-gallery-pager">
+                <a class="home-gallery-pager-btn selected"></a>
+                <a class="home-gallery-pager-btn"></a>
+                <a class="home-gallery-pager-btn"></a>
+                <a class="home-gallery-pager-btn"></a>
+            </div>
+        </div>
+    </section>
+    <section class="home-section-wrapper-i home-round home-section-shadow">
+        <div class="home-spec-offer-wrapper ">
+            <div class="home-spec-side-col">
+                <ul class="home-spec-side-col-item-list">
+                    <li class="home-spec-side-col-item">
+                        <a class="home-spec-side-col-btn selected" href="#" title="چاقو تیزکن وینر کد GG.T01"> چاقو تیزکن وینر کد GG.T01</a>
+                    </li>
+                    <li class="home-spec-side-col-item">
+                        <a class="home-spec-side-col-btn" href="#" title="اسپیکر بلوتوثی قابل حمل سیلیکون پاور مدل BS82"> اسپیکر بلوتوثی قابل حمل سیلیکون پاور مدل BS82</a>
+                    </li>
+                    <li class="home-spec-side-col-item">
+                        <a class="home-spec-side-col-btn" href="#" title="گوشی موبایل شیائومی مدل Redmi 9A M2006C3LG دو سیم‌ کارت ظرفیت 32 گیگابایت	">گوشی موبایل شیائومی مدل Redmi 9A M2006C3LG دو سیم‌ کارت ظرفیت 32 گیگابایت	</a>
+                    </li>
+                    <li class="home-spec-side-col-item">
+                        <a class="home-spec-side-col-btn" href="#" title="ظرف نگهدارنده نورینو مدل نارون الوان مجموعه سه عددی">ظرف نگهدارنده نورینو مدل نارون الوان مجموعه سه عددی</a>
+                    </li>
+                    <li class="home-spec-side-col-item">
+                        <a class="home-spec-side-col-btn" href="#" title="اسپیکر بلوتوثی قابل حمل سیلیکون پاور مدل BS82"> اسپیکر بلوتوثی قابل حمل سیلیکون پاور مدل BS82</a>
+                    </li>
+                    <li class="home-spec-side-col-item">
+                        <a class="home-spec-side-col-btn" href="#" title="گوشی موبایل شیائومی مدل Redmi 9A M2006C3LG دو سیم‌ کارت ظرفیت 32 گیگابایت	">گوشی موبایل شیائومی مدل Redmi 9A M2006C3LG دو سیم‌ کارت ظرفیت 32 گیگابایت	</a>
+                    </li>
+                    <li class="home-spec-side-col-item">
+                        <a class="home-spec-side-col-btn" href="#" title="ظرف نگهدارنده نورینو مدل نارون الوان مجموعه سه عددی">ظرف نگهدارنده نورینو مدل نارون الوان مجموعه سه عددی</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="home-spec-side-all-btn button type-2 mdi mdi-arrow-left arrow"><span class="button-text-spec">مشاهده همه پیشنهاد ها</span> </span>
 
-</head>
-<body>
- 
-</body>
-</html>
+            <div class="home-spec-content-col">
+                <ul class="home-spec-col-content-item-list">
+                    <li class="home-spec-col-content-item clearfix selected">
+                        <span class="home-spec-col-content-badge"><span class="home-spec-col-content-item-badge-txt">پیشنهادات ویژه </span> </span>
+                        <div class="home-spec-col-content-item-photo-wrap">
+                            <img src="~/Images/products/a4974c23e326a9d92de925a483ae692ba0170bcc_1612784466.jpg" class="home-spec-col-content-item-photo">
+                        </div>
+
+                        <div class="home-spec-col-content">
+                            <div class="home-spec-col-content-price-container">
+                                <span class="home-spec-col-content-price-wrap">
+                                    <del class="home-spec-col-content-price-base">35,000 تومان</del>
+                                    <strong class="home-spec-col-content-final">20,0000 تومان</strong>
+                                </span>
+                                <span class="home-spec-col-content-price-discount">20%</span>
+
+                                <strong class="home-spec-col-content-title">کرم صورت مردانه comeon </strong>
+                                <ul class="home-spec-col-content-feature-list">
+                                    <li class="home-spec-col-content-feature-item">مواد درجه یک</li>
+                                    <li class="home-spec-col-content-feature-item">ساخت کشور آلمان</li>
+                                </ul>
+                                <div class="home-spec-col-content-footer">
+                                    <div class="home-spec-col-content-footer-counter">
+                                        <span>05</span> : <span>23</span> : <span>51</span>
+                                    </div>
+                                    <span class="home-spec-col-content-footer-counter-text">زمان باقی مانده تا پایان کالاهای شگفت انگیز</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a href="#" class="home-spec-col-content-link"></a>
+                    </li>
+
+
+
+
+
+                    <li class="home-spec-col-content-item clearfix ">
+                        <span class="home-spec-col-content-badge"><span class="home-spec-col-content-item-badge-txt">پیشنهادات ویژه </span> </span>
+                        <div class="home-spec-col-content-item-photo-wrap">
+                            <img src="~/Images/products/90c66d35bf45a1838b245fbd616f93a9125e12d2_1639374877.jpg" class="home-spec-col-content-item-photo">
+                        </div>
+
+                        <div class="home-spec-col-content">
+                            <div class="home-spec-col-content-price-container">
+                                <span class="home-spec-col-content-price-wrap">
+                                    <del class="home-spec-col-content-price-base">35,000 تومان</del>
+                                    <strong class="home-spec-col-content-final">20,0000 تومان</strong>
+                                </span>
+                                <span class="home-spec-col-content-price-discount">20%</span>
+
+                                <strong class="home-spec-col-content-title">کرم صورت مردانه comeon </strong>
+                                <ul class="home-spec-col-content-feature-list">
+                                    <li class="home-spec-col-content-feature-item">مواد درجه یک</li>
+                                    <li class="home-spec-col-content-feature-item">ساخت کشور آلمان</li>
+                                </ul>
+                                <div class="home-spec-col-content-footer">
+                                    <div class="home-spec-col-content-footer-counter">
+                                        <span>05</span> : <span>23</span> : <span>51</span>
+                                    </div>
+                                    <span class="home-spec-col-content-footer-counter-text">زمان باقی مانده تا پایان کالاهای شگفت انگیز</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="home-spec-col-content-link"></a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </section>
+    <section class="home-section home-round ">
+        <div class="home-promo-warp ">
+            <div class="home-promo-item ">
+                <div class="home-promo-item-con">
+                    <a href="#" class="home-promo-link home-round home-section-shadow">
+                        <span class="home-promo-img" style="background-image: url(Images/Brand/3.png)"></span>
+                        <span class="home-promo-item-warp">
+                            <span class="home-promo-item-text">هدست و هدفون</span>
+                            <span class="home-promo-item-icon mdi mdi-apps"></span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="home-promo-item ">
+                <div class="home-promo-item-con ">
+                    <a href="#" class="home-promo-link home-round home-section-shadow">
+                        <span class="home-promo-img" style="background-image: url(Images/banner/1.jpg)"></span>
+                        <span class="home-promo-item-hover">عنوان 1</span>
+                    </a>
+                </div>
+            </div>
+            <div class="home-promo-item ">
+                <div class="home-promo-item-con">
+                    <a href="#" class="home-promo-link home-round home-section-shadow">
+                        <span class="home-promo-img" style="background-image: url(Images/banner/2.jpg)"></span>
+                        <span class="home-promo-item-hover">عنوان 2</span>
+
+                    </a>
+                </div>
+            </div>
+            <div class="home-promo-item ">
+                <div class="home-promo-item-con">
+                    <a href="#" class="home-promo-link home-round home-section-shadow">
+                        <span class="home-promo-img" style="background-image: url(Images/banner/3.jpg)"></span>
+                        <span class="home-promo-item-hover">عنوان 3</span>
+
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="home-showcase-wrap home-section home-section-shadow home-round">
+        <div class="home-showcase-header">
+            <div class="home-showcase-header-wrap">
+                <h3 class="home-showcase-header-txt"> لوازم خانه</h3>
+            </div>
+        </div>
+        <div class="home-showcase-content">
+            <div class="home-showcase-gallery">
+                <a class="home-showcase-gallery-btn mdi mdi-chevron-left btn-left"></a>
+                <a class="home-showcase-gallery-btn mdi mdi-chevron-right btn-right disable"></a>
+                <div class="home-showcase-gallery-layout">
+                    <div class="home-showcase-gallery-content">
+                        <a class="home-showcase-gallery-item">
+                            <span class="home-showcase-gallery-item-inner">
+                                <span class="home-showcase-gallery-item-img-cont">
+                                    <span class="home-showcase-gallery-item-img-lay">
+                                        <img class="home-showcase-gallery-item-img" title="bag" src="~/Images/products/554.jpg" >
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="home-showcase-gallery-item-title">کیف مسافرتی مدل تایگر</span>
+                            <span class="home-showcase-gallery-item-price">180,000 تومان</span>
+                        </a><a class="home-showcase-gallery-item">
+                            <span class="home-showcase-gallery-item-inner">
+                                <span class="home-showcase-gallery-item-img-cont">
+                                    <span class="home-showcase-gallery-item-img-lay">
+                                        <img class="home-showcase-gallery-item-img" title="bag" src="~/Images/products/554.jpg">
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="home-showcase-gallery-item-title">کیف مسافرتی مدل تایگر</span>
+                            <span class="home-showcase-gallery-item-price">180,000 تومان</span>
+                        </a><a class="home-showcase-gallery-item">
+                            <span class="home-showcase-gallery-item-inner">
+                                <span class="home-showcase-gallery-item-img-cont">
+                                    <span class="home-showcase-gallery-item-img-lay">
+                                        <img class="home-showcase-gallery-item-img" title="bag" src="~/Images/products/554.jpg">
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="home-showcase-gallery-item-title">کیف مسافرتی مدل تایگر</span>
+                            <span class="home-showcase-gallery-item-price">180,000 تومان</span>
+                        </a><a class="home-showcase-gallery-item">
+                            <span class="home-showcase-gallery-item-inner">
+                                <span class="home-showcase-gallery-item-img-cont">
+                                    <span class="home-showcase-gallery-item-img-lay">
+                                        <img class="home-showcase-gallery-item-img" title="bag" src="~/Images/products/554.jpg">
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="home-showcase-gallery-item-title">کیف مسافرتی مدل تایگر</span>
+                            <span class="home-showcase-gallery-item-price">180,000 تومان</span>
+
+                        </a><a class="home-showcase-gallery-item">
+                            <span class="home-showcase-gallery-item-inner">
+                                <span class="home-showcase-gallery-item-img-cont">
+                                    <span class="home-showcase-gallery-item-img-lay">
+                                        <img class="home-showcase-gallery-item-img" title="bag" src="~/Images/products/554.jpg">
+                                    </span>
+                                </span>
+                            </span>
+                            <span class="home-showcase-gallery-item-title">کیف مسافرتی مدل تایگر</span>
+                            <span class="home-showcase-gallery-item-price">180,000 تومان</span>
+
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

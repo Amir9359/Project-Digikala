@@ -144,9 +144,13 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("LastName");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -190,19 +194,21 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<string>("CreatorId");
 
-                    b.Property<string>("LasrModifierId");
+                    b.Property<string>("LastModifierId");
 
-                    b.Property<DateTime>("LasteModifyDate");
+                    b.Property<DateTime?>("LastModifyDate");
 
                     b.Property<string>("Slug");
 
                     b.Property<string>("Title");
 
+                    b.Property<byte>("state");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("LasrModifierId");
+                    b.HasIndex("LastModifierId");
 
                     b.ToTable("Brands");
                 });
@@ -217,19 +223,21 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<string>("CreatorId");
 
-                    b.Property<string>("LasrModifierId");
+                    b.Property<string>("LastModifierId");
 
-                    b.Property<DateTime>("LasteModifyDate");
+                    b.Property<DateTime?>("LastModifyDate");
 
                     b.Property<string>("Slug");
 
                     b.Property<string>("Title");
 
+                    b.Property<byte>("state");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("LasrModifierId");
+                    b.HasIndex("LastModifierId");
 
                     b.ToTable("Groups");
                 });
@@ -244,11 +252,15 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<string>("CreatorId");
 
-                    b.Property<string>("LasrModifierId");
+                    b.Property<string>("LastModifierId");
 
-                    b.Property<DateTime>("LasteModifyDate");
+                    b.Property<DateTime?>("LastModifyDate");
+
+                    b.Property<int?>("ProductId");
 
                     b.Property<string>("Title");
+
+                    b.Property<byte>("state");
 
                     b.Property<byte>("type");
 
@@ -256,9 +268,11 @@ namespace ProjectDigikala.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("LasrModifierId");
+                    b.HasIndex("LastModifierId");
 
-                    b.ToTable("keypoint");
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("keypoints");
                 });
 
             modelBuilder.Entity("Project_Digikala.Models.Products.Product", b =>
@@ -273,33 +287,89 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("LasrModifierId");
+                    b.Property<string>("LastModifierId");
 
-                    b.Property<DateTime>("LasteModifyDate");
-
-                    b.Property<int?>("MyPropertyId");
+                    b.Property<DateTime?>("LastModifyDate");
 
                     b.Property<string>("PrimaryTitle");
 
                     b.Property<string>("SecondaryTitle");
 
-                    b.Property<int?>("groupId");
+                    b.Property<int>("brandid");
 
-                    b.Property<int?>("stateId");
+                    b.Property<int>("groupid");
+
+                    b.Property<byte>("state");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("LasrModifierId");
+                    b.HasIndex("LastModifierId");
 
-                    b.HasIndex("MyPropertyId");
+                    b.HasIndex("brandid");
 
-                    b.HasIndex("groupId");
-
-                    b.HasIndex("stateId");
+                    b.HasIndex("groupid");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Products.Tags.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatorId");
+
+                    b.Property<string>("LastModifierId");
+
+                    b.Property<DateTime?>("LastModifyDate");
+
+                    b.Property<byte>("State");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("LastModifierId");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Products.Tags.TagValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<string>("CreatorId");
+
+                    b.Property<string>("LastModifierId");
+
+                    b.Property<DateTime?>("LastModifyDate");
+
+                    b.Property<byte>("State");
+
+                    b.Property<int?>("TagId");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("LastModifierId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("TagValues");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -353,9 +423,9 @@ namespace ProjectDigikala.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("Project_Digikala.Models.operator", "LasrModifier")
+                    b.HasOne("Project_Digikala.Models.operator", "LastModifier")
                         .WithMany()
-                        .HasForeignKey("LasrModifierId");
+                        .HasForeignKey("LastModifierId");
                 });
 
             modelBuilder.Entity("Project_Digikala.Models.Products.Groups.Group", b =>
@@ -364,9 +434,9 @@ namespace ProjectDigikala.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("Project_Digikala.Models.operator", "LasrModifier")
+                    b.HasOne("Project_Digikala.Models.operator", "LastModifier")
                         .WithMany()
-                        .HasForeignKey("LasrModifierId");
+                        .HasForeignKey("LastModifierId");
                 });
 
             modelBuilder.Entity("Project_Digikala.Models.Products.KeyPoints.keypoint", b =>
@@ -375,9 +445,13 @@ namespace ProjectDigikala.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("Project_Digikala.Models.operator", "LasrModifier")
+                    b.HasOne("Project_Digikala.Models.operator", "LastModifier")
                         .WithMany()
-                        .HasForeignKey("LasrModifierId");
+                        .HasForeignKey("LastModifierId");
+
+                    b.HasOne("Project_Digikala.Models.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("Project_Digikala.Models.Products.Product", b =>
@@ -386,21 +460,45 @@ namespace ProjectDigikala.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("Project_Digikala.Models.operator", "LasrModifier")
+                    b.HasOne("Project_Digikala.Models.operator", "LastModifier")
                         .WithMany()
-                        .HasForeignKey("LasrModifierId");
+                        .HasForeignKey("LastModifierId");
 
-                    b.HasOne("Project_Digikala.Models.Products.Brands.Brand", "MyProperty")
+                    b.HasOne("Project_Digikala.Models.Products.Brands.Brand", "brand")
                         .WithMany()
-                        .HasForeignKey("MyPropertyId");
+                        .HasForeignKey("brandid")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Project_Digikala.Models.Products.Groups.Group", "group")
                         .WithMany()
-                        .HasForeignKey("groupId");
+                        .HasForeignKey("groupid")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.HasOne("Project_Digikala.Models.Products.KeyPoints.keypoint", "state")
+            modelBuilder.Entity("Project_Digikala.Models.Products.Tags.Tag", b =>
+                {
+                    b.HasOne("Project_Digikala.Models.operator", "Creator")
                         .WithMany()
-                        .HasForeignKey("stateId");
+                        .HasForeignKey("CreatorId");
+
+                    b.HasOne("Project_Digikala.Models.operator", "LastModifier")
+                        .WithMany()
+                        .HasForeignKey("LastModifierId");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Products.Tags.TagValue", b =>
+                {
+                    b.HasOne("Project_Digikala.Models.operator", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
+
+                    b.HasOne("Project_Digikala.Models.operator", "LastModifier")
+                        .WithMany()
+                        .HasForeignKey("LastModifierId");
+
+                    b.HasOne("Project_Digikala.Models.Products.Tags.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId");
                 });
 #pragma warning restore 612, 618
         }

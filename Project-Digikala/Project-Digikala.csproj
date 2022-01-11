@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Images\Brand\" />
+    <Folder Include="wwwroot\Images\Product\" />
+    <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\Shared\" />
   </ItemGroup>
 

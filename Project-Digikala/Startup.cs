@@ -9,6 +9,8 @@ using Project_Digikala.Models;
 using Project_Digikala.Models.Products;
 using Project_Digikala.Models.Products.Brands;
 using Project_Digikala.Models.Products.Groups;
+using Project_Digikala.Models.Products.KeyPoints;
+using Project_Digikala.Models.Products.Tags;
 using Project_Digikala.Repository.EF;
 using System;
 using System.Collections.Generic;
@@ -40,6 +42,9 @@ namespace Users
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IkeypointRepository, keypointRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<ITagValueRepository, TagValueRepository>();
 
             services.AddMvc();
         }
@@ -47,6 +52,15 @@ namespace Users
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseAuthentication();

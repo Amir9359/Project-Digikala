@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Project_Digikala.Models;
+using Project_Digikala.Models.Products;
 using Project_Digikala.Models.Products.Groups;
 using System;
 using System.Collections.Generic;
@@ -20,15 +21,15 @@ namespace Project_Digikala.Repository.EF
            await context.Groups.AddAsync(group);
         }
 
-        public async Task DeleteAsync(Group group)
+        public async Task DeleteAsync(int id)
         {
-            Group g =  await context.Groups.FindAsync(group);
+            Group g =  await context.Groups.FindAsync(id);
             context.Groups.Remove(g);
         }
 
         public async Task<Group> FindAsync(int id) 
         {
-            var f= await context.Groups.Where(g=>g.Id==id).ToAsyncEnumerable().SingleOrDefault();
+            var f= await context.Groups.Include(o=>o.Creator).Where(g=>g.Id==id).ToAsyncEnumerable().SingleOrDefault();
             return f;
         }
 
@@ -37,14 +38,22 @@ namespace Project_Digikala.Repository.EF
           await  context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Group>> SearchAsync()
+        public async Task<IEnumerable<Group>> SearchAsync(string title, int? id, State? state)
         {
-          return  await context.Groups.Include(o=>o.Creator).ToAsyncEnumerable().ToList();
-        }
+            var Query = await context.Groups.Include(o => o.Creator).Include(o => o.LastModifier).ToAsyncEnumerable().ToList();
+            var Groups = await Query.Where(b => (b.Title == title || string.IsNullOrEmpty(title)) && (b.Id == id || id == null) && (b.state == state || state == null)).ToAsyncEnumerable().ToList();
 
-        public void Update(Group group)
+            return Groups;
+        }
+        public async Task Update(Group group)
         {
-              context.Groups.Update(group);
+            var grp= await context.Groups.FindAsync(group.Id);
+            grp.Id = group.Id;
+            grp.Title = group.Title;
+            grp.Slug = group.Slug;
+            grp.LastModifier = group.LastModifier;
+            grp.LastModifyDate = DateTime.Now;
+            grp.state = group.state;
         }
     }
 }

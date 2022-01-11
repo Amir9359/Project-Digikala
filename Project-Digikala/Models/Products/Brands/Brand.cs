@@ -13,8 +13,10 @@ namespace Project_Digikala.Models.Products.Brands
         public @operator Creator{ get; set; }
         public DateTime CreateDate { get; set; }
 
-        public @operator LasrModifier{ get; set; }
-        public DateTime LasteModifyDate { get; set; }
+        public @operator LastModifier{ get; set; }
+        public DateTime? LastModifyDate { get; set; }
+        public State state { get; set; }
+
 
     }
 }
