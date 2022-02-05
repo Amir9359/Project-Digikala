@@ -1,5 +1,5 @@
 
-/*region header*/
+/*#region header*/
 .header{
     position: relative;
     line-height: 0;
@@ -58,7 +58,7 @@
     font-size:1.1rem;
 margin: 0 .5rem;
 }
-/*region container*/
+/*#region container*/
 .header-tbl{
     display: inline-table;
     width: 100%;
@@ -274,10 +274,10 @@ display: none;
     position: relative;
     top: 3px;
 }
-/*endregion container*/
+/*#endregion container*/
 
-/*endregion header*/
-/*region nav*/
+/*#endregion header*/
+/*#region nav*/
 .nav{
     background-color:  #666;
     display:block ;
@@ -360,8 +360,8 @@ top: -13px;
     left: 0;
 }
 
-/*endregion nav*/
-/*region submenu*/
+/*#endregion nav*/
+/*#region submenu*/
 .nav-submenu{
     position: absolute;
     top: 100%;
@@ -419,8 +419,8 @@ top: -13px;
     background-color: #f9f9f9;
     color: orange;
 }
-/*endregion submenu*/
-/*region body*/
+/*#endregion submenu*/
+/*#region body*/
 
 .main-text
 {
@@ -464,9 +464,9 @@ body{
     height: 300px;
     background-color: orange;
 }
-/*endregion body*/
+/*#endregion body*/
 
-/*region footer*/
+/*#region footer*/
 .footer{
     border-top:1px solid #555;
     padding: 0 ;
@@ -694,4 +694,4 @@ color: white;
 
 
 }
-/*endregion footer*/
+/*#endregion footer*/

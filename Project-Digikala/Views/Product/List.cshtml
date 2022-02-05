@@ -1,8 +1,9 @@
-﻿ @{ 
-     ViewData["Title"] = "لیست کالا";
- }
-@section Style{ 
-    <link href="~/Product/List.css" rel="stylesheet" />
+﻿@{
+    ViewData["Title"] = "لیست کالا";
+}
+@section Style{
+
+    <link href="~/Css/Product/List.css" rel="stylesheet" />
 }
 <form class="product-list body-wrapper" id="prodcutlist">
     <div class="product-list__side">
@@ -39,8 +40,8 @@
             <div class="product-list__side-section-header">برند</div>
             <div class="product-list-side-section__content">
                 <div class="product-list-side-brands">
-                <label class="product-list-side-brands__button">اپل<input class="product-list-side-brands__checkbx" type="checkbox" name="brands" value="1" /><span class="product-list-side-brands__bullet mdi mdi-check-circle mdi-18px" ></span></label> 
-                <label class="product-list-side-brands__button">سامسونگ<input class="product-list-side-brands__checkbx" type="checkbox" name="brands" value="2" /><span class="product-list-side-brands__bullet mdi mdi-check-circle mdi-18px"></span></label> 
+                    <label class="product-list-side-brands__button">اپل<input class="product-list-side-brands__checkbx" type="checkbox" name="brands" value="1" /><span class="product-list-side-brands__bullet mdi mdi-check-circle mdi-18px"></span></label>
+                    <label class="product-list-side-brands__button">سامسونگ<input class="product-list-side-brands__checkbx" type="checkbox" name="brands" value="2" /><span class="product-list-side-brands__bullet mdi mdi-check-circle mdi-18px"></span></label>
                 </div>
             </div>
 
@@ -78,15 +79,15 @@
                         </div>
                     </li>
                 </ul>
-                    
+
             </div>
 
         </section>
         <div class="product-list__actions">
             <label type="submit" class="button">
-                <input type="submit"   class="product-list-actions__input" />
-                <span   class="button-text">جستجو</span>
-            </label>  
+                <input type="submit" class="product-list-actions__input" />
+                <span class="button-text">جستجو</span>
+            </label>
         </div>
     </div>
 
@@ -121,8 +122,8 @@
 
         <ul class="products">
             @*<li class="products__empty">
-                <span class="products__empty-title">هیچ موردی برای نمایش وجود ندارد.</span>
-            </li>*@
+                    <span class="products__empty-title">هیچ موردی برای نمایش وجود ندارد.</span>
+                </li>*@
 
             <li class="products__item">
                 <div class="products__layout">
@@ -135,7 +136,7 @@
                     </div>
                     <div class="product-state">
                         <span class="product__price">220,000<span class="product__price-unit">تومان</span></span>
-                        <a  href="/Product/Index/1" class="button mdi mdi-cart-plus icon1"></a>
+                        <a href="/Product/Index/1" class="button mdi mdi-cart-plus icon1"></a>
                     </div>
                 </div>
             </li>
@@ -161,11 +162,11 @@
                     </div>
                     <div class="products__title-wrap">
                         <a href="/Product/Index/3" class="products__primary-title">پتو مسافرتی</a><br />
-                        <a  href="/Product/Index/3" class="products__secondary-title">blanket</a>
+                        <a href="/Product/Index/3" class="products__secondary-title">blanket</a>
                     </div>
                     <div class="product-state">
                         <span class="product__price">150,000<span class="product__price-unit">تومان</span></span>
-                        <a  href="/Product/Index/3" class="button mdi mdi-cart-plus icon1" ></a>
+                        <a href="/Product/Index/3" class="button mdi mdi-cart-plus icon1"></a>
                     </div>
                 </div>
             </li>

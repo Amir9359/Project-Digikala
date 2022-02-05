@@ -1,3 +1,34 @@
 ﻿@{
     ViewData["Title"] = "جزئیات کالا";
 }
+@section Style{
+
+    <link href="~/Css/Product/index.css" rel="stylesheet" />
+}
+<div class="product body-wrapper" id="product">
+    <div class="product__header">
+        <div class="product__gallery">
+            <div class="product-gallery">
+                <div class="product-gallery__photo-wrap">
+                    <img src="~/Images/products/222.jpg" class="product-gallery__photo" alt="کرم دست" />
+
+                </div>
+            </div>
+        </div>
+            <div class="product__detail">
+                <section class="product__titles">
+                    <div class="product__primary-title">سامسونگ گلکسی اس 8</div>
+                    <div class="product__secondary-title">Samsung Galaxy S8</div>
+                    <ul class="product-info">
+                        <li class="product-info__item" >گروه:<span class="product-info__value">موبایل</span></li>
+                        <li class="product-info__item" >برند:<span class="product-info__value">سامسونگ</span></li>
+                    </ul>
+                </section>
+                <section class="product-detail">
+                    @*<div class="product-detail__empty">کالای مورد نظر درحال حاضر موجود نمی باشد.</div>*@
+
+                </section>
+            </div>
+        </div>
+
+</div>
