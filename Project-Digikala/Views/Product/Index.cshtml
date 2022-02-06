@@ -6,7 +6,7 @@
     <link href="~/Css/Product/index.css" rel="stylesheet" />
 }
 <div class="product body-wrapper" id="product">
-    <div class="product__header">
+    <section class="product__header">
         <div class="product__gallery">
             <div class="product-gallery">
                 <div class="product-gallery__photo-wrap">
@@ -24,12 +24,13 @@
                         <li class="product-info__item" >برند:<span class="product-info__value">سامسونگ</span></li>
                     </ul>
                 </section>
-                <form class="product-detail">
+                <form class="product-detail" action="/Cart/Index">
                     @*<div class="product-detail__empty">کالای مورد نظر درحال حاضر موجود نمی باشد.</div>*@
+                    <span class="product-detail__title">لطفا کالای مورد نظر خود را انتخاب کنید:</span>
                     <ul class="product-detail__items">
                         <li class="product-detail__item">
                             <label class="product-detail__label">
-                                <input class="product-detail__input" type="radio" name="productitemsid" value="1" />
+                                <input class="product-detail__input" type="radio" name="productitemsid" value="1" checked />
                                 <span class="product-detail__text">رنگ: مشکی - گارانتی: مادایران</span>
                                 <span class="product-detail__price">20,000 تومان</span>
                             </label>
@@ -38,15 +39,65 @@
 
                         <li class="product-detail__item">
                             <label class="product-detail__label">
-                                <input class="product-detail__input" type="radio" name="productitemsid" value="1" />
+                                <input class="product-detail__input" type="radio" name="productitemsid" value="2" />
                                 <span class="product-detail__text">رنگ: آبی - گارانتی: مادایران</span>
                                 <span class="product-detail__price">22,000 تومان</span>
                             </label>
 
                         </li>
+
+                        <li class="product-detail__item">
+                            <label class="product-detail__label">
+                                <input class="product-detail__input" type="radio" name="productitemsid" value="3"  />
+                                <span class="product-detail__text">رنگ: مشکی - گارانتی: سام سرویس</span>
+                                <span class="product-detail__price">25,000 تومان</span>
+                            </label>
+
+                        </li>
+
+                        <li class="product-detail__item">
+                            <label class="product-detail__label">
+                                <input class="product-detail__input" type="radio" name="productitemsid" value="4" />
+                                <span class="product-detail__text">رنگ: آبی - گارانتی: سام سرویس</span>
+                                <span class="product-detail__price">27,000 تومان</span>
+                            </label>
+
+                        </li>
                     </ul>
-                </form>
+
+                    <div class="product-detail-action">
+                        <div class="product-detail__counts">
+                            <span class="product-detail-action__text">تعداد:</span>
+                            <input class="product-detail-action__count" type="number" name="count" />
+                        </div>
+                        <input type="submit" value="" id="product-detail-input" class="product-detail-action__input" />
+                        <label class="product-detail-action__button button mdi mdi-cart-plus " for="product-detail-input" title="افزودن به سبد خرید"> <span class="button-text">افزودن به سبد خرید</span></label>
+
+
+                    </div>
+</form>
+            </div>
+        </section>
+    <section class="product__summary">
+        <div class="product-description">
+            <span class="product-description__icon mdi mdi-information-outline mdi-36px"></span>
+            <p class="product-description__text">
+                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                <br /> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.<br /> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+            </p>
+        </div>
+        <div class="product-keypoint">
+            <div class="product-keypoint__col">
+                <div class="product-keypoint__title">نقاط مثبت</div>
+                <ul class="product-keypoint__list">
+                    <li class="product-keypoint__item">انعطاف پذیری بالا</li>
+                    <li class="product-keypoint__item">کیفیت تصویر</li>
+                    <li class="product-keypoint__item">پردازنده قوی</li>
+                </ul>
+            </div>
+            <div class="product-keypoint__col">
+                <div class="product-keypoint__title">نقاط منفی</div>
             </div>
         </div>
-
+    </section>
 </div>
