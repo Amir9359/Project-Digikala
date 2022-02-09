@@ -112,10 +112,105 @@
             <label class="product-tab__button" for="rd-tab-2" data-tab="2">نظرات کاربران</label>
         </div>
         <div class="product-tab__content" data-tab="1">
-            <div style="height:100px;background-color:cadetblue"></div>
+            <ul class="product-spec">
+                <li class="product-spec__group">
+                    <h4 class="product-spec__title">مشخصات کلی</h4>
+                    <ul class="product-spec__list">
+                        <li class="product-spec__item"><span class="product-spec__caption">حافظه داخلی: </span><strong class="product-spec__value">16 گیگابایت</strong></li>
+                        <li class="product-spec__item"><span class="product-spec__caption">حافظه جانبی: </span><strong class="product-spec__value">64 گیگابایت</strong></li>
+                        <li class="product-spec__item"><span class="product-spec__caption">اندروید: </span><strong class="product-spec__value">8.0</strong></li>
+                        <li class="product-spec__item"><span class="product-spec__caption">حافظه داخلی: </span><strong class="product-spec__value">16 گیگابایت</strong></li>
+                        <li class="product-spec__item"><span class="product-spec__caption">حافظه جانبی: </span><strong class="product-spec__value">64 گیگابایت</strong></li>
+                        <li class="product-spec__item"><span class="product-spec__caption">اندروید: </span><strong class="product-spec__value">8.0</strong></li>
+                    </ul>
+                </li>
+
+                <li class="product-spec__group">
+                    <h4 class="product-spec__title">صفحه نمایش</h4>
+                    <ul class="product-spec__list">
+                        <li class="product-spec__item"><span class="product-spec__caption">تفکیک پذیری: </span><strong class="product-spec__value">1024</strong></li>
+                        <li class="product-spec__item"><span class="product-spec__caption">رنگ: </span><strong class="product-spec__value">2 میلیون رنگ</strong></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
         <div class="product-tab__content" data-tab="2">
-            <div style="height:100px;background-color:orange"></div>
+            <div class="product-comments">
+                <div class="product-comments__actions">
+
+                    <div class="product-comments__message-wrap">
+                <p class="product-comments__message">برای ارسال نظر باید ابتدا در سایت وارد شوید.</p>
+                <a href="#" class="button" ><span class="button-text">ورود به سایت</span></a>
+            </div>
+
+                    <form class="product-comments__form" method="post" action="/Product/SendComment">
+                        <input type="hidden" name="ProductId" value="1" />
+                        <textarea class="product-comments__txtarea" name="comment" placeholder="متن مورد نظر خود را وارد کنید..." rows="5" cols="100"></textarea>
+                        <button type="submit" class="button"><span class="button-text">ارسال نظر</span></button>
+                    </form>
+                </div>
+                @*<p class="empty-title">هیچ موردی برای نمایش وجود ندارد.</p>*@
+
+                <div class="pager-actions">
+            <div class="pager__info">
+                <select class="pager-actions__select">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="40">40</option>
+                </select>
+                <span class="pager__total">220 کالا</span>
+            </div>
+            <div class="pager-actions-pager">
+                <a class="pager__button">1</a>
+                <span class="pager__seperator">....</span>
+                <a class="pager__button pager__button--current">8</a>
+                <a class="pager__button">9</a>
+                <a class="pager__button">10</a>
+                <span class="pager__seperator">....</span>
+                <a class="pager__button">15</a>
+            </div>
+        </div>
+
+                <ul class="product-comments__list">
+            <li class="product-comments__item">
+                <div class="product-comments__header">
+                    <span class="product-comments__sender">امیر حسین خوشبخت </span>
+                    <span class="product-comments__date">1400/11/19 شنبه</span>
+                </div>
+                <p class="product-comments__text">خرید را توصیه نمیکنم  و از محصول ناراضی هستم  .<br />کیفیت پاییت</p>
+            </li>
+
+            <li class="product-comments__item">
+                <div class="product-comments__header">
+                    <span class="product-comments__sender">مهرداد تقوی </span>
+                    <span class="product-comments__date">1400/11/27 دوشنبه</span>
+                </div>
+                <p class="product-comments__text">خرید را توصیه میکنم  و از محصول راضی هستم  .<br />کیفیت بالا</p>
+            </li>
+        </ul>
+
+                <div class="pager-actions">
+            <div class="pager__info">
+                <select class="pager-actions__select">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="40">40</option>
+                </select>
+                <span class="pager__total">220 کالا</span>
+            </div>
+            <div class="pager-actions-pager">
+                <a class="pager__button">1</a>
+                <span class="pager__seperator">....</span>
+                <a class="pager__button pager__button--current">8</a>
+                <a class="pager__button">9</a>
+                <a class="pager__button">10</a>
+                <span class="pager__seperator">....</span>
+                <a class="pager__button">15</a>
+            </div>
+        </div>
+
+
+            </div>
         </div>
     </section>  
 

@@ -14,8 +14,8 @@
   <ItemGroup>
     <PackageReference Include="font-awesome" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.161" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
 

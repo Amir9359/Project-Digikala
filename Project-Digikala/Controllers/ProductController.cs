@@ -16,5 +16,10 @@ namespace Project_Digikala.Controllers
     {
         return View();
     }
+    public IActionResult SendComment(string comment,int ProductId)
+    {
+            //todo : save camment
+        return new RedirectResult("/Product/Index/" + ProductId);
+    }
 }
 }

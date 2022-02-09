@@ -34,23 +34,28 @@
     border: 1px solid orangered;
     display: inline-block;
     text-decoration: none;
-    padding: 0 .5rem 0 .7rem;
-    margin: 1rem 0 0 0;
+    padding: 0.2rem 0.5rem;
+    /* margin: 1rem 0 0 0;*/
     border-radius: 3px;
+
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    -ms-transition: 500ms all;
     transition: 500ms all;
 }
 
+.button-text {
+    font-size: .9rem;
+    line-height: 2rem;
+    color: #fff;
+}
     .button:before {
         width: 1rem;
         height: 1rem;
         text-align: center;
         color: #fff;
         line-height: 2rem;
-        margin: 0 0 0 .4rem;
+        margin: 0 0 0 .3rem;
     }
 
     .button.phone {
@@ -58,7 +63,7 @@
         margin: 0 .5rem;
     }
 /*region container*/
-.header-tbl {
+    .header-tbl {
     display: inline-table;
     width: 100%;
 }
@@ -89,7 +94,6 @@
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    -ms-transition: 500ms all;
     transition: 1s all;
 }
 
@@ -151,7 +155,7 @@
 
 .header-search-form {
     width: 100%;
-    horiz-align: right;
+    
 }
 
 .header-search-form-input-wrapper {
@@ -173,12 +177,10 @@
     left: 117px;
     margin: 40px 120px 10px 150px  ;
     border-top-right-radius: 5px;
-    -kit-border-bottom-right-radius: 5px;
     border-bottom-right-radius: 5px;
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    -ms-transition: 500ms all;
     transition: 500ms all;
 }
 
@@ -214,13 +216,12 @@
     display: inline-block;
     line-height: 1;
     font-size: 16px;
-    vertical-align: center;
+    vertical-align: middle;
     margin: 8px 7px;
     text-decoration: none;
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    -ms-transition: 500ms all;
     transition: 300ms all;
     color: #999;
     position: relative;
@@ -252,7 +253,7 @@
     }
 
 .header-action-btn-txt {
-    vertical-align: center;
+    vertical-align: middle;
     color: #333333;
     position: relative;
     top: 1px;
@@ -315,7 +316,7 @@
 .li_last {
     float: left;
 
-    background-color:#444;
+    background-color:#555;
     top: 0px;
     right: 444px;
 }
@@ -329,11 +330,10 @@
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    -ms-transition: 500ms all;
     transition: 500ms all;
     padding: 0 20px;
-    line-height: 39px;
-    top: -1px;
+    line-height: 38px;
+    top: 0px;
 }
 
 .a:after {
@@ -348,7 +348,6 @@
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    -ms-transition: 500ms all;
     transition: 500ms all;
 }
 
@@ -369,7 +368,7 @@
 .nav-submenu {
     overflow: visible;
     position: absolute;
-    top: 100%;
+    top: 103%;
     z-index: 20;
     min-width: 134px;
     max-width: 200px;
@@ -420,7 +419,6 @@
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    -ms-transition: 500ms all;
     transition: 500ms all;
 }
  
@@ -566,7 +564,6 @@ body {
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    -ms-transition: 500ms all;
     transition: 500ms all;
     overflow: hidden;
     white-space: nowrap;
@@ -625,11 +622,7 @@ body {
     padding-right: 1.2rem;
 }
 
-.button-text {
-    font-size: 1rem;
-    line-height: 2.6rem;
-    color: #fff;
-}
+
 
 A.button:hover, LABEL.button:hover {
     cursor: pointer;
@@ -726,3 +719,107 @@ A.button:hover, LABEL.button:hover {
     top: -13px;
 }
 /*endregion footer*/
+
+
+
+.pager-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5rem 0;
+    padding: 0 .5rem;
+}
+
+.pager-actions__select {
+    width: 145px;
+    height: 1.7rem;
+    line-height: 1.1;
+    font-size: .88rem;
+    box-sizing: border-box;
+    padding: 0rem 0.6rem 0.2rem 0;
+    color: #333;
+    display: block;
+    border: 1px solid #000;
+}
+
+.pager-actions-pager {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.pager__button {
+    display: inline-block;
+    width: 1.7rem;
+    height: 1.7rem;
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: #333;
+    background: #eee;
+    margin: 0 .18rem;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 2px;
+}
+
+    .pager__button:first-child {
+        margin-left: 0;
+    }
+
+.pager__button--current {
+    color: #fff;
+    background-color: orangered;
+}
+
+.pager__seperator {
+    margin: 0 .15rem;
+    color: #999;
+    font-size: .8rem;
+}
+
+.pager__info {
+    display: inline-flex;
+    align-items: center;
+}
+
+.pager__total {
+    font-size: 1rem;
+    padding-right: 1rem;
+    line-height: 1.3rem;
+    margin-right: 1rem;
+    color: #333;
+    border-right: 1px solid #999;
+}
+
+
+.empty-title {
+    font-size: 1.1rem;
+    color: #555;
+    background-color: #f0f0f0;
+    padding: 1.3rem;
+    margin: 3.5rem 0;
+    border: 1px solid #ddd;
+    max-width: 300px;
+    text-align: center;
+    line-height: 1.4;
+    box-sizing: border-box;
+    margin-right:auto;
+    margin-left:auto;
+}
+
+.panel {
+    padding: .5rem;
+}
+
+.panel__title {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: #333;
+    padding: .5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.panel__content {
+    padding: .5rem;
+}

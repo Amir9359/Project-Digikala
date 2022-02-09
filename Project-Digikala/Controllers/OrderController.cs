@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace Project_Digikala.Controllers
 {
-    public class CartController : Controller
+    public class OrderController : Controller
 {
-    public IActionResult Index(int? productitemsid, int? count)
+    public IActionResult Index()
     {
         return View();
-    }
-    public IActionResult Remove(int id)
-    {
-            return new RedirectResult("/Cart");
     }
 }
 }

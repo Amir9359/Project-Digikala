@@ -1,0 +1,16 @@
+﻿.order__summary {
+    padding: 1rem;
+
+    background-color: #eee;
+    border: 1px solid orangered;
+    display:flex;
+    align-items:center;
+    max-width:600px;
+    margin-right:auto;
+    margin-left:auto;
+}
+.order__summary-text{
+    font-size: 1.05rem;
+    line-height: 1.8; 
+    color: #333;
+}
