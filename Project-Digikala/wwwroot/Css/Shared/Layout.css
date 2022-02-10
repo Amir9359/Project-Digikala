@@ -226,12 +226,16 @@
     color: #999;
     position: relative;
     right: 15px;
-}
 
+}
+.header-action-btn.prof:before{
+    top:-1px !important;
+}
     .header-action-btn.cart {
         color: darkorange;
         position: relative;
         right: -3px;
+        top: -1px;
     }
 
         .header-action-btn.cart:hover {
@@ -249,14 +253,14 @@
     .header-action-btn.cart:before {
         position: relative;
         right: -6px;
-        top: 7px;
+        top: 4px;
     }
 
 .header-action-btn-txt {
     vertical-align: middle;
     color: #333333;
     position: relative;
-    top: 1px;
+    top: -4px;
     right: 2px;
 }
 
@@ -276,7 +280,7 @@
     text-align: center;
     margin-right: 10px;
     position: relative;
-    top: 3px;
+    top: -1px;
 }
 /*endregion container*/
 

@@ -210,7 +210,7 @@
 .home-spec-content-col {
     position: absolute;
     margin-left: 0;
-    height: 450px;
+    height: 508px;
     width: 74%;
     background-color: white;
     display: inline-block;
@@ -362,12 +362,14 @@
 
 .home-spec-col-content-link {
     position: absolute;
-    top: -13px;
+    top: 0px;
     right: -40px;
     bottom: 0;
     left: 0;
-    width: 890px;
-    height: 441px;
+    width: 877px;
+    height: 508px;
+    z-index:5;
+    overflow:visible;
     background-color: cornflowerblue;
     opacity: 0;
     -webkit-transition: 500ms all;
@@ -484,23 +486,22 @@
     position: absolute;
     display: inline-block;
     bottom: -17rem;
-    right: 23%;
+    right: 10%;
     width: 430px;
     border-top: 1px solid #aaa;
 }
 
-.home-spec-col-content-footer-counter {
-}
+
 
 .home-spec-col-content-footer-counter-text {
     display: block;
-    font-size: 1.05rem;
+    font-size: 1rem;
     line-height: 1;
     color: #444;
     width: 23rem;
     max-width: 700px;
-    padding-top: 1rem;
-    padding-left: 3.5rem;
+    padding-top: 0.5rem;
+    padding-left: 0;
 }
 
 .home-spec-col-content-footer-counter {
@@ -509,8 +510,8 @@
     font-weight: bold;
     color: #000;
     white-space: nowrap;
-    padding-top: 1.5rem;
-    padding-left: 9rem;
+    padding-top: 1rem;
+    padding-left: 5rem;
 }
 
 .home-spec-col-content-badge {

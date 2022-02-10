@@ -12,5 +12,118 @@
             <p class="order-summary-text">مبلغ قابل پرداخت : 240,000 تومان</p>
             <a class="button" href="/Cart"><span class="button-text">سبد خرید</span></a>
         </div>
+
+        <form action="/Order/Save" method="post" class="order-form" >
+            <section class="order-form__section">
+                <h2 class="order-form__header">اطلاعات تماس</h2>
+                <div class="order-form__content">
+                    <div class="order-form__group">
+                        <label class="order-form__label" for="txtprovince">استان: </label>
+
+                        <div class="order-form__field">
+                            <input class="order-form__input" type="text" name="province" id="txtprovince" required />
+                             <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج استان الزامی است.</span>
+                        </div>
+                    </div>
+
+                    <div class="order-form__group">
+                        <label class="order-form__label" for="txtCity">شهر: </label>
+
+                        <div class="order-form__field">
+                            <input class="order-form__input" type="text" name="city" id="txtCity" />
+                            <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج شهر الزامی است.</span>
+                        </div>
+                    </div>
+
+                    <div class="order-form__group">
+                        <label class="order-form__label" for="txtAddress">آدرس: </label>
+
+                        <div class="order-form__field">
+                            <textarea class="order-form__input  order-form__input--multiple" type="text" name="adderss" id="txtAddress" rows="5" cols="30"></textarea>
+                            <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج آدرس الزامی است.</span>
+                        </div>
+                    </div>
+
+                    <div class="order-form__group">
+                        <label class="order-form__label" for="txttel">شماره تماس: </label>
+
+                        <div class="order-form__field">
+                            <input class="order-form__input " type="text" name="tel" id="txttel" />
+                         <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج شماره تماس الزامی است.</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="order-form__section">
+                <h2 class="order-form__header">نحوه ارسال</h2>
+                <div class="order-form__content">
+                    <div class="order-form__group">
+                        <span class="order-form__label"></span>
+                        <div class="order-form__field">
+                            <label class="order-form-radio">
+                                <input class="order-form-radio__input" type="radio" name="shipping" value="1" checked />
+                                <span class="order-form-radio__cotent">
+                                    <span class="order-form-radio__title">پست پیشتاز  <span class="order-form-radio__title--highlight"> (8,000 تومان) </span></span>
+                                    <span class="order-form-radio__text">پس از ثبت سفارش تا 24 ساعت به دست شما میرسد.</span>
+                                </span>
+                            </label>
+                        </div>
+      
+                    </div>
+
+                    <div class="order-form__group">
+                        <span class="order-form__label"></span>
+                        <div class="order-form__field">
+                            <label class="order-form-radio">
+                                <input class="order-form-radio__input" type="radio" name="shipping" value="2" />
+                                <span class="order-form-radio__cotent">
+                                    <span class="order-form-radio__title">پست ویژه سایت  <span class="order-form-radio__title--highlight"> (10,000 تومان) </span></span>
+                                    <span class="order-form-radio__text">پس از ثبت سفارش تا 12 ساعت به دست شما میرسد.</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="order-form__section">
+                <h2 class="order-form__header">روش پرداخت</h2>
+                <div class="order-form__content">
+                    <div class="order-form__group">
+                        <span class="order-form__label"></span>
+                        <div class="order-form__field">
+                            <label class="order-form-radio">
+                                <input class="order-form-radio__input" type="radio" name="payment" value="1" checked />
+                                <span class="order-form-radio__cotent">
+                                    <span class="order-form-radio__title">واریز به حساب</span>
+                                    <span class="order-form-radio__text">شماره فیش و تاریخ پرداخت پس از ثبت سفارش را ارسال کنید.</span>
+                                </span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="order-form__group">
+                        <span class="order-form__label"></span>
+                        <div class="order-form__field">
+                            <label class="order-form-radio">
+                                <input class="order-form-radio__input" type="radio" name="payment" value="2" />
+                                <span class="order-form-radio__cotent">
+                                    <span class="order-form-radio__title">کارت به کارت</span>
+                                    <span class="order-form-radio__text">شماره ارجاع و تاریخ انتقال را پس از ثبت سفارش را ارسال کنید.</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="order-form__group order-form__group--btn">
+                        <span class="order-form__label"></span>
+                        <div class="order-form__field">
+                           <button class="button" type="submit"><span class="button-text">ثبت سفارش </span></button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </form>
     </div>
 </div>
