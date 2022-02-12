@@ -9,7 +9,6 @@
     @RenderSection("style", required: false)
     <link href="~/Css/Shared/Layout.css" rel="stylesheet" />
     <link href="~/Css/materialdesignicons.min.css" rel="stylesheet" />
-    <link href="~/Css/Shared/home.css" rel="stylesheet" />
 
 </head>
 <body class="m-0 p-0  ">
@@ -27,7 +26,7 @@
                             <form  class="header-search-form" method="post" asp-controller="Product" asp-action="List" >
                                 <span class="header-search-form-input-wrapper ">
                                     <input type="submit" class="header-search-form-submit-btn" id="headerSearchSubmitBtn">
-                                    <label for="headerSearchSubmitBtn" class="header-search-form-label mdi mdi-magnify " itemtype="submit"></label>
+                                    <label for="headerSearchSubmitBtn" class="header-search-form-label mdi mdi-magnify " ></label>
                                     <input class="header-search-form-input" name="keyword" placeholder="لطفا نام محصول یا دسته بندی  را وارد کنید ..." autocomplete="off">
                                 </span>
                             </form>
@@ -35,12 +34,31 @@
 
                         <div class="header-cell header-action">
                             <span class="header-action-item header-action-item_border">
-                                <a href="/Cart" class="header-action-btn mdi mdi-cart-outline mdi-24px  cart"><span class="header-action-btn-txt">سبد خرید </span><span class="header-action-btn-cunt">35</span> </a>
+                                <a href="/Cart" class="header-action-btn mdi mdi-cart-outline mdi-24px  cart"><span class="header-action-btn-txt  header-action-btn-txt--store">سبد خرید </span><span class="header-action-btn-cunt">35</span> </a>
 
                             </span>
-                            <span class="header-action-item">
-                                <a href="#" class="header-action-btn  mdi mdi-chevron-down mdi-24px prof"><span class="header-action-btn-txt"> ورود ، ثبت نام </span></a>
-                            </span>
+                            <span class="header-action-item login">
+                                <span class="header-action-menu">
+                                    <input class="header-action-menu__checkbox" type="checkbox"  id="chek-menu" />
+                                    <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px prof"><span class="header-action-btn-txt login"> ورود ، ثبت نام </span></label>
+                                    <span class="header-action-menu__content">
+                                        <a href="/Account/Signin" class="header-action-menu__item">ورود به سایت</a>
+                                        <a href="/Account/Signup" class="header-action-menu__item">ثبت نام</a>
+                                    </span>
+                                </span>
+
+                                @*<span class="header-action-menu">
+                                    <input class="header-action-menu__checkbox" type="checkbox"  id="chek-menu" />
+                                    <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px prof"><span class="header-action-btn-txt"> امیر حسین خوشبخت فرد</span></label>
+                                    <span class="header-action-menu__content">
+                                        <a href="#" class="header-action-menu__item">حساب کاربری</a>
+                                        <a href="#" class="header-action-menu__item">سفارشات</a>
+                                        <span  class="header-action-menu__seprator"></span>
+                                        <a href="#" class="header-action-menu__item">خروج</a>
+                                    </span>
+                                </span>*@
+
+                                </span>
                         </div>
 
                     </div>
@@ -213,7 +231,7 @@
                 </div>
             </div>
         </div>
-        </div>
+        
         <div class="footer-copy-right">
             <div class="wrapper-footer">
                 <p class="footer-copy-right-txt">

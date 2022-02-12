@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "ثبت نام در سایت";
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>فروشگاه اینترنتی | @ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Admin/Shared/style.css" rel="stylesheet" />
+    <link href="~/Css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/Css/Shared/Layout.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="wrapper2">
+        <div class="user-panel">
+            <header class="user-panel__header">ثبت نام در سایت</header>
+            <main class="user-panel__content">
+                <form class="frm-control" action="/Account/Signup" method="post" novalidate>
+                    <div class="frm-control__group">
+                        <label class="frm-control__label" for="txtemail">ایمیل :</label>
+                        <input class="frm-control__input" type="email" name="username" id="txtemail" />
+                        <span class="frm-control__validation  mdi mdi-alert-circle-outline mdi-18px">درج ایمیل الزامی است.</span>
+
+                    </div>
+
+                    <div class="frm-control__group">
+                        <label class="frm-control__label" for="txtpassword">رمز عبور :</label>
+                        <input class="frm-control__input" type="password" name="password" id="txtpassword" />
+                        <span class="frm-control__validation  mdi mdi-alert-circle-outline mdi-18px">درج رمز عبور الزامی است.</span>
+
+                    </div>
+
+                    <div class="frm-control__group">
+                        <label class="frm-control__label" for="txtconfirmpassword">تکرار رمز عبور :</label>
+                        <input class="frm-control__input" type="password" name="confirmpassword" id="txtconfirmpassword" />
+                        <span class="frm-control__validation  mdi mdi-alert-circle-outline mdi-18px">درج رمز عبور الزامی است.</span>
+
+                    </div>
+                    <div class="frm-control__group">
+                        <label class="frm-control__label" for="txtfirstName">نام :</label>
+                        <input class="frm-control__input" name="firstName" id="txtfirstName" />
+                        <span class="frm-control__validation  mdi mdi-alert-circle-outline mdi-18px">درج نام الزامی است.</span>
+
+                    </div>
+
+                    <div class="frm-control__group">
+                        <label class="frm-control__label" for="txtlastName">نام خانوادگی :</label>
+                        <input class="frm-control__input" name="lastName" id="txtlastName" />
+                        <span class="frm-control__validation  mdi mdi-alert-circle-outline mdi-18px">درج نام خانوادگی الزامی است.</span>
+
+                    </div>
+                    <div class="frm-control__group action">
+                        <button class="button link" type="submit"><span class="button-text">ثبت نام</span></button>
+                        <a href="/" class="button type-2"><span class="button-text">برگشت به صفحه اصلی</span></a>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
