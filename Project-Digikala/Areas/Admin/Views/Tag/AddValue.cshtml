@@ -1,44 +1,74 @@
-﻿@{
-    var id =(int?)ViewBag.id;
-    var Tagid = ViewBag.Tagid;
-    ViewData["Title"] = (id != null ? "تغییر " : "افزودن ") + "برچسب";
+﻿@model TagValue
+@{
+    var tagid = ViewBag.tagid;
+    var id = (int?)ViewBag.id;
+    var tag = ViewBag.tag;
+    var title = Model?.Tag?.Title;
+    ViewData["Title"] = (id != null ? "تغییر " : "افزودن ") + " برچسب" +" "+ tag.Title;
 }
 
 @section breadcrumb{
     <nav aria-label="breadcrumb" class="mt-3">
         <ol class="breadcrumb bg-dark bg-opacity-10">
             <li class="breadcrumb-item align-text-top "><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
-            <li class="breadcrumb-item " aria-current="page"><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Tag" asp-action="List"> لیست برچسب ها </a></li>
-            <li class="breadcrumb-item " aria-current="page"> @(id != null ?   "تغییر " : "افزودن ") برچسب</li>
+            @if (Model == null)
+            {
+                <li class="breadcrumb-item " aria-current="page"><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Tag" asp-action="Values" asp-route-tagid="@tagid"> لیست برچسب  @tag.Title </a></li>
+                <li class="breadcrumb-item " aria-current="page"> @(id != null ?   "تغییر " : "افزودن ") برچسب @tag.Title</li>
+
+            }
+            else
+            {
+                <li class="breadcrumb-item " aria-current="page"><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Tag" asp-action="Values" asp-route-tagid="@tagid"> لیست برچسب  @title </a></li>
+                <li class="breadcrumb-item " aria-current="page"> @(id != null ?   "تغییر " : "افزودن ") برچسب @title</li>
+            }
         </ol>
     </nav>
-    <h3 class="h4 mb-3">@(id != null ?   "تغییر " : "افزودن ") برچسب</h3>
+    @if (Model == null)
+    {
+        <h3 class="h4 mb-3">@(id != null ? "تغییر " : "افزودن ") برچسب @tag.Title</h3>
+    }
+    else
+    {
+        <h3 class="h4 mb-3">@(id != null ? "تغییر " : "افزودن ") برچسب @title</h3>
 
+    }
     <div class="card ">
         <div class="card-header d-flex align-items-center justify-content-between">
-            <h1 class="h5">برچسب</h1>
+            <h1 class="h5">برچسب  </h1>
             <div>
-                <a class="btn btn-success btn-sm" asp-area="Admin" asp-controller="Tag" asp-action="List">لیست برچسب</a>
+                <a class="btn btn-success btn-sm" asp-area="Admin" asp-controller="Tag" asp-action="Values" asp-route-id="@tagid">لیست برچسب @tag.Title</a>
             </div>
         </div>
         <div class="card-body ">
 
-            <form asp-area="Admin" asp-controller="Tag" asp-action="Save" class="form-control validnd" method="post" novalidate>
+            <form asp-area="Admin" asp-controller="Tag" asp-action="saveValue" class="form-control validnd" method="post" novalidate>
                 @{
                     if (id != null)
                     {
-                    <input type="hidden" value="@id" name="Id" />
+                        <input type="hidden" value="@id" name="Id" />
+                        <input type="hidden" value="@tagid" name="Tagid" />
+
                     }
                     else
                     {
-                    <input type="hidden" value="@Tagid" name="Tagid" />
+                        <input type="hidden" value="@tagid" name="Tagid" />
                     }
 
                 }
                 <div class="row  mb-3 mt-3">
                     <label for="PrimaryTitletxt" class="form-label col-md-1">عنوان</label>
                     <div class="col-md-6">
-                        <input class="form-control " id="PrimaryTitletxt" autocomplete="off" maxlength="50" name="Title" required>
+                        @if (Model != null)
+                        {
+                            <input class="form-control " id="PrimaryTitletxt" autocomplete="off" value="@Model.Title" maxlength="50" name="Title" required>
+
+                        }
+                        else
+                        {
+                            <input class="form-control " id="PrimaryTitletxt" autocomplete="off" maxlength="50" name="Title" required>
+
+                        }
                         <div class="invalid-feedback">لطفا عنوان را وارد کیند</div>
                     </div>
                 </div>
@@ -48,9 +78,27 @@
                     <label for="ddlState" class="form-label col-md-1">وضعیت:</label>
                     <div class="col-md-6">
                         <select class="form-select" id="ddlState" name="state" required>
-                            <option selected disabled value="">لطفا انتخاب کنید...</option>
-                            <option value="1">فعال</option>
-                            <option value="2">غیر فعال</option>
+                            @if (Model != null && Model?.State == Project_Digikala.Models.Products.State.Enabled)
+                            {
+                                <option disabled value="">لطفا انتخاب کنید...</option>
+                                <option selected="selected" value="1">فعال</option>
+                                <option value="2">غیر فعال</option>
+
+
+                            }
+                            else if (Model != null && Model?.State == Project_Digikala.Models.Products.State.Disable)
+                            {
+                                <option disabled value="">لطفا انتخاب کنید...</option>
+                                <option value="1">فعال</option>
+                                <option selected="selected" value="2">غیر فعال</option>
+
+                            }
+                            else if (Model == null)
+                            {
+                                <option selected disabled value="">لطفا انتخاب کنید...</option>
+                                <option value="1">فعال</option>
+                                <option value="2">غیر فعال</option>
+                            }
                         </select>
                         <div class="invalid-feedback">لطفا وضعیت را انتخاب کنید</div>
                     </div>
@@ -74,6 +122,7 @@
     </div>
 
 }
+
 @section Scripts{
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields

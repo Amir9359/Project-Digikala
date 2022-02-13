@@ -38,10 +38,10 @@ namespace Project_Digikala.Repository.EF
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TagValue>> Search(int? id, string title)
+        public async Task<IEnumerable<TagValue>> Search(int? id, string title ,int tagid)
         {
             var query = await context.TagValues.Include(t => t.Tag).Include(t => t.Creator).Include(t => t.LastModifier).ToAsyncEnumerable().ToList();
-            var tags = query.Where(t => (t.Title == title || title.CheckStringIsnull()) && (t.Id == id || id == null));
+            var tags = query.Where(t => (t.Title == title || title.CheckStringIsnull()) && (t.Id == id || id == null) && (t.Tag.Id==tagid));
             return tags;
         }
 
@@ -55,9 +55,10 @@ namespace Project_Digikala.Repository.EF
             tg.LastModifyDate = tag.LastModifyDate;
 
             context.TagValues.Update(tg);
-            context.Entry(tg).Property(p => p.CreateDate).IsModified = false;
-            context.Entry(tg).Reference(p => p.Creator).IsModified = false;
-            context.Entry(tg).Reference(p => p.Tag).IsModified = false;
+            context.Entry(tag).Property(p => p.CreateDate).IsModified = false;
+            context.Entry(tag).Reference(p => p.Creator).IsModified = false;
+            context.Entry(tag).Reference(p => p.LastModifier).IsModified = false;
+            context.Entry(tag).Reference(p => p.Tag).IsModified = false;
         }
     }
 }

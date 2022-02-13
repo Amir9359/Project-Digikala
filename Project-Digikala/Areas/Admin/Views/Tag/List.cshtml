@@ -136,7 +136,7 @@
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="Tag" asp-action="Edit" asp-route-id="@item.Id">ویرایش</a></li>
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Tag" asp-action="Values" asp-route-id="@item.Id">لیست مقادیر</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Tag" asp-action="Values" asp-route-tagid="@item.Id">لیست مقادیر</a></li>
                                     <li><a class="dropdown-item text-danger" asp-area="Admin" asp-controller="Tag" asp-action="Delete" asp-route-id="@item.Id">حذف</a></li>
 
                                 </ul>

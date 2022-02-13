@@ -23,8 +23,10 @@ namespace Project_Digikala.Repository.EF
         }
 
         public async Task Delete(int id)
-        {
+        {//حذف ابتدا مقادیر تگ بعد خود تگ 
             var tag = await context.Tags.FindAsync(id);
+            var tagvalues =await context.TagValues.Where(t => t.Tag.Id == tag.Id).ToAsyncEnumerable().ToList();
+            context.TagValues.RemoveRange(tagvalues);
             context.Tags.Remove(tag);
         }
 

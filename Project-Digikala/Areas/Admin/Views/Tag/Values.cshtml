@@ -1,14 +1,18 @@
-﻿@model Specification
+﻿@model IEnumerable<TagValueView>
 @{
-    var idd = ViewBag.idd; //شناسه تگ
-    ViewData["Title"] = "لیست مقادیر برچسب رنگ"  ;
+    var id = ViewBag.tagid;   //شناسه تگ اصلی
+    var tag= ViewBag.tag; // تگ اصلی
+    var title = Model.Select(t => t.Tag.Title).FirstOrDefault();
+    ViewData["Title"] = "لیست مقادیر برچسب " + title;
+    int count = 1;
 }
+
 @section breadcrumb{
     <nav aria-label="breadcrumb" class="mt-3">
         <ol class="breadcrumb bg-dark bg-opacity-10">
             <li class="breadcrumb-item align-text-top "><a class="pe-1   m-1 breadcrumb-link" asp-area="Admin" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
-            <li class="breadcrumb-item align-text-top "><a class="pe-1   m-1 breadcrumb-link" asp-area="Admin" asp-controller="Tag" asp-action="List" >لیست برچسب ها </a></li>
-            <li class="breadcrumb-item m-0" aria-current="page">لیست زیر شاخه ها </li>
+            <li class="breadcrumb-item align-text-top "><a class="pe-1   m-1 breadcrumb-link" asp-area="Admin" asp-controller="Tag" asp-action="List" asp-route-tagid="@id" >لیست برچسب ها </a></li>
+            <li class="breadcrumb-item m-0" aria-current="page">لیست زیر شاخه ها @title </li>
 
         </ol>
     </nav>
@@ -18,10 +22,10 @@
 
         <div class="card-header ">
             <div class="d-flex align-items-center justify-content-between">
-                <h1 class="h5">لیست برچسب</h1>
+                <h1 class="h5"> لیست برچسب @title</h1>
                 <div>
                     <a class="btn btn-primary btn-sm " data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">فیلتر</a>
-                    <a class="btn btn-success btn-sm " asp-area="Admin" asp-controller="Tag" asp-action="AddValue" asp-route-Tagid="@idd">افرزودن برچسب ها </a>
+                    <a class="btn btn-success btn-sm " asp-area="Admin" asp-controller="Tag" asp-action="AddValue" asp-route-tagid="@id">افرزودن برچسب @title </a>
                 </div>
             </div>
         </div>
@@ -35,7 +39,7 @@
                         <div class="card-body">
 
                             <form action="" class="form-control" method="post">
-                                <input type="hidden" name="id" value="@idd" />
+                                <input type="hidden" name="id" value="@id" />
                                 <div class="row  mb-3">
                                     <label for="Titletxt" class="form-label col-md-2">عنوان:</label>
                                     <div class="col-md-10">
@@ -92,37 +96,60 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">عنوان</th>
-                        <th scope="col">وضعیت</th>
-                        <th scope="col">ایجاد کننده</th>
-                        <th scope="col">آخرین تغییرات</th>
-                        <th scope="col" class="text-start"></th>
-
+                        <th scope="col" style="width:25%">نام</th>
+                        <th scope="col" style="width:10%">وضعیت</th>
+                        <th scope="col" style="width:25%">ایجاد کننده</th>
+                        <th scope="col" style="width:25%">آخرین تغییرات</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
+                    @if (Model != null)
+                    {
+                        @foreach (var item in Model)
+                        {
                     <tr>
-                        <th scope="row">1</th>
-                        <td style="width:25%;">
-                            <strong><a class="text-decoration-none" href="#">سبز</a></strong><br />
+                        <th scope="row">@count</th>
+                        <td>
+                            <strong><a class="text-decoration-none" href="#">@item.Title</a></strong><br />
+                            <span class="text-muted">شناسه :@item.Id</span>
                         </td>
-                        <td>فعال</td>
-                        <td><span>امیر حسین خوشبخت </span><br /><strong class="text-muted">تاریخ: 1400/10/11 و 9:30</strong></td>
-                        <td><span>دانیال طهوری</span><br /><strong class="text-muted">تاریخ: 1400/10/15 و 10:10</strong></td>
+                        @if (item.State == Project_Digikala.Models.Products.State.Enabled)
+                        {
+                            <td>فعال</td>
+
+                        }
+                        else
+                        {
+                            <td>غیر فعال</td>
+
+                        }
+                        <td><span>@item.Creator</span><br /><strong class="text-muted">تاریخ: @item.CreateDate</strong></td>
+                        @if (!string.IsNullOrEmpty(item.LastModifyDate))
+                        {
+                            <td><span>@item.LastModifier</span><br /><strong class="text-muted">تاریخ:@item.LastModifyDate </strong></td>
+
+                        }
+                        else
+                        {
+                            <td><span>---</span></td>
+                        }
                         <td class="align-middle text-start">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Tag" asp-action="EditValue" asp-route-id="1">ویرایش</a></li>
-                                    <li><a class="dropdown-item text-danger" asp-area="Admin" asp-controller="Tag" asp-action="DeleteValue" asp-route-id="1">حذف</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Tag" asp-action="EditValue" asp-route-id="@item.Id" asp-route-tagid="@item.Tag.Id">ویرایش</a></li>
+                                    <li><a class="dropdown-item text-danger" asp-area="Admin" asp-controller="Tag" asp-action="DeleteValue" asp-route-id="@item.Id"  >حذف</a></li>
 
                                 </ul>
                             </div>
                         </td>
                     </tr>
+                            { count++; }
+                        }
 
-
-                </tbody>
+                        }
+                        </tbody>
             </table>
 
             <nav aria-label="Page navigation example " dir="ltr">
@@ -146,10 +173,7 @@
         </div>
     </div>
 
-
     <br />
     <br />
 
 }
-
-

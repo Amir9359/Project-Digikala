@@ -10,7 +10,7 @@ namespace Project_Digikala.Models.Products.Tags
         Task Add(TagValue tag);
         Task Update(TagValue tag);
         Task<TagValue> Find(int id);
-        Task<IEnumerable<TagValue>> Search(int? id, string title);
+        Task<IEnumerable<TagValue>> Search(int? id, string title, int tagid);
         Task Delete(int id);
         Task Save();
     }

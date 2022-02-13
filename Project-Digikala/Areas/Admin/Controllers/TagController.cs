@@ -19,10 +19,13 @@ namespace Project_Digikala.Areas.Admin.Controllers
     {
         private UserManager<@operator> UserManager;
         private ITagRepository tagRepo;
-        public TagController(UserManager<@operator> UserManager, ITagRepository tagRepo) : base(UserManager)
+        private ITagValueRepository tagvalueRepo;
+      
+        public TagController(UserManager<@operator> UserManager, ITagRepository tagRepo, ITagValueRepository tagvalueRepo) : base(UserManager)
         {
             this.UserManager = UserManager;
             this.tagRepo = tagRepo;
+            this.tagvalueRepo = tagvalueRepo;
         }
         public IActionResult Index()
         {
@@ -116,16 +119,102 @@ namespace Project_Digikala.Areas.Admin.Controllers
             await tagRepo.Save();
             return RedirectToAction("List");
         }
-        public IActionResult Values(int id, string Title, State? state)
+        public async Task<IActionResult> Values(int tagid, string Title, State? state)
         {
-            ViewBag.idd = id;
+            ViewBag.tagid = tagid;
+            ViewBag.tag =await tagRepo.Find(tagid);
+            var persian = new PersianCalendar();
+
+            var TagValueViewList = new List<TagValueView>();
+            var TagValues =await tagvalueRepo.Search(null, Title, tagid);
+            var user = await UserManager.FindByIdAsync(this.Operator.Id);
+            if (TagValues != null)
+            {
+                foreach (var item in TagValues)
+                {
+                    TagValueViewList.Add(new TagValueView
+                    {
+                        Id = item.Id,
+                        Creator = item.Creator?.Name + " " + item.Creator?.LastName,
+                        CreateDate = persian.PersianDate(item.CreateDate),
+                        LastModifyDate = item.LastModifyDate != null ? persian.PersianDate((DateTime)item.LastModifyDate) : null,
+                        LastModifier = item.LastModifier?.Name + " " + item.LastModifier?.LastName,
+                        State = item.State,
+                        Title = item.Title,
+                        Tag=new TagView
+                        {
+                            Id=item.Tag.Id,
+                            Title=item.Tag.Title
+                        }
+
+                    });
+                }
+            }
+            return View(TagValueViewList);
+        }
+        public async Task<IActionResult> AddValue(int tagid)
+         {
+            ViewBag.tagid = tagid;
+            ViewBag.tag =await tagRepo.Find(tagid);
             return View();
         }
-        public IActionResult EditValue(int id)
+        public async Task<IActionResult> saveValue(int? id,int? tagid,string title,State state)
         {
+            if (id == null)
+            {
+                //Add
+                var Tag = await tagRepo.Find((int)tagid);
+                var user = await UserManager.FindByIdAsync(this.Operator.Id);
+                await tagvalueRepo.Add(new TagValue
+                {
+                    CreateDate = DateTime.Now,
+                    Creator = user,
+                    State = state,
+                    Tag = Tag,
+                    Title = title
+                });
+                await tagvalueRepo.Save();
+                return RedirectToAction("Values",new { tagid = tagid });
+            }
+            else
+            {
+                //Edit
+                var user = await UserManager.FindByIdAsync(this.Operator.Id);
+
+                await tagvalueRepo.Update(new TagValue
+                {
+                    Id = (int)id,
+                    Title = title,
+                    State = (State)state,
+                    LastModifier = user,
+                    LastModifyDate = DateTime.Now
+
+                });
+                await tagvalueRepo.Save();
+                return RedirectToAction("Values", new { tagid = tagid });
+            }
+        }
+        public async Task<IActionResult> UpdateValue(int id)
+        {
+            ViewBag.idd = id;
+            ViewBag.tagid =await tagRepo.Find(id);
+            return View();
+        }
+        public async Task<IActionResult> EditValue(int id,int tagid)
+        {
+            ViewBag.tagid = tagid;
             ViewBag.id = id;
-            ViewBag.Tagid = 1;
-            return View("AddValue");
+            var TagValue = await tagvalueRepo.Find(id);
+            ViewBag.tag= await tagRepo.Find(tagid);
+
+            return View("AddValue", TagValue);
+        }
+        public async Task<IActionResult> DeleteValue(int id)
+        {
+            var tagvalue = await tagvalueRepo.Find(id);
+            await tagvalueRepo.Delete(id);
+            await tagvalueRepo.Save();
+            return RedirectToAction("Values", new { tagid = tagvalue.Tag.Id });
         }
     }
 }
