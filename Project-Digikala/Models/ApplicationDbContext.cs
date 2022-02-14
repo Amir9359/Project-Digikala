@@ -7,6 +7,7 @@ using Project_Digikala.Models.Products;
 using Project_Digikala.Models.Products.Brands;
 using Project_Digikala.Models.Products.Groups;
 using Project_Digikala.Models.Products.KeyPoints;
+using Project_Digikala.Models.Products.Specifications;
 using Project_Digikala.Models.Products.Tags;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace Project_Digikala.Models
         public DbSet<keypoint> keypoints { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagValue> TagValues { get; set; }
+        public DbSet<Specification> Specifications { get; set; }
+        public DbSet<SpecificationValue> SpecificationValues { get; set; }
+        public DbSet<SpecificationGroup> SpecificationGroups { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> op) : base(op)
         {
 
