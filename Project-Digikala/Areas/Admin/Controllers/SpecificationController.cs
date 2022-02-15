@@ -17,11 +17,11 @@ namespace Project_Digikala.Areas.Admin.Controllers
     [Area("Admin")]
     public class SpecificationController : BaseController
     {
-        private ISpecificationGroupRepository SpecificationGroupRepo; 
+        private ISpecificationGroupRepository SpecificationGroupRepo;
         private ISpecificationRepository SpecificationsRepo;
         private UserManager<@operator> userManager;
         private IGroupRepository groupRepo;
-        public SpecificationController(UserManager<@operator> userManager, IGroupRepository groupRepo, ISpecificationGroupRepository SpecificationGroupRepo, ISpecificationRepository SpecificationsRepo):base(userManager)
+        public SpecificationController(UserManager<@operator> userManager, IGroupRepository groupRepo, ISpecificationGroupRepository SpecificationGroupRepo, ISpecificationRepository SpecificationsRepo) : base(userManager)
         {
             this.userManager = userManager;
             this.SpecificationGroupRepo = SpecificationGroupRepo;
@@ -31,12 +31,12 @@ namespace Project_Digikala.Areas.Admin.Controllers
         public async Task<IActionResult> Groups(int? id, string Title, State? state)
         {
             ViewBag.Groupid = id;
-            var grouptitle =await  groupRepo.FindAsync((int)id);
-                 
+            var grouptitle = await groupRepo.FindAsync((int)id);
+
             ViewBag.grouptitle = grouptitle.Title;
 
             var SpecificationGroupList = new List<SpecificationGroupViewModel>();
-            var SpecificationGroup =await SpecificationGroupRepo.SearchAsync( id, Title, state);
+            var SpecificationGroup = await SpecificationGroupRepo.SearchAsync(id, Title, state);
             var persian = new PersianCalendar();
             var group = await groupRepo.FindAsync((int)id);
 
@@ -53,18 +53,26 @@ namespace Project_Digikala.Areas.Admin.Controllers
                         LastModifier = item.LastModifier?.Name + " " + item.LastModifier?.LastName,
                         state = item.state,
                         Title = item.Title,
-                        Groups= new Models.ViewModels.Group.GroupView
+                        Groups = new Models.ViewModels.Group.GroupView
                         {
-                            Id= item.Groups.Id
+                            Id = item.Groups.Id,
+                            Title = item.Groups.Title
+
                         }
                     });
                 }
             }
             return View(SpecificationGroupList);
         }
-        public  IActionResult AddGroup(int? Id )
+        public async Task<IActionResult> AddGroup(int? Id)
         {
             ViewBag.Groupid = Id;
+            if (Id != null)
+            {
+                var group = await groupRepo.FindAsync((int)Id);
+                ViewBag.grouptitle = group.Title;
+
+            }
             return View();
         }
         public async Task<IActionResult> EditGroup(int Id)
@@ -91,7 +99,7 @@ namespace Project_Digikala.Areas.Admin.Controllers
                     CreateDate = DateTime.Now,
                     state = state,
                     Groups = group
-                }) ;
+                });
                 await SpecificationGroupRepo.saveAsync();
                 return RedirectToAction("Groups", new { id = GroupId });
             }
@@ -101,13 +109,13 @@ namespace Project_Digikala.Areas.Admin.Controllers
                 var Specificationgro = await SpecificationGroupRepo.FindAsync((int)Id);
                 await SpecificationGroupRepo.UpdateAsync(new SpecificationGroup
                 {
-                    Id= (int)Id,
-                    Title=Title,
-                    LastModifier=this.Operator,
-                    LastModifyDate=DateTime.Now,
-                    state=state,
+                    Id = (int)Id,
+                    Title = Title,
+                    LastModifier = this.Operator,
+                    LastModifyDate = DateTime.Now,
+                    state = state,
                 });
-               await SpecificationGroupRepo.saveAsync();
+                await SpecificationGroupRepo.saveAsync();
                 return RedirectToAction("Groups", new { id = GroupId });
 
             }
@@ -116,7 +124,7 @@ namespace Project_Digikala.Areas.Admin.Controllers
 
         public async Task<IActionResult> DeleteGroup(int Id)
         {
-            var SpecificationGroup =await SpecificationGroupRepo.FindAsync(Id);
+            var SpecificationGroup = await SpecificationGroupRepo.FindAsync(Id);
             var SpecificationGroupid = SpecificationGroup.Groups.Id;
 
             await SpecificationGroupRepo.DeleteAsync(Id);
@@ -130,31 +138,107 @@ namespace Project_Digikala.Areas.Admin.Controllers
         /// <param name="Title"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        public async Task<IActionResult> List(int id, string Title, State? state)
+        public async Task<IActionResult> List(int? id, int? groupid, string Title, State? state)
         {
             ViewBag.Specificationgroupid = id;
+            ViewBag.groupid = groupid;
+            if (id != null)
+            {
+                var specificationgroup = await SpecificationGroupRepo.FindAsync((int)id);
+                ViewBag.Specificationgrouptitle = specificationgroup.Title;
+            }
+
+            var SpecificationViewlist = new List<SpecificationView>();
+            var Specifications = await SpecificationsRepo.SearchAsync(id, Title, state);
+            var persian = new PersianCalendar();
+
+            if (Specifications != null)
+            {
+                foreach (var item in Specifications)
+                {
+                    SpecificationViewlist.Add(new SpecificationView
+                    {
+                        Id = item.Id,
+                        Creator = item.Creator?.Name + " " + item.Creator?.LastName,
+                        CreateDate = persian.PersianDate(item.CreateDate),
+                        LastModifyDate = item.LastModifyDate != null ? persian.PersianDate((DateTime)item.LastModifyDate) : null,
+                        LastModifier = item.LastModifier?.Name + " " + item.LastModifier?.LastName,
+                        state = item.state,
+                        Title = item.Title,
+                        SpecificationGroup = new SpecificationGroupViewModel
+                        {
+                            Id = item.SpecificationGroup.Id,
+                            Title = item.SpecificationGroup.Title
+                        }
+                    });
+                }
+            }
+            return View(SpecificationViewlist);
+        }
+        public async Task<IActionResult> Add(int specificationgroupid, int? groupid)
+        {
+            ViewBag.groupid = groupid;
+            ViewBag.specificationgroupid = specificationgroupid;
+            var group = await SpecificationGroupRepo.FindAsync((int)specificationgroupid);
+            ViewBag.Specificationgrouptitle = group.Title;
             return View();
         }
-        public async Task<IActionResult> Add(int specificationgroupid)
+        public async Task<IActionResult> Edit(int id )
         {
-            ViewBag.Specificationgroupid = specificationgroupid;
-            return View();
-        }
-        public async Task<IActionResult> Edit(int Specificationgroupid)
-        {
-            ViewBag.specificationgroupid = Specificationgroupid;
-            ViewBag.Idd = 1;
-            return View("Add");
+            ViewBag.id = id;
+            var Specification = await SpecificationsRepo.FindAsync(id);
+            ViewBag.specificationgroup = Specification.SpecificationGroup.Id;
+             
+            ViewBag.specificationgroupid = ViewBag.specificationgroup;
+            return View("Add", Specification);
         }
         [HttpPost]
-        public async Task<IActionResult> save(int? Id, int? Specificationgroupid, string Title, State? state)
+        public async Task<IActionResult> save(int? Id, int? Specificationgroupid, string Title, State state)
         {
-            return View();
+            if (Id == null)
+            {
+                //Add
+                var user = await userManager.FindByIdAsync(this.Operator.Id);
+                var Specificationgroup = await SpecificationGroupRepo.FindAsync((int)Specificationgroupid);
+
+                await SpecificationsRepo.AddAsync(new Specification
+                {
+                    Title = Title.CheckStringIsnull() ? null : Title,
+                    Creator = user,
+                    CreateDate = DateTime.Now,
+                    state = state,
+                    SpecificationGroup = Specificationgroup
+                });
+                await SpecificationsRepo.saveAsync();
+                return RedirectToAction("List", new { id = Specificationgroupid });
+            }
+            else
+            {
+                //Edit
+                var Specification = await SpecificationsRepo.FindAsync((int)Id);
+                await SpecificationsRepo.UpdateAsync(new Specification
+                {
+                    Id = (int)Id,
+                    Title = Title,
+                    LastModifier = this.Operator,
+                    LastModifyDate = DateTime.Now,
+                    state = state,
+                });
+                await SpecificationsRepo.saveAsync();
+                return RedirectToAction("List", new { id = Specificationgroupid });
+
+            }
+
         }
 
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<IActionResult> Delete(int Id, int groupid)
         {
-            return View();
+            var specification = await SpecificationsRepo.FindAsync(Id);
+            var specificationid = specification.SpecificationGroup.Id;
+            
+            await SpecificationsRepo.DeleteAsync(Id);
+            await SpecificationsRepo.saveAsync();
+            return RedirectToAction("List", new {id= groupid });
         }
     }
 }

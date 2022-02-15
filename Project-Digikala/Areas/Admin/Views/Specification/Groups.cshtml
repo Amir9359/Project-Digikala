@@ -25,7 +25,7 @@
                 <h1 class="h5">لیست مشخصات فنی @spectitle</h1>
                 <div>
                     <a class="btn btn-primary btn-sm " data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">فیلتر</a>
-                    <a class="btn btn-success btn-sm " asp-area="Admin" asp-controller="Specification" asp-action="AddGroup" asp-route-id="@specgroupid">افرزودن مشخصات فنی @spectitle</a>
+                    <a class="btn btn-success btn-sm " asp-area="Admin" asp-controller="Specification" asp-action="AddGroup" asp-route-id="@specgroupid">افزودن مشخصات فنی </a>
                 </div>
             </div>
         </div>
@@ -156,7 +156,7 @@
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="Specification" asp-action="EditGroup" asp-route-id="@item.Id"  >ویرایش</a></li>
-                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Specification" asp-action="List" asp-route-id="@item.Id">زیرشاخه ها</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Specification" asp-action="List" asp-route-id="@item.Id" asp-route-groupid="@specgroupid">زیرشاخه ها</a></li>
                                     <li><a class="dropdown-item text-danger" asp-area="Admin" asp-controller="Specification" asp-action="DeleteGroup" asp-route-id="@item.Id">حذف</a></li>
 
                                 </ul>

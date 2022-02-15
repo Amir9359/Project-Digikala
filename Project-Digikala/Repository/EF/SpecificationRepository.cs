@@ -30,7 +30,7 @@ namespace Project_Digikala.Repository.EF
 
         public async Task<Specification> FindAsync(int id)
         {
-            var specification = await context.Specifications.Include(s=>s.SpecificationGroup).FirstOrDefaultAsync(s=>s.Id==id);
+            var specification = await context.Specifications.Include(s=>s.SpecificationGroup).ThenInclude(t=>t.Groups).FirstOrDefaultAsync(s=>s.Id==id);
             return specification;
 
         }
@@ -40,10 +40,10 @@ namespace Project_Digikala.Repository.EF
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Specification>> SearchAsync(int? id, string title, State state)
+        public async Task<IEnumerable<Specification>> SearchAsync(int? id, string title, State? state)
         {
-            var query = await context.Specifications.Include(s => s.SpecificationGroup).Include(s => s.Creator).Include(s => s.LastModifier).ToAsyncEnumerable().ToList();
-            var search = query.Where(p => (p.Id == id || id == null) && (p.Title == title || title.CheckStringIsnull()));
+            var query = await context.Specifications.Include(s => s.SpecificationGroup).ThenInclude(t => t.Groups).Include(s => s.Creator).Include(s => s.LastModifier).ToAsyncEnumerable().ToList();
+            var search = query.Where(p => (p.SpecificationGroup.Id == id || id == null) && (p.Title == title || title.CheckStringIsnull()) && (p.state == state || state == null));
             return search;
         }
 

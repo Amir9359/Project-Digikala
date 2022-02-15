@@ -11,7 +11,7 @@ namespace Project_Digikala.Models.Products.Specifications
         Task DeleteAsync(int id);
         Task UpdateAsync(Specification Specification);
         Task<Specification> FindAsync(int id);
-        Task<IEnumerable<Specification>> SearchAsync(int? id, string title, State state);
+        Task<IEnumerable<Specification>> SearchAsync(int? id, string title, State? state);
         Task saveAsync();
     }
 }

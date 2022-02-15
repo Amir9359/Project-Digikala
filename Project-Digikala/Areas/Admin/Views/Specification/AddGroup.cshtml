@@ -2,18 +2,19 @@
 @{
     var groupid = ViewBag.Groupid;
     var id = ViewBag.Id;
-    ViewData["Title"] = (id != null ? "تغییر " : "افزودن ") + "مشخصات فنی";
+    var grouptitle = ViewBag.grouptitle;
+    ViewData["Title"] = (id != null ? " تغییر مشخصات فنی " : "افزودن مشخصات فنی ") + grouptitle;
 }
 
 @section breadcrumb{
     <nav aria-label="breadcrumb" class="mt-3">
         <ol class="breadcrumb bg-dark bg-opacity-10">
             <li class="breadcrumb-item align-text-top "><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
-            <li class="breadcrumb-item " aria-current="page"><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Specification" asp-action="Groups" asp-route-id="@groupid"> لیست مشخصات فنی</a></li>
+            <li class="breadcrumb-item " aria-current="page"><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Specification" asp-action="Groups" asp-route-id="@groupid"> لیست مشخصات فنی @grouptitle</a></li>
             <li class="breadcrumb-item " aria-current="page"> @(id != null ?   "تغییر " : "افزودن ") مشخصات فنی</li>
         </ol>
     </nav>
-    <h3 class="h4 mb-3">@(id != null ?   "تغییر " : "افزودن ") مشخصات فنی</h3>
+    <h3 class="h4 mb-3">@(id != null ?   "تغییر " : "افزودن ")  مشخصات فنی @grouptitle</h3>
 
     <div class="card ">
         <div class="card-header d-flex align-items-center justify-content-between">

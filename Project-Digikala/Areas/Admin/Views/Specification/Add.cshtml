@@ -1,19 +1,21 @@
-﻿@{
-    var specificationgroupid = ViewBag.Specificationgroupid;
+﻿@model Specification
+@{
+    var specificationgroupid = ViewBag.specificationgroupid;
+    var groupid = ViewBag.groupid;
     var id = ViewBag.id;
-    var idd = ViewBag.Idd;
-    ViewData["Title"] = (idd != null ? "تغییر " : "افزودن ") + "زیرشاخه";
+    var Specificationgrouptitle = ViewBag.Specificationgrouptitle;
+    ViewData["Title"] = (id != null ? "تغییر زیرشاخه " : " افزودن زیرشاخه") + " "+ Specificationgrouptitle;
 }
 
 @section breadcrumb{
     <nav aria-label="breadcrumb" class="mt-3">
         <ol class="breadcrumb bg-dark bg-opacity-10">
             <li class="breadcrumb-item align-text-top "><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Home" asp-action="Index">صفحه اصلی</a></li>
-            <li class="breadcrumb-item " aria-current="page"><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Specification" asp-action="List" asp-route-id="@specificationgroupid"> لیست زیرشاخه</a></li>
-            <li class="breadcrumb-item " aria-current="page"> @(idd != null ?   "تغییر " : "افزودن ") زیرشاخه</li>
+            <li class="breadcrumb-item " aria-current="page"><a class="pe-1  m-1  breadcrumb-link" asp-area="Admin" asp-controller="Specification" asp-action="List" asp-route-groupid="@groupid" asp-route-id="@specificationgroupid"> لیست زیرشاخه</a></li>
+            <li class="breadcrumb-item " aria-current="page"> @(id != null ?   "تغییر " : "افزودن ")  زیرشاخه @Specificationgrouptitle</li>
         </ol>
     </nav>
-    <h3 class="h4 mb-3">@(idd != null ?   "تغییر " : "افزودن ") زیرشاخه</h3>
+    <h3 class="h4 mb-3">@(id != null ?   "تغییر " : "افزودن ") زیرشاخه @Specificationgrouptitle</h3>
 
     <div class="card ">
         <div class="card-header d-flex align-items-center justify-content-between">
@@ -24,11 +26,12 @@
         </div>
         <div class="card-body ">
 
-            <form asp-area="Admin" asp-controller="Specification" asp-action="save" class="form-control validnd" method="post" novalidate>
+            <form asp-area="Admin" asp-controller="Specification" asp-action="save"  class="form-control validnd" method="post" novalidate>
                 @{
-                    if (idd != null)
+                    if (id != null)
                     {
-                        <input type="hidden" value="@idd" name="Id" />
+                        <input type="hidden" value="@id" name="Id" />
+                        <input type="hidden" value="@specificationgroupid" name="Specificationgroupid" />
                     }
                     else
                     {
@@ -39,7 +42,16 @@
                 <div class="row  mb-3 mt-3">
                     <label for="PrimaryTitletxt" class="form-label col-md-1">عنوان</label>
                     <div class="col-md-6">
-                        <input class="form-control " id="PrimaryTitletxt" autocomplete="off" maxlength="50" name="Title" required>
+                        @if (Model != null)
+                        {
+                            <input class="form-control " value="@Model.Title" id="PrimaryTitletxt" autocomplete="off" maxlength="50" name="Title" required>
+
+                        }
+                        else
+                        {
+                            <input class="form-control " id="PrimaryTitletxt" autocomplete="off" maxlength="50" name="Title" required>
+
+                        }
                         <div class="invalid-feedback">لطفا عنوان را وارد کیند</div>
                     </div>
                 </div>
@@ -49,9 +61,27 @@
                     <label for="ddlState" class="form-label col-md-1">وضعیت:</label>
                     <div class="col-md-6">
                         <select class="form-select" id="ddlState" name="state" required>
-                            <option selected disabled value="">لطفا انتخاب کنید...</option>
-                            <option value="1">فعال</option>
-                            <option value="2">غیر فعال</option>
+                            @if (Model != null && Model?.state == Project_Digikala.Models.Products.State.Enabled)
+                            {
+                                <option disabled value="">لطفا انتخاب کنید...</option>
+                                <option selected="selected" value="1">فعال</option>
+                                <option value="2">غیر فعال</option>
+
+
+                            }
+                            else if (Model != null && Model?.state == Project_Digikala.Models.Products.State.Disable)
+                            {
+                                <option disabled value="">لطفا انتخاب کنید...</option>
+                                <option value="1">فعال</option>
+                                <option selected="selected" value="2">غیر فعال</option>
+
+                            }
+                            else if (Model == null)
+                            {
+                                <option selected disabled value="">لطفا انتخاب کنید...</option>
+                                <option value="1">فعال</option>
+                                <option value="2">غیر فعال</option>
+                            }
                         </select>
                         <div class="invalid-feedback">لطفا وضعیت را انتخاب کنید</div>
                     </div>
