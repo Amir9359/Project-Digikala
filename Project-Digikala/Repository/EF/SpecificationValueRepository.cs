@@ -18,9 +18,9 @@ namespace Project_Digikala.Repository.EF
             this.context = context;
 
         }
-        public async Task AddAsync(SpecificationValue Specificationvalue)
+        public async Task AddAsync(List<SpecificationValue> Specificationvalues)
         {
-            await context.SpecificationValues.AddAsync(Specificationvalue);
+            await context.SpecificationValues.AddRangeAsync(Specificationvalues);
         }
 
         public async Task DeleteAsync(int id)

@@ -1,4 +1,5 @@
 ﻿using Project_Digikala.Models.Products;
+using Project_Digikala.Models.Products.ProductItem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Project_Digikala.Models.ViewModels.Tag
         public string Title { get; set; }
         public State State { get; set; }
         public TagView Tag { get; set; }
+        public List<ItemTagValue> ItemTagValues { get; set; }
         public string Creator { get; set; }
         public string CreateDate { get; set; }
 

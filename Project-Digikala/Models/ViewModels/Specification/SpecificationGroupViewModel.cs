@@ -19,5 +19,6 @@ namespace Project_Digikala.Models.ViewModels.Specification
 
         public String LastModifier { get; set; }
         public String LastModifyDate { get; set; }
+        public List<SpecificationView> Specifications { get; set; }
     }
 }

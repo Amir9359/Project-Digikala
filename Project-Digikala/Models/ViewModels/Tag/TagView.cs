@@ -11,6 +11,7 @@ namespace Project_Digikala.Models.ViewModels.Tag
         public int Id { get; set; }
         public string Title { get; set; }
         public State State { get; set; }
+        public List<TagValueView> TagValues { get; set; }
         public string Creator { get; set; }
         public string CreateDate { get; set; }
 

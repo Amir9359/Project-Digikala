@@ -51,6 +51,12 @@ namespace Project_Digikala.Repository.EF
             var search = query.Where(p => (p.Groups.Id == id || id == null) && (p.Title == title || title.CheckStringIsnull()));
             return search;
         }
+        public async Task<List<SpecificationGroup>> SearchAsync(int groupid)
+        {
+            var query =await context.SpecificationGroups.Include(s => s.Groups).Include(s=>s.Specifications).Include(s => s.Creator).Include(s => s.LastModifier).ToAsyncEnumerable().ToList();
+            var search = query.Where(p => (p.Groups.Id == groupid )).ToList();
+            return search;
+        }
 
         public async Task UpdateAsync(SpecificationGroup SpecificationGroup)
         {

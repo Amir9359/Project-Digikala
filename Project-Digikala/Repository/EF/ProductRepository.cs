@@ -29,7 +29,7 @@ namespace Project_Digikala.Repository.EF
 
         public async Task<Product> FindAsync(int id)
         {
-           return await context.Products.Include(b => b.Creator).Where(p => p.Id == id).ToAsyncEnumerable().SingleOrDefault();
+           return await context.Products.Include(b => b.group).Where(p => p.Id == id).ToAsyncEnumerable().SingleOrDefault();
         }
 
         public async Task saveAsync()

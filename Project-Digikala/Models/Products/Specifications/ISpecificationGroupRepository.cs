@@ -12,6 +12,8 @@ namespace Project_Digikala.Models.Products.Specifications
         Task UpdateAsync(SpecificationGroup Specification);
         Task<SpecificationGroup> FindAsync(int id);
         Task<IEnumerable<SpecificationGroup>> SearchAsync(int? id, string title, State? state);
+        Task<List<SpecificationGroup>> SearchAsync(int groupid);
+
         Task saveAsync();
     }
 }

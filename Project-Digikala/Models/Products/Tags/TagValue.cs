@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_Digikala.Models.Products.ProductItem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,5 +17,6 @@ namespace Project_Digikala.Models.Products.Tags
 
         public @operator LastModifier { get; set; }
         public DateTime? LastModifyDate { get; set; }
+        public List<ItemTagValue> ItemTagValues { get; set; }
     }
 }

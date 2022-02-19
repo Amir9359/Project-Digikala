@@ -7,7 +7,7 @@ namespace Project_Digikala.Models.Products.Specifications
 {
    public interface ISpecificationValueRepository
     {
-        Task AddAsync(SpecificationValue Specificationvalue);
+        Task AddAsync(List<SpecificationValue> Specificationvalues);
         Task DeleteAsync(int id);
         Task UpdateAsync(SpecificationValue Specificationvalue);
         Task<SpecificationValue> FindAsync(int id);

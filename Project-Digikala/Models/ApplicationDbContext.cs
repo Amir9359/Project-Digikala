@@ -7,6 +7,7 @@ using Project_Digikala.Models.Products;
 using Project_Digikala.Models.Products.Brands;
 using Project_Digikala.Models.Products.Groups;
 using Project_Digikala.Models.Products.KeyPoints;
+using Project_Digikala.Models.Products.ProductItem;
 using Project_Digikala.Models.Products.Specifications;
 using Project_Digikala.Models.Products.Tags;
 using System;
@@ -27,11 +28,17 @@ namespace Project_Digikala.Models
         public DbSet<Specification> Specifications { get; set; }
         public DbSet<SpecificationValue> SpecificationValues { get; set; }
         public DbSet<SpecificationGroup> SpecificationGroups { get; set; }
+        public DbSet<ProductItem> ProductItems { get; set; }
+        public DbSet<ItemTagValue> ItemTagValues { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> op) : base(op)
         {
-
+           
         }
-
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<ItemTagValue>().HasKey(sc => new { sc.ProductItemId, sc.TagValueId });
+            base.OnModelCreating(builder);
+        }
         public static async Task CreateAdminAccount(IServiceProvider serviceProvider, IConfiguration configuration)
         {
             UserManager<@operator> Usermanager = serviceProvider.GetRequiredService<UserManager<@operator>>();

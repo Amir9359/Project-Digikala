@@ -42,7 +42,7 @@ namespace Project_Digikala.Repository.EF
 
         public async Task<IEnumerable<Tag>> Search(int? id, string title)
         {
-            var query = await context.Tags.Include(t => t.Creator).Include(t => t.LastModifier).ToAsyncEnumerable().ToList();
+            var query = await context.Tags.Include(t => t.Creator).Include(t => t.TagValue).Include(t => t.LastModifier).ToAsyncEnumerable().ToList();
             var tags = query.Where(t => (t.Title == title || title.CheckStringIsnull()) && (t.Id == id || id == null));
             return tags;
         }

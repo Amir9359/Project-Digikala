@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Digikala.Models;
 
 namespace ProjectDigikala.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220217114521_productitems")]
+    partial class productitems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,19 +316,6 @@ namespace ProjectDigikala.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Project_Digikala.Models.Products.ProductItem.ItemTagValue", b =>
-                {
-                    b.Property<int>("ProductItemId");
-
-                    b.Property<int>("TagValueId");
-
-                    b.HasKey("ProductItemId", "TagValueId");
-
-                    b.HasIndex("TagValueId");
-
-                    b.ToTable("ItemTagValues");
-                });
-
             modelBuilder.Entity("Project_Digikala.Models.Products.ProductItem.ProductItem", b =>
                 {
                     b.Property<int>("Id")
@@ -349,6 +338,8 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<byte>("Quantity");
 
+                    b.Property<int?>("TagValueId");
+
                     b.Property<byte>("state");
 
                     b.HasKey("Id");
@@ -358,6 +349,8 @@ namespace ProjectDigikala.Migrations
                     b.HasIndex("LastModifierId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("TagValueId");
 
                     b.ToTable("ProductItems");
                 });
@@ -620,19 +613,6 @@ namespace ProjectDigikala.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Project_Digikala.Models.Products.ProductItem.ItemTagValue", b =>
-                {
-                    b.HasOne("Project_Digikala.Models.Products.ProductItem.ProductItem", "ProductItems")
-                        .WithMany("ItemTagValues")
-                        .HasForeignKey("ProductItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Project_Digikala.Models.Products.Tags.TagValue", "TagValues")
-                        .WithMany("ItemTagValues")
-                        .HasForeignKey("TagValueId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Project_Digikala.Models.Products.ProductItem.ProductItem", b =>
                 {
                     b.HasOne("Project_Digikala.Models.operator", "Creator")
@@ -646,6 +626,10 @@ namespace ProjectDigikala.Migrations
                     b.HasOne("Project_Digikala.Models.Products.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+
+                    b.HasOne("Project_Digikala.Models.Products.Tags.TagValue", "TagValue")
+                        .WithMany()
+                        .HasForeignKey("TagValueId");
                 });
 
             modelBuilder.Entity("Project_Digikala.Models.Products.Specifications.Specification", b =>
@@ -719,7 +703,7 @@ namespace ProjectDigikala.Migrations
                         .HasForeignKey("LastModifierId");
 
                     b.HasOne("Project_Digikala.Models.Products.Tags.Tag", "Tag")
-                        .WithMany("TagValue")
+                        .WithMany("TagValues")
                         .HasForeignKey("TagId");
                 });
 #pragma warning restore 612, 618

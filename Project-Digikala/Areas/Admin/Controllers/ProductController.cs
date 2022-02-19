@@ -14,6 +14,12 @@ using Project_Digikala.Models.ViewModels.Product;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Globalization;
+using Project_Digikala.Models.Products.Specifications;
+using Project_Digikala.Models.ViewModels.Specification;
+using Project_Digikala.Models.Products.Tags;
+using Project_Digikala.Models.ViewModels.Tag;
+using Project_Digikala.Models.Products.ProductItem;
+using Project_Digikala.Models.ViewModels.ProductItem;
 
 namespace Project_Digikala.Areas.Admin.Controllers
 {
@@ -25,17 +31,28 @@ namespace Project_Digikala.Areas.Admin.Controllers
         private IGroupRepository groupRepo;
         private IBrandRepository brandRepo;
         private IHostingEnvironment hosting;
-
-        public ProductController(UserManager<@operator> UserManager, IProductRepository productRepo,IHostingEnvironment hosting, IGroupRepository groupRepo, IBrandRepository brandRepo) : base(UserManager)
+        private ISpecificationGroupRepository SpecificationGroupRepo;
+        private ISpecificationRepository SpecificationRepo;
+        private ISpecificationValueRepository SpecificationValueRepo;
+        private ITagRepository TagRepo;
+        private ITagValueRepository TagValueRepo;
+        private IProductItemRepository ProductItemRepo;
+        public ProductController(UserManager<@operator> UserManager, ITagRepository TagRepo, ITagValueRepository TagValueRepo, IProductItemRepository ProductItemRepo, ISpecificationGroupRepository SpecificationGroupRepo, ISpecificationRepository SpecificationRepo, ISpecificationValueRepository SpecificationValueRepo, IProductRepository productRepo, IHostingEnvironment hosting, IGroupRepository groupRepo, IBrandRepository brandRepo) : base(UserManager)
         {
             this.UserManager = UserManager;
             this.productRepo = productRepo;
             this.groupRepo = groupRepo;
             this.brandRepo = brandRepo;
             this.hosting = hosting;
+            this.TagRepo = TagRepo;
+            this.TagValueRepo = TagValueRepo;
+            this.ProductItemRepo = ProductItemRepo;
+            this.SpecificationGroupRepo = SpecificationGroupRepo;
+            this.SpecificationRepo = SpecificationRepo;
+            this.SpecificationValueRepo = SpecificationValueRepo;
         }
 
-        public   IActionResult Index(int Id)
+        public IActionResult Index(int Id)
         {
             return View();
         }
@@ -55,10 +72,10 @@ namespace Project_Digikala.Areas.Admin.Controllers
                 }
             };
 
-            var products=await productRepo.SearchAsync(id, PrimaryTitle);
+            var products = await productRepo.SearchAsync(id, PrimaryTitle);
             var productList = new List<ProductView>();
-            var persian =new PersianCalendar();
-            if (products  != null)
+            var persian = new PersianCalendar();
+            if (products != null)
             {
                 foreach (var item in products)
                 {
@@ -80,7 +97,7 @@ namespace Project_Digikala.Areas.Admin.Controllers
                         },
                         state = item.state,
                         Creator = item.Creator?.Name + " " + item.Creator?.LastName,
-                        CreateDate=persian.PersianDate(item.CreateDate),
+                        CreateDate = persian.PersianDate(item.CreateDate),
                         LastModifyDate = item.LastModifyDate != null ? persian.PersianDate((DateTime)item.LastModifyDate) : null,
                         LastModifier = item.LastModifier?.Name + " " + item.LastModifier?.LastName
                     });
@@ -95,11 +112,11 @@ namespace Project_Digikala.Areas.Admin.Controllers
         public async Task<IActionResult> Add()
         {
             var GroupbrandModel = new GoupBrandView();
-            var groups =await groupRepo.SearchAsync(null, null, null);
-            var SelectGroup = groups.Select(g => new { g.Id,g.Title});
+            var groups = await groupRepo.SearchAsync(null, null, null);
+            var SelectGroup = groups.Select(g => new { g.Id, g.Title });
 
             var brands = await brandRepo.SearchAsync(null, null, null);
-            var SelectBrand = brands.Select(b=> new { b.Id, b.Title });
+            var SelectBrand = brands.Select(b => new { b.Id, b.Title });
 
             GroupbrandModel.Brands = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(SelectBrand, "Id", "Title");
             GroupbrandModel.Groups = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(SelectGroup, "Id", "Title");
@@ -107,7 +124,7 @@ namespace Project_Digikala.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Edit(int Id)
         {
-            ViewBag.Idd= 1;
+            ViewBag.Idd = 1;
 
             //بایند گروه و برند کالا
             var GroupbrandModel = new GoupBrandView();
@@ -118,10 +135,10 @@ namespace Project_Digikala.Areas.Admin.Controllers
             var SelectBrand = brands.Select(b => new { b.Id, b.Title });
 
 
-            var product =await productRepo.FindAsync(Id);
+            var product = await productRepo.FindAsync(Id);
             GroupbrandModel.product = new Product
             {
-                Id=Id,
+                Id = Id,
                 brandid = product.brandid,
                 groupid = product.groupid,
                 PrimaryTitle = product.PrimaryTitle,
@@ -130,7 +147,7 @@ namespace Project_Digikala.Areas.Admin.Controllers
                 Description = product.Description,
 
             };
-            var selectgroup =await  groupRepo.FindAsync(GroupbrandModel.product.groupid);
+            var selectgroup = await groupRepo.FindAsync(GroupbrandModel.product.groupid);
             var selectbrand = await brandRepo.FindAsync(GroupbrandModel.product.brandid);
 
             GroupbrandModel.Brands = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(SelectBrand, "Id", "Title", selectbrand.Id);
@@ -139,14 +156,14 @@ namespace Project_Digikala.Areas.Admin.Controllers
             return View("Add", GroupbrandModel);
         }
         [HttpPost]
-        public async Task<IActionResult> save(int? Id,string PrimaryTitle,string SecondaryTitle,string Description, int brand, int Group ,byte state,IFormFile Photo)
+        public async Task<IActionResult> save(int? Id, string PrimaryTitle, string SecondaryTitle, string Description, int brand, int Group, byte state, IFormFile Photo)
         {
             if (Id == null)
             {
                 Product product = new Product
                 {
-                    brandid=brand,
-                    groupid=Group,
+                    brandid = brand,
+                    groupid = Group,
                     PrimaryTitle = PrimaryTitle,
                     SecondaryTitle = SecondaryTitle,
                     state = (State)state,
@@ -155,13 +172,13 @@ namespace Project_Digikala.Areas.Admin.Controllers
                     {
                         Id = this.Operator.Id
                     },
-                    CreateDate=DateTime.Now
+                    CreateDate = DateTime.Now
                 };
 
                 await productRepo.AddAsync(product);
                 await productRepo.saveAsync();
                 var productid = product.Id;
-               
+
                 var ext = Path.GetExtension(Photo.FileName);
                 var path = Path.Combine(hosting.WebRootPath + "\\Images\\Product", productid + ext);
                 using (var filestream = new FileStream(path, FileMode.Create))
@@ -173,58 +190,202 @@ namespace Project_Digikala.Areas.Admin.Controllers
             }
             else
             {//edit
-                var op =await UserManager.FindByIdAsync(this.Operator.Id);
+                var op = await UserManager.FindByIdAsync(this.Operator.Id);
                 Product product = new Product
                 {
-                    Id=(int)Id,
+                    Id = (int)Id,
                     brandid = brand,
                     groupid = Group,
                     PrimaryTitle = PrimaryTitle,
                     SecondaryTitle = SecondaryTitle,
                     state = (State)state,
                     Description = Description,
-                    LastModifier =op,
+                    LastModifier = op,
                     LastModifyDate = DateTime.Now
                 };
                 productRepo.Update(product);
-               await productRepo.saveAsync();
+                await productRepo.saveAsync();
 
                 return RedirectToAction("List");
             }
-        }   
-        
-        public async  Task<IActionResult> Delete(int Id)
+        }
+
+        public async Task<IActionResult> Delete(int Id)
         {
-             await productRepo.DeleteAsync(Id);
+            await productRepo.DeleteAsync(Id);
             return View("List");
         }
-        public IActionResult Specification(int productid)
+        public async Task<IActionResult> Specification(int productid)
         {
-            ViewBag.Groupid = productid;
-            return View();
-        }     
-        [HttpPost]
-        public IActionResult saveSpecification(int productid,int[] ids )
-        {
-            var values = new List<string>();
-            foreach (var id in ids)
+            ViewBag.productid = productid;
+            var product = await productRepo.FindAsync(productid);
+            var specificationGroup = await SpecificationGroupRepo.SearchAsync(product.group.Id);
+            ViewBag.product = product;
+
+            var grouptitle = await groupRepo.FindAsync((int)product.group.Id);
+
+            ViewBag.grouptitle = grouptitle.Title;
+
+            var SpecificationGroupList = new List<SpecificationGroupViewModel>();
+            var persian = new PersianCalendar();
+
+            int count = 0;
+            if (specificationGroup != null)
             {
-                string param = Request.Form["value-" + id]; 
-                values.Add(param.CheckStringIsnull() ? null : param);
+                foreach (var Specificationgroup in specificationGroup)
+                {
+                    SpecificationGroupList.Add(new SpecificationGroupViewModel
+                    {
+                        Id = Specificationgroup.Id,
+                        Creator = Specificationgroup.Creator?.Name + " " + Specificationgroup.Creator?.LastName,
+                        CreateDate = persian.PersianDate(Specificationgroup.CreateDate),
+                        LastModifyDate = Specificationgroup.LastModifyDate != null ? persian.PersianDate((DateTime)Specificationgroup.LastModifyDate) : null,
+                        LastModifier = Specificationgroup.LastModifier?.Name + " " + Specificationgroup.LastModifier?.LastName,
+                        state = Specificationgroup.state,
+                        Title = Specificationgroup.Title,
+                        Groups = new Models.ViewModels.Group.GroupView
+                        {
+                            Id = Specificationgroup.Groups.Id,
+                            Title = Specificationgroup.Groups.Title,
+                        },
+                        Specifications = new List<SpecificationView>()
+                    });
+                    foreach (var Specification in Specificationgroup.Specifications)
+                    {
+                        SpecificationGroupList[count].Specifications.Add(new SpecificationView
+                        {
+                            Id = Specification.Id,
+                            Title = Specification.Title
+                        });
+                    }
+                    count++;
+                }
 
             }
+            return View(SpecificationGroupList);
+        }
+        [HttpPost]
+        public async Task<IActionResult> saveSpecification(int productid, int[] ids)
+        {
+            var values = new List<SpecificationValue>();
+            var operatorr = await UserManager.FindByIdAsync(this.Operator.Id);
+            var product = await productRepo.FindAsync(productid);
+            foreach (var id in ids)
+            {
+                string param = Request.Form["value-" + id];
+                var specification = await SpecificationRepo.FindAsync(id);
+                values.Add(new SpecificationValue
+                {
+                    Value = param,
+                    specification = specification,
+                    Creator = operatorr,
+                    CreateDate = DateTime.Now,
+                    state = State.Enabled,
+                    Product = product
+
+                });
+            }
+
+            await SpecificationValueRepo.AddAsync(values);
+            await SpecificationValueRepo.saveAsync();
+
+            return RedirectToAction("list");
+        }
+        public async Task<IActionResult> Items(int id, State? state, int[] tagValues)
+        {
+            ViewBag.id = id;
+            var productItem = await ProductItemRepo.search(id);
+            var pItemValues = new List<ProductItemView>();
+            var persian = new PersianCalendar();
+            var product = await productRepo.FindAsync(id);
+            ViewBag.product = product.PrimaryTitle;
+            int count = 0;
+
+            if (productItem != null)
+            {
+                foreach (var PItem in productItem)
+                {
+                    pItemValues.Add(new ProductItemView
+                    {
+                        Id = PItem.Id,
+                        Creator = PItem.Creator?.Name + " " + PItem.Creator?.LastName,
+                        CreateDate = persian.PersianDate(PItem.CreateDate),
+                        LastModifyDate = PItem.LastModifyDate != null ? persian.PersianDate((DateTime)PItem.LastModifyDate) : null,
+                        LastModifier = PItem.LastModifier?.Name + " " + PItem.LastModifier?.LastName,
+                        state = PItem.state,
+                        Discount = PItem.Discount,
+                        Price = PItem.Price,
+                        Quantity = PItem.Quantity,
+                        Product = new ProductView
+                        {
+                            Id = product.Id,
+                            PrimaryTitle = product.PrimaryTitle
+                        },
+                        TagValues = new List<TagValueView>()
+                    }) ;
+
+                    foreach (var TagValue in PItem.ItemTagValues)
+                    {
+                        pItemValues[count].TagValues.Add(new TagValueView
+                        {
+                            Id=TagValue.TagValues.Id,
+                            Title=TagValue.TagValues.Title,
+                            Tag=new TagView
+                            {
+                                Id= TagValue.TagValues.Tag.Id,
+                                Title= TagValue.TagValues.Tag.Title
+                            }
+                        });
+                    }
+                    count++;
+                }
+            }
+            return View(pItemValues);
+        }
+        public async Task<IActionResult> AddItem(int Productid)
+        {
+            ViewBag.Productid = Productid;
+
+            var tags = await TagRepo.Search(null, null);
+            var product = await productRepo.FindAsync(Productid);
+            ViewBag.producttitle = product.PrimaryTitle;
+            ViewBag.product = product;
+
+            var taglist = new List<TagView>();
+            var persian = new PersianCalendar();
+
+            int count = 0;
+            if (tags != null)
+            {
+                foreach (var tag in tags)
+                {
+                    taglist.Add(new TagView
+                    {
+                        Id = tag.Id,
+                        Creator = tag.Creator?.Name + " " + tag.Creator?.LastName,
+                        CreateDate = persian.PersianDate(tag.CreateDate),
+                        LastModifyDate = tag.LastModifyDate != null ? persian.PersianDate((DateTime)tag.LastModifyDate) : null,
+                        LastModifier = tag.LastModifier?.Name + " " + tag.LastModifier?.LastName,
+                        State = tag.State,
+                        Title = tag.Title,
+                        TagValues = new List<TagValueView>(),
+                    });
+                    foreach (var TagValue in tag.TagValue)
+                    {
+                        taglist[count].TagValues.Add(new TagValueView
+                        {
+                            Id = TagValue.Id,
+                            Title = TagValue.Title
+                        });
+                    }
+                    count++;
+                }
+
+            }
+            ViewBag.Tags = taglist;
             return View();
         }
-        public IActionResult Items(int id, State? state, int[] tagValues)
-        {
-            ViewBag.idd = id;
-            return View();
-        } 
-        public IActionResult AddItem(int Productid)
-         {
-            ViewBag.Productid = Productid;
-            return View();
-        }     
+
         /// <summary>
         /// 
         /// </summary>
@@ -235,15 +396,54 @@ namespace Project_Digikala.Areas.Admin.Controllers
             ViewBag.idd = id;
             return View("AddItem");
         }
-        public IActionResult DeleteItem(int id)
+        public async Task<IActionResult> DeleteItem(int id)
         {
             return View();
         }
         [HttpPost]
-        public IActionResult saveItem(int? id,int Productid, double? price,float? discount,int? quantity,State state,int[] tagValue)
+        public async Task<IActionResult> saveItem(int? id, int? Productid, double? price, double? discount, byte? quantity, State state, int[] tagValue)
         {
-            ViewBag.idd = id;
-            return View();
+            if (id == null)
+            {
+                //Add
+                
+                var productItemsTagValue = new List<ItemTagValue>();
+                var user = await UserManager.FindByIdAsync(this.Operator.Id);
+                var product = await productRepo.FindAsync((int)Productid);
+                var ProductItem = new ProductItem
+                {
+                    CreateDate = DateTime.Now,
+                    Creator = user,
+                    Discount = (double)discount,
+                    Price = (double)price,
+                    Quantity = (byte)quantity,
+                    state = state,
+                    Product = product,
+
+                };
+                await ProductItemRepo.Add(ProductItem);
+                await ProductItemRepo.save();
+
+                for (int i = 0; i < tagValue.Length; i++)
+                {
+                    productItemsTagValue.Add(new ItemTagValue
+                    {
+                        ProductItemId = ProductItem.Id,
+                        TagValueId = tagValue[i]
+                    });
+                 
+                }
+                await ProductItemRepo.AddItemTagValue(productItemsTagValue);
+                await ProductItemRepo.save();
+                return RedirectToAction("list");
+            }
+            else
+            {
+                //Edit
+                ViewBag.id = id;
+                return View();
+            }
+           
         }
 
     }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Digikala.Models;
 
 namespace ProjectDigikala.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220217185703_itemtagvalue")]
+    partial class itemtagvalue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -320,7 +322,11 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<int>("TagValueId");
 
+                    b.Property<int?>("TagId");
+
                     b.HasKey("ProductItemId", "TagValueId");
+
+                    b.HasIndex("TagId");
 
                     b.HasIndex("TagValueId");
 
@@ -627,6 +633,10 @@ namespace ProjectDigikala.Migrations
                         .HasForeignKey("ProductItemId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("Project_Digikala.Models.Products.Tags.Tag")
+                        .WithMany("ItemTagValues")
+                        .HasForeignKey("TagId");
+
                     b.HasOne("Project_Digikala.Models.Products.Tags.TagValue", "TagValues")
                         .WithMany("ItemTagValues")
                         .HasForeignKey("TagValueId")
@@ -719,7 +729,7 @@ namespace ProjectDigikala.Migrations
                         .HasForeignKey("LastModifierId");
 
                     b.HasOne("Project_Digikala.Models.Products.Tags.Tag", "Tag")
-                        .WithMany("TagValue")
+                        .WithMany()
                         .HasForeignKey("TagId");
                 });
 #pragma warning restore 612, 618

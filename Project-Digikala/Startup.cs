@@ -10,6 +10,7 @@ using Project_Digikala.Models.Products;
 using Project_Digikala.Models.Products.Brands;
 using Project_Digikala.Models.Products.Groups;
 using Project_Digikala.Models.Products.KeyPoints;
+using Project_Digikala.Models.Products.ProductItem;
 using Project_Digikala.Models.Products.Specifications;
 using Project_Digikala.Models.Products.Tags;
 using Project_Digikala.Repository.EF;
@@ -45,9 +46,11 @@ namespace Users
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IkeypointRepository, keypointRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<ITagValueRepository, TagValueRepository>();
             services.AddScoped<ISpecificationGroupRepository, SpecificationGroupRepository>();
             services.AddScoped<ISpecificationRepository, SpecificationRepository>();
             services.AddScoped<ISpecificationValueRepository, SpecificationValueRepository>();
+            services.AddScoped<IProductItemRepository, ProductItemRepository>();
 
             services.AddMvc();
         }

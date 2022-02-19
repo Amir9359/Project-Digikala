@@ -56,8 +56,9 @@ namespace Project_Digikala.Areas.Admin.Controllers
                         Groups = new Models.ViewModels.Group.GroupView
                         {
                             Id = item.Groups.Id,
-                            Title = item.Groups.Title
-
+                            Title = item.Groups.Title,
+                            
+                            
                         }
                     });
                 }
@@ -168,7 +169,12 @@ namespace Project_Digikala.Areas.Admin.Controllers
                         SpecificationGroup = new SpecificationGroupViewModel
                         {
                             Id = item.SpecificationGroup.Id,
-                            Title = item.SpecificationGroup.Title
+                            Title = item.SpecificationGroup.Title,
+                            Groups=new Models.ViewModels.Group.GroupView
+                            {
+                                Id=item.SpecificationGroup.Groups.Id,
+                                Title=item.SpecificationGroup.Groups.Title
+                            }
                         }
                     });
                 }

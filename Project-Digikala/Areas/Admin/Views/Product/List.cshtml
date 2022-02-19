@@ -171,7 +171,7 @@
                                             <li><a class="dropdown-item" asp-area="Admin"  asp-action="Edit" asp-route-Id="@item.Id">ویرایش</a></li>
                                             <li><a class="dropdown-item" asp-area="Admin" asp-controller="KeyPoint" asp-action="List" asp-route-id="@item.Id" asp-route-keypoint="@keypointType.Positive">مدیریت نقاط مثبت</a></li>
                                             <li><a class="dropdown-item" asp-area="Admin" asp-controller="KeyPoint" asp-action="List" asp-route-id="@item.Id" asp-route-keypoint="@keypointType.Negeticve">مدیریت نقاط منفی</a></li>
-                                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Specification" asp-route-productid="1">مدیریت مشخصات فنی</a></li>
+                                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Specification" asp-route-productid="@item.Id">مدیریت مشخصات فنی</a></li>
                                             <li><a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Items" asp-route-id="@item.Id">لیست اقلام کالا</a></li>
                                             <li><a class="dropdown-item text-danger" asp-area="Admin"  asp-action="Delete" asp-route-Id="@item.Id">حذف</a></li>
                                         </ul>
