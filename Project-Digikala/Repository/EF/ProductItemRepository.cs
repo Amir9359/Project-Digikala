@@ -33,7 +33,10 @@ namespace Project_Digikala.Repository.EF
 
         public async Task<ProductItem> Find(int id)
         {
-            var productitem = await context.ProductItems.Include(t=>t.Product).Where(p=>p.Id == id).FirstOrDefaultAsync();
+            var productitem = await context.ProductItems
+                .Include(t=>t.Product)
+                .Include(t => t.ItemTagValues)
+                .ThenInclude((ItemTagValue i) => i.TagValues).ThenInclude(t => t.Tag).Where(p=>p.Id == id).FirstOrDefaultAsync();
             return productitem;
         }
 

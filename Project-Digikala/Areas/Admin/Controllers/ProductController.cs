@@ -299,6 +299,7 @@ namespace Project_Digikala.Areas.Admin.Controllers
             var persian = new PersianCalendar();
             var product = await productRepo.FindAsync(id);
             ViewBag.product = product.PrimaryTitle;
+            ViewBag.productid = product.Id;
             int count = 0;
 
             if (productItem != null)
@@ -391,10 +392,58 @@ namespace Project_Digikala.Areas.Admin.Controllers
         /// </summary>
         /// <param name="id">شناسه کالا</param>
         /// <returns></returns>
-        public IActionResult EditItem(int id)
+        public async Task<IActionResult> EditItem(int id)
         {
-            ViewBag.idd = id;
-            return View("AddItem");
+            var ProductItem = await ProductItemRepo.Find(id);
+            ViewBag.ProductId = ProductItem?.Product?.Id;
+            #region TagValue
+
+
+            var tags = await TagRepo.Search(null, null);
+            var product = await productRepo.FindAsync(ViewBag.ProductId);
+            ViewBag.producttitle = product.PrimaryTitle;
+            ViewBag.product = product;
+
+            var taglist = new List<TagView>();
+            var persian = new PersianCalendar();
+
+            int count = 0;
+            if (tags != null)
+            {
+                foreach (var tag in tags)
+                {
+                    taglist.Add(new TagView
+                    {
+                        Id = tag.Id,
+                        Creator = tag.Creator?.Name + " " + tag.Creator?.LastName,
+                        CreateDate = persian.PersianDate(tag.CreateDate),
+                        LastModifyDate = tag.LastModifyDate != null ? persian.PersianDate((DateTime)tag.LastModifyDate) : null,
+                        LastModifier = tag.LastModifier?.Name + " " + tag.LastModifier?.LastName,
+                        State = tag.State,
+                        Title = tag.Title,
+                        TagValues = new List<TagValueView>(),
+                    });
+                    foreach (var TagValue in tag.TagValue)
+                    {
+                        taglist[count].TagValues.Add(new TagValueView
+                        {
+                            Id = TagValue.Id,
+                            Title = TagValue.Title
+                        });
+                    }
+                    count++;
+                }
+
+            }
+            ViewBag.Tags = taglist;
+
+            #endregion
+
+            ViewBag.id = id;
+         
+            ViewBag.ProductId = ProductItem?.Product?.Id;
+            ViewBag.producttitle = ProductItem?.Product?.PrimaryTitle;
+            return View("AddItem", ProductItem);
         }
         public async Task<IActionResult> DeleteItem(int id)
         {
