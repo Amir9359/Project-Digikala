@@ -326,6 +326,14 @@
     top: 4px;
     z-index: 5;
 }
+.header-action-btn.profile:before {
+    float: left;
+    color: darkorange;
+    position: relative;
+    right: 17px;
+    top: 4px;
+    z-index: 5;
+}
 
 .header-action-btn.cart:before {
     position: relative;

@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Project_Digikala.Models.Products
+@inject SignInManager<@operator> singinManger
+@inject UserManager<@operator> userManager
+@{ 
+    string displayName = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        var user=  await userManager.FindByNameAsync(User.Identity.Name);
+        displayName = user.Name + " " + user.LastName;
+
+    }
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -64,7 +77,7 @@
                         </ul>
 
                 </ul>
-                 <span class="navbar-text d-inline-flex align-items-center" ><a href="/Account" class="btn btn-link text-white decor-none  btn-sm">امیرحسین خوشبخت فرد</a>|<a href="/Account/Signout" class="btn decor-none btn-sm btn-link">خروج</a></span>
+                 <span class="navbar-text d-inline-flex align-items-center" ><a   asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-link text-white decor-none  btn-sm">@displayName  </a>|<a  asp-area="Admin" asp-controller="Account" asp-action="Signout" class="btn decor-none btn-sm btn-link">خروج</a></span>
             </div>
         </div>
     </nav>

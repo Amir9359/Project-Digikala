@@ -447,7 +447,10 @@ namespace Project_Digikala.Areas.Admin.Controllers
         }
         public async Task<IActionResult> DeleteItem(int id)
         {
-            return View();
+            var ProductItem = await ProductItemRepo.Find(id);
+            await ProductItemRepo.Delete(id);
+            await ProductItemRepo.save();
+            return RedirectToAction("Items", new { id = ProductItem.Product.Id });
         }
         [HttpPost]
         public async Task<IActionResult> saveItem(int? id, int? Productid, double? price, double? discount, byte? quantity, State state, int[] tagValue)
@@ -484,13 +487,39 @@ namespace Project_Digikala.Areas.Admin.Controllers
                 }
                 await ProductItemRepo.AddItemTagValue(productItemsTagValue);
                 await ProductItemRepo.save();
-                return RedirectToAction("list");
+                return RedirectToAction("Items", new { id = Productid });
             }
             else
             {
                 //Edit
+                var productItemsTagValue = new List<ItemTagValue>();
+                var user = await UserManager.FindByIdAsync(this.Operator.Id);
                 ViewBag.id = id;
-                return View();
+
+                for (int i = 0; i < tagValue.Length; i++)
+                {
+                    productItemsTagValue.Add(new ItemTagValue
+                    {
+                        ProductItemId = (int)id,
+                        TagValueId = tagValue[i]
+                    });
+
+                }
+                await ProductItemRepo.MergeItemTagValue(productItemsTagValue);
+                await ProductItemRepo.Update(new ProductItem
+                {
+                    Id=(int)id,
+                    LastModifyDate = DateTime.Now,
+                    LastModifier=user,
+                    Price=(double)price,
+                    Quantity=(byte)quantity,
+                    Discount=discount,
+                    state=state
+                }); ;
+                await ProductItemRepo.save();
+
+                
+                return RedirectToAction("Items", new { id = Productid });
             }
            
         }

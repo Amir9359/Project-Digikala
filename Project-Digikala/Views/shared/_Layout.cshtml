@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Project_Digikala.Models.Products
+@using Project_Digikala.Models
+@inject SignInManager<@operator> singinManger
+@inject UserManager<@operator> userManager
+@{
+    string displayName = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        var user = await userManager.FindByNameAsync(User.Identity.Name);
+        displayName = user.Name + " " + user.LastName;
+
+    }
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,10 +38,10 @@
                         </div>
 
                         <div class="header-cell header-search ">
-                            <form  class="header-search-form" method="post" asp-controller="Product" asp-action="List" >
+                            <form class="header-search-form" method="post" asp-controller="Product" asp-action="List">
                                 <span class="header-search-form-input-wrapper ">
                                     <input type="submit" class="header-search-form-submit-btn" id="headerSearchSubmitBtn">
-                                    <label for="headerSearchSubmitBtn" class="header-search-form-label mdi mdi-magnify " ></label>
+                                    <label for="headerSearchSubmitBtn" class="header-search-form-label mdi mdi-magnify "></label>
                                     <input class="header-search-form-input" name="keyword" placeholder="لطفا نام محصول یا دسته بندی  را وارد کنید ..." autocomplete="off">
                                 </span>
                             </form>
@@ -37,28 +52,39 @@
                                 <a href="/Cart" class="header-action-btn mdi mdi-cart-outline mdi-24px  cart"><span class="header-action-btn-txt  header-action-btn-txt--store">سبد خرید </span><span class="header-action-btn-cunt">35</span> </a>
 
                             </span>
+ 
+
+
+
                             <span class="header-action-item login">
-                                <span class="header-action-menu">
-                                    <input class="header-action-menu__checkbox" type="checkbox"  id="chek-menu" />
-                                    <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px prof"><span class="header-action-btn-txt login"> ورود ، ثبت نام </span></label>
-                                    <span class="header-action-menu__content">
-                                        <a href="/Account/Signin" class="header-action-menu__item">ورود به سایت</a>
-                                        <a href="/Account/Signup" class="header-action-menu__item">ثبت نام</a>
-                                    </span>
-                                </span>
+                                @if (string.IsNullOrEmpty(displayName))
+                                {
 
-                                @*<span class="header-action-menu">
-                                    <input class="header-action-menu__checkbox" type="checkbox"  id="chek-menu" />
-                                    <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px prof"><span class="header-action-btn-txt"> امیر حسین خوشبخت فرد</span></label>
-                                    <span class="header-action-menu__content">
-                                        <a href="#" class="header-action-menu__item">حساب کاربری</a>
-                                        <a href="#" class="header-action-menu__item">سفارشات</a>
-                                        <span  class="header-action-menu__seprator"></span>
-                                        <a href="#" class="header-action-menu__item">خروج</a>
+                                    <span class="header-action-menu">
+                                        <input class="header-action-menu__checkbox" type="checkbox" id="chek-menu" />
+                                        <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px prof"><span class="header-action-btn-txt login"> ورود ، ثبت نام </span></label>
+                                        <span class="header-action-menu__content">
+                                            <a href="/Account/Signin" class="header-action-menu__item">ورود به سایت</a>
+                                            <a href="/Account/Signup" class="header-action-menu__item">ثبت نام</a>
+                                        </span>
                                     </span>
-                                </span>*@
+                                }
 
-                                </span>
+                                else
+                                {
+                                    <span class="header-action-menu">
+                                        <input class="header-action-menu__checkbox" type="checkbox" id="chek-menu" />
+                                        <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px profile"><span class="header-action-btn-txt"> @displayName </span></label>
+                                        <span class="header-action-menu__content">
+                                            <a href="#" class="header-action-menu__item">حساب کاربری</a>
+                                            <a href="#" class="header-action-menu__item">سفارشات</a>
+                                            <span class="header-action-menu__seprator"></span>
+                                            <a asp-controller="Account" asp-action="Signout" class="header-action-menu__item">خروج</a>
+                                        </span>
+                                    </span>
+                                }
+
+                            </span>
                         </div>
 
                     </div>
@@ -231,7 +257,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-copy-right">
             <div class="wrapper-footer">
                 <p class="footer-copy-right-txt">

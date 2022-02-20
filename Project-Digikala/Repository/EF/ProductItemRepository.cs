@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Project_Digikala.Repository.EF
 {
@@ -23,6 +24,20 @@ namespace Project_Digikala.Repository.EF
         public async Task AddItemTagValue(List<ItemTagValue> ItemTagValues)
         {
             await context.ItemTagValues.AddRangeAsync(ItemTagValues);
+        }
+        
+        public async Task  MergeItemTagValue(List<ItemTagValue> ItemTagValues)
+        {
+            using(var transaction= await context.Database.BeginTransactionAsync(System.Data.IsolationLevel.ReadCommitted))
+            {
+                var ProductItemId = ItemTagValues.Select(p => p.ProductItemId).FirstOrDefault();
+                var oldItemTagValue = context.ItemTagValues.Where(t => t.ProductItemId == ProductItemId);
+                context.ItemTagValues.RemoveRange(oldItemTagValue);
+                await context.SaveChangesAsync();
+                await context.ItemTagValues.AddRangeAsync(ItemTagValues);
+                transaction.Commit();
+            }
+
         }
 
         public async Task Delete(int? id)

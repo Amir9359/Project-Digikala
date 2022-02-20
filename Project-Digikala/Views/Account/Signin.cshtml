@@ -23,7 +23,7 @@
                 <form class="frm-control" action="/Account/Signin" method="post" novalidate>
                     <div class="frm-control__group">
                         <label class="frm-control__label" for="txtemail">ایمیل :</label>
-                        <input class="frm-control__input" type="email" name="username" id="txtemail" />
+                        <input class="frm-control__input" type="email" name="email" id="txtemail" />
                         <span class="frm-control__validation  mdi mdi-alert-circle-outline mdi-18px">درج ایمیل الزامی است.</span>
 
                     </div>
@@ -35,7 +35,7 @@
 
                     </div>
                     <div class="frm-control__group right">
-                        <label class="frm-control-checkbox" for="ch-remember" >مرا بخاطر بسپار<input class="frm-control-checkbox__input" value="True" type="checkbox" name="rememberme" id="ch-remember" /></label>
+                        <label class="frm-control-checkbox" for="ch-remember">مرا بخاطر بسپار<input class="frm-control-checkbox__input" value="True" type="checkbox" name="rememberme" id="ch-remember" /></label>
                     </div>
 
                     <div class="frm-control__group action">
@@ -43,6 +43,7 @@
                         <a href="/" class="button type-2"><span class="button-text">برگشت به صفحه اصلی</span></a>
                     </div>
                 </form>
+                <div class="text-danger">@ViewBag.Error</div>
             </main>
         </div>
     </div>

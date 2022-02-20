@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_Digikala.Models;
@@ -9,87 +10,31 @@ using System.Threading.Tasks;
 
 namespace Project_Digikala.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize]
     public class HomeController : BaseController
     {
         private UserManager<@operator> UserManager;
-        public HomeController(UserManager<@operator> UserManager) : base(UserManager)
+        private SignInManager<@operator> SignInManager;
+        public HomeController(UserManager<@operator> UserManager, SignInManager<@operator> SignInManager) : base(UserManager)
         {
             this.UserManager = UserManager;
+            this.SignInManager = SignInManager;
         }
         // GET: HomeController
-        [Area("Admin")]
-    public ActionResult Index()
-    {
-        return View();
-    }
 
-    // GET: HomeController/Details/5
-    public ActionResult Details(int id)
-    {
-        return View();
-    }
-
-    // GET: HomeController/Create
-    public ActionResult Create()
-    {
-        return View();
-    }
-
-    // POST: HomeController/Create
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
-    {
-        try
+        public async Task<IActionResult> Index()
         {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var claim = await UserManager.GetClaimsAsync(user);
+            if (claim.Any(t => t.Value != "Operator"))
+            {
+              await  SignInManager.SignOutAsync();
+              return RedirectToAction("Signin","Account");
+            }
             return View();
         }
-    }
 
-    // GET: HomeController/Edit/5
-    public ActionResult Edit(int id)
-    {
-        return View();
-    }
 
-    // POST: HomeController/Edit/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
-    {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
     }
-
-    // GET: HomeController/Delete/5
-    public ActionResult Delete(int id)
-    {
-        return View();
-    }
-
-    // POST: HomeController/Delete/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
-    {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
-    }
-}
 }

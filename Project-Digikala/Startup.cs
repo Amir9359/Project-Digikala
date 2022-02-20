@@ -52,6 +52,10 @@ namespace Users
             services.AddScoped<ISpecificationValueRepository, SpecificationValueRepository>();
             services.AddScoped<IProductItemRepository, ProductItemRepository>();
 
+            services.ConfigureApplicationCookie(option =>
+            {
+                option.LoginPath = "/Admin/Account/Signin";
+            });
             services.AddMvc();
         }
 
@@ -71,6 +75,8 @@ namespace Users
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseDeveloperExceptionPage();
+            app.UseAuthentication();
+
             app.UseMvc(route=>
             {
                 route.MapRoute(name: "MyArea", template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
