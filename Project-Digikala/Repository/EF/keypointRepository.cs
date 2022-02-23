@@ -27,6 +27,12 @@ namespace Project_Digikala.Repository.EF
              context.keypoints.Remove(Keypoint);
         }
 
+        public  async Task DeleteRang(int Pid)
+        {
+            var Keypoint = await context.keypoints.Where(k => k.Product.Id == Pid).ToAsyncEnumerable().ToList();
+             context.keypoints.RemoveRange(Keypoint);
+        }
+
         public async Task<keypoint> FindAsync(int id)
         {
             return await context.keypoints.Include(p=>p.Product).FirstOrDefaultAsync(p=>p.Id==id); 

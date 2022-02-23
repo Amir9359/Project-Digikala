@@ -12,7 +12,11 @@
 
     }
 }
-
+@using Project_Digikala.Models.Products.Groups
+@inject IGroupRepository grouprepo
+@{
+    var lstgroup = await grouprepo.SearchAsync(null, null, null);
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +46,7 @@
                                 <span class="header-search-form-input-wrapper ">
                                     <input type="submit" class="header-search-form-submit-btn" id="headerSearchSubmitBtn">
                                     <label for="headerSearchSubmitBtn" class="header-search-form-label mdi mdi-magnify "></label>
-                                    <input class="header-search-form-input" name="keyword" placeholder="لطفا نام محصول یا دسته بندی  را وارد کنید ..." autocomplete="off">
+                                    <input class="header-search-form-input" name="keyword" placeholder="لطفا نام محصول یا گروه کالا یا برند را وارد کنید ..." autocomplete="off">
                                 </span>
                             </form>
                         </div>
@@ -52,7 +56,7 @@
                                 <a href="/Cart" class="header-action-btn mdi mdi-cart-outline mdi-24px  cart"><span class="header-action-btn-txt  header-action-btn-txt--store">سبد خرید </span><span class="header-action-btn-cunt">35</span> </a>
 
                             </span>
- 
+
 
 
 
@@ -93,43 +97,15 @@
             </div>
             <nav class="nav">
                 <ul class="ul wrapper">
-                    <li class="li">
-                        <a class="a" href="#">محصولات</a>
-                    </li>
-                    <li class="li">
-                        <a class="a" href="#">شگفت انگیزان </a>
-                    </li>
-                    <li class="li li-type-1">
-                        <a class="a" href="#">کالای دیجیتال</a>
-                        <ul class="nav-submenu ">
-                            <li class="nav-submenu-item ">
-                                <a href="#" class="nav-submenu-button">  گوشی موبایل &nbsp;</a>
-                            </li>
-                            <li class="nav-submenu-item">
-                                <a href="#" class="nav-submenu-button"> پاور بانک &nbsp; </a>
-                            </li>
-                            <li class="nav-submenu-item">
-                                <a href="#" class="nav-submenu-button">لپ تاب &nbsp; </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="li">
-                        <a class="a" href="#">وسایل نقلیه</a>
-                    </li>
-                    <li class="li type-2">
-                        <a class="a" href="#">آرایشی بهداشتی</a>
-                        <ul class="nav-submenu ">
-                            <li class="nav-submenu-item ">
-                                <a href="#" class="nav-submenu-button" title="لپتاب ، گوشی موبایل ، پاوربانک , هندزفری ، تبلت "> لپتاب ، گوشی موبایل ، پاوربانک , هندزفری ، تبلت   &nbsp;</a>
-                            </li>
-                            <li class="nav-submenu-item">
-                                <a href="#" class="nav-submenu-button"> پاور بانک &nbsp; </a>
-                            </li>
-                            <li class="nav-submenu-item">
-                                <a href="#" class="nav-submenu-button">لپ تاب &nbsp; </a>
-                            </li>
-                        </ul>
-                    </li>
+    
+                    @foreach (var item in lstgroup.Take(8))
+                    {
+                        <li class="li li-type-1">
+                            <a class="a" asp-controller="product" asp-action="ProductListByGroup" asp-route-Groupid="@item.Id" >@item.Title</a>
+                        </li>
+                    }
+
+
                     <li class="li li_last">
                         <a class="a" href="#">درباره ما</a>
                     </li>

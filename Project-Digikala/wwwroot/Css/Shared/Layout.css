@@ -34,7 +34,7 @@
     border: 1px solid orangered;
     display: inline-block;
     text-decoration: none;
-    padding: 0.2rem 0.5rem;
+    padding: 0.1rem 0.4rem;
     /* margin: 1rem 0 0 0;*/
     border-radius: 3px;
     -webkit-transition: 500ms all;
@@ -59,6 +59,8 @@
     height: 1rem;
     text-align: center;
     color: #fff;
+    position: relative;
+    top: 1.5px;
     line-height: 2rem;
     margin: 0 0 0 .3rem;
 }
@@ -99,7 +101,7 @@
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
-    transition: 1s all;
+    transition: .3s all;
 }
 
     .tbl-logo-btn:hover {
@@ -326,6 +328,7 @@
     top: 4px;
     z-index: 5;
 }
+
 .header-action-btn.profile:before {
     float: left;
     color: darkorange;
@@ -443,17 +446,17 @@
 }
 
 .li_last {
-    float: left;
+ 
     background-color: #555;
     top: 0px;
-    right: 444px;
+    right: 100px;
 }
 
 .a {
     position: relative;
     display: inline-block;
     color: white;
-    font-size: 18px;
+    font-size: 1rem;
     text-decoration: none;
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
@@ -524,7 +527,7 @@
 }
 
 .button.type-2 {
-    background-color: dodgerblue ;
+    background-color: dodgerblue;
     border: 1px solid dodgerblue;
 }
 
@@ -577,7 +580,7 @@ body {
     position: relative;
     padding: 0;
     font-family: Yekan;
-    background-color: #fafafa;
+ 
     margin: 0 auto 0;
     height: 500px;
     font-size: 13px;
@@ -591,8 +594,8 @@ body {
 }
 
 #container {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 1.5rem 0;
+    background-color: #fff;
 }
 
 .side {
@@ -607,8 +610,9 @@ body {
 
 /*region footer*/
 .footer {
+ 
     border-top: 1px solid #555;
-    padding: 0;
+    /* padding: 0; */
     background-color: #f3f3f3;
     position: relative;
     width: 100%;
@@ -849,8 +853,9 @@ A.button:hover, LABEL.button:hover {
     overflow: visible;
     height: auto;
     position: relative;
-    border-top: 1px solid #e9e9e9;
-    top: -13px;
+    /* border-top: 0px solid #e9e9e9; */
+    top: -0.81px;
+    position: relative;
 }
 /*endregion footer*/
 
@@ -962,7 +967,7 @@ A.button:hover, LABEL.button:hover {
     display: flex;
     min-height: 100%;
     flex-direction: column;
-    margin-top:5rem;
+    margin-top: 5rem;
     justify-content: center;
     direction: rtl;
     text-align: center;
@@ -1007,7 +1012,6 @@ A.button:hover, LABEL.button:hover {
         margin-left: .2rem;
         line-height: 1;
         position: relative;
-
     }
 
 .frm-control__group {
@@ -1018,13 +1022,16 @@ A.button:hover, LABEL.button:hover {
     .frm-control__group:first-child {
         margin-top: 0;
     }
-.frm-control__group.action{
-    margin-top:1rem;
-}
-.frm-control__group.right{
-    display:flex;
-    justify-content:right;
-}
+
+    .frm-control__group.action {
+        margin-top: 1rem;
+    }
+
+    .frm-control__group.right {
+        display: flex;
+        justify-content: right;
+    }
+
 .frm-control__label {
     font-size: .9rem;
     line-height: 1.8;
@@ -1048,6 +1055,7 @@ A.button:hover, LABEL.button:hover {
     position: relative;
     left: 15px;
 }
+
 .frm-control-checkbox__input {
     display: flex;
     float: right;
@@ -1055,11 +1063,11 @@ A.button:hover, LABEL.button:hover {
     position: relative;
     top: 10px;
 }
+
 .frm-control-checkbox {
     font-size: .9rem;
     line-height: 2rem;
     height: 2rem;
-
     color: #777;
     margin: 1rem .5rem 0 0;
     text-align: right;

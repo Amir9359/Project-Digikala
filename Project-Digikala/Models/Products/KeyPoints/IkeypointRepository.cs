@@ -13,6 +13,7 @@ namespace Project_Digikala.Models.Products.KeyPoints
         Task<IEnumerable< keypoint>> SearchAsync(string title,int? id,keypointType keypoint);
         Task SaveAsync();
         Task Delete(int id);
+         Task DeleteRang(int Pid);
 
     }
 }

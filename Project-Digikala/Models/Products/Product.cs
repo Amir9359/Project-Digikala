@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Project_Digikala.Models.Products.Brands;
 using Project_Digikala.Models.Products.Groups;
 using Project_Digikala.Models.Products.KeyPoints;
-
+using Project_Digikala.Models.Products.ProductItem;
+using Project_Digikala.Models.Products.Specifications;
 
 namespace Project_Digikala.Models.Products
 {
@@ -27,5 +28,7 @@ namespace Project_Digikala.Models.Products
 
         public @operator LastModifier { get; set; }
         public DateTime? LastModifyDate { get; set; }
+        public List<ProductItem.ProductItem> ProductItems { get; set; }
+        public List<SpecificationValue> SpecificationValues { get; set; }
     }
 }

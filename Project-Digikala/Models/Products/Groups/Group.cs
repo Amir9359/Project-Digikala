@@ -1,4 +1,5 @@
 ﻿using Project_Digikala.Models.Products.KeyPoints;
+using Project_Digikala.Models.Products.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Project_Digikala.Models.Products.Groups
         public @operator LastModifier { get; set; }
         public DateTime? LastModifyDate { get; set; }
         public State state { get; set; }
+        public List<SpecificationGroup> SpecificationGroups { get; set; }
 
     }
 }
