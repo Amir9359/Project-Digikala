@@ -6,13 +6,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Project_Digikala.Models;
+using Project_Digikala.Models.Order;
 using Project_Digikala.Models.Products;
 using Project_Digikala.Models.Products.Brands;
+using Project_Digikala.Models.Products.Cart;
 using Project_Digikala.Models.Products.Groups;
 using Project_Digikala.Models.Products.KeyPoints;
 using Project_Digikala.Models.Products.ProductItem;
 using Project_Digikala.Models.Products.Specifications;
 using Project_Digikala.Models.Products.Tags;
+using Project_Digikala.Models.Profile;
 using Project_Digikala.Repository.EF;
 using System;
 using System.Collections.Generic;
@@ -51,6 +54,9 @@ namespace Users
             services.AddScoped<ISpecificationRepository, SpecificationRepository>();
             services.AddScoped<ISpecificationValueRepository, SpecificationValueRepository>();
             services.AddScoped<IProductItemRepository, ProductItemRepository>();
+            services.AddScoped<ICartRopository, CartRopository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.ConfigureApplicationCookie(option =>
             {

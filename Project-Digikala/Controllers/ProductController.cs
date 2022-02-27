@@ -16,9 +16,10 @@ namespace Project_Digikala.Controllers
         {
             _ProductRepository = ProductRepository;
         }
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
-            return View();
+            var product = await _ProductRepository.ProductDetailAsync(id);
+            return View(product);
         }
         public async Task<IActionResult> List(string keyword, int? fromprice, int? toprice, int? brands, int[] specs)
         {
@@ -54,7 +55,7 @@ namespace Project_Digikala.Controllers
                     PrimaryTitle = item.PrimaryTitle,
                     SecondaryTitle = item.SecondaryTitle,
                     ImageUrl = $"{item.Id}.jpg",
-                    Price = item.ProductItems.Select(p => p.Price).SingleOrDefault().ToString("N0"),
+                    Price = item.ProductItems.Select(p => p.Price).FirstOrDefault().ToString("N0"),
                     Brand = item.brand,
                     Group = item.group
                 });

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Project_Digikala.Models.Profile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Project_Digikala.Models
     {
         public string Name{ get; set; }
         public string LastName{ get; set; }
+        
     }
 }

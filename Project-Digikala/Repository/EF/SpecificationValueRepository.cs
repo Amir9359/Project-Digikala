@@ -31,7 +31,7 @@ namespace Project_Digikala.Repository.EF
 
         public async Task<SpecificationValue> FindAsync(int id)
         {
-            var specificationvalue = await context.SpecificationValues.Include(s => s.specification).FirstOrDefaultAsync(s => s.Id == id);
+            var specificationvalue = await context.SpecificationValues.Include(s => s.specification).Include(s => s.Product).FirstOrDefaultAsync(s => s.Id == id);
             return specificationvalue;
         }
 
@@ -42,7 +42,7 @@ namespace Project_Digikala.Repository.EF
 
         public async Task<IEnumerable<SpecificationValue>> SearchAsync(int? id, string Value, State? state)
         {
-            var query = await context.SpecificationValues.Include(s => s.specification).Include(s => s.Creator).Include(s => s.LastModifier).ToAsyncEnumerable().ToList();
+            var query = await context.SpecificationValues.Include(s => s.specification).Include(s => s.Creator).Include(s => s.Product).Include(s => s.LastModifier).ToAsyncEnumerable().ToList();
             var search = query.Where(p => (p.Id == id || id == null) && (p.Value == Value || Value.CheckStringIsnull()) && (p.state ==state || state == null));
             return search;
         }

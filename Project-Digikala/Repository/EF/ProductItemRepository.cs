@@ -84,5 +84,24 @@ namespace Project_Digikala.Repository.EF
             context.Entry(productItem).Reference(p => p.LastModifier).IsModified = false;
             context.Entry(productItem).Reference(p => p.Product).IsModified = false;
         }
+
+        public async Task Update(List<ProductItem> productItem)
+        {
+            var itemlist = new List<ProductItem>();
+             
+            foreach (var item in productItem)
+            {
+                var pitem =await context.ProductItems.FindAsync(item.Id);
+                pitem.Quantity = (byte)(pitem.Quantity - item.Quantity);
+
+                context.Entry(pitem).Property(p => p.CreateDate).IsModified = false;
+                context.Entry(pitem).Reference(p => p.Creator).IsModified = false;
+                context.Entry(pitem).Reference(p => p.LastModifier).IsModified = false;
+                context.Entry(pitem).Property(p => p.LastModifyDate).IsModified = false;
+                context.Entry(pitem).Reference(p => p.Product).IsModified = false;
+                itemlist.Add(pitem);
+            }
+             context.UpdateRange(itemlist);
+        }
     }
 }

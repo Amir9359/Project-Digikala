@@ -184,6 +184,58 @@ namespace ProjectDigikala.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Project_Digikala.Models.Order.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CustomerId");
+
+                    b.Property<string>("FishNumber");
+
+                    b.Property<DateTime>("OrderDate");
+
+                    b.Property<DateTime?>("PayDate");
+
+                    b.Property<byte>("PayState");
+
+                    b.Property<byte>("PaymentType");
+
+                    b.Property<double>("TotlaPrice");
+
+                    b.Property<byte>("shippingType");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Order.OrderItems", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Price");
+
+                    b.Property<int?>("ProductItemId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<int?>("orderId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductItemId");
+
+                    b.HasIndex("orderId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("Project_Digikala.Models.Products.Brands.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -211,6 +263,42 @@ namespace ProjectDigikala.Migrations
                     b.HasIndex("LastModifierId");
 
                     b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Products.Cart.Cart", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("OperatorId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OperatorId");
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Products.Cart.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CartID");
+
+                    b.Property<int?>("ProductItemsId");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartID");
+
+                    b.HasIndex("ProductItemsId");
+
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("Project_Digikala.Models.Products.Groups.Group", b =>
@@ -517,6 +605,29 @@ namespace ProjectDigikala.Migrations
                     b.ToTable("TagValues");
                 });
 
+            modelBuilder.Entity("Project_Digikala.Models.Profile.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CustomerId");
+
+                    b.Property<string>("Location");
+
+                    b.Property<string>("Phone");
+
+                    b.Property<string>("Province");
+
+                    b.Property<string>("city");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -562,6 +673,24 @@ namespace ProjectDigikala.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Project_Digikala.Models.Order.Order", b =>
+                {
+                    b.HasOne("Project_Digikala.Models.operator", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Order.OrderItems", b =>
+                {
+                    b.HasOne("Project_Digikala.Models.Products.ProductItem.ProductItem", "ProductItem")
+                        .WithMany()
+                        .HasForeignKey("ProductItemId");
+
+                    b.HasOne("Project_Digikala.Models.Order.Order", "order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("orderId");
+                });
+
             modelBuilder.Entity("Project_Digikala.Models.Products.Brands.Brand", b =>
                 {
                     b.HasOne("Project_Digikala.Models.operator", "Creator")
@@ -571,6 +700,24 @@ namespace ProjectDigikala.Migrations
                     b.HasOne("Project_Digikala.Models.operator", "LastModifier")
                         .WithMany()
                         .HasForeignKey("LastModifierId");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Products.Cart.Cart", b =>
+                {
+                    b.HasOne("Project_Digikala.Models.operator", "Operator")
+                        .WithMany()
+                        .HasForeignKey("OperatorId");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Products.Cart.CartItem", b =>
+                {
+                    b.HasOne("Project_Digikala.Models.Products.Cart.Cart", "Cart")
+                        .WithMany("cartItems")
+                        .HasForeignKey("CartID");
+
+                    b.HasOne("Project_Digikala.Models.Products.ProductItem.ProductItem", "ProductItems")
+                        .WithMany()
+                        .HasForeignKey("ProductItemsId");
                 });
 
             modelBuilder.Entity("Project_Digikala.Models.Products.Groups.Group", b =>
@@ -595,7 +742,7 @@ namespace ProjectDigikala.Migrations
                         .HasForeignKey("LastModifierId");
 
                     b.HasOne("Project_Digikala.Models.Products.Product", "Product")
-                        .WithMany()
+                        .WithMany("keypoints")
                         .HasForeignKey("ProductId");
                 });
 
@@ -644,7 +791,7 @@ namespace ProjectDigikala.Migrations
                         .HasForeignKey("LastModifierId");
 
                     b.HasOne("Project_Digikala.Models.Products.Product", "Product")
-                        .WithMany()
+                        .WithMany("ProductItems")
                         .HasForeignKey("ProductId");
                 });
 
@@ -670,7 +817,7 @@ namespace ProjectDigikala.Migrations
                         .HasForeignKey("CreatorId");
 
                     b.HasOne("Project_Digikala.Models.Products.Groups.Group", "Groups")
-                        .WithMany()
+                        .WithMany("SpecificationGroups")
                         .HasForeignKey("GroupsId");
 
                     b.HasOne("Project_Digikala.Models.operator", "LastModifier")
@@ -689,11 +836,11 @@ namespace ProjectDigikala.Migrations
                         .HasForeignKey("LastModifierId");
 
                     b.HasOne("Project_Digikala.Models.Products.Product", "Product")
-                        .WithMany()
+                        .WithMany("SpecificationValues")
                         .HasForeignKey("ProductId");
 
                     b.HasOne("Project_Digikala.Models.Products.Specifications.Specification", "specification")
-                        .WithMany()
+                        .WithMany("SpecificationValues")
                         .HasForeignKey("specificationId");
                 });
 
@@ -721,6 +868,13 @@ namespace ProjectDigikala.Migrations
                     b.HasOne("Project_Digikala.Models.Products.Tags.Tag", "Tag")
                         .WithMany("TagValue")
                         .HasForeignKey("TagId");
+                });
+
+            modelBuilder.Entity("Project_Digikala.Models.Profile.Address", b =>
+                {
+                    b.HasOne("Project_Digikala.Models.operator", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
                 });
 #pragma warning restore 612, 618
         }

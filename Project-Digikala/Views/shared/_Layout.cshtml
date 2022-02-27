@@ -1,14 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Project_Digikala.Models.Products
 @using Project_Digikala.Models
+@using Project_Digikala.Models.Products.Cart
+
 @inject SignInManager<@operator> singinManger
 @inject UserManager<@operator> userManager
 @{
     string displayName = "";
+    @@operator customer = null;
     if (User.Identity.IsAuthenticated)
     {
-        var user = await userManager.FindByNameAsync(User.Identity.Name);
-        displayName = user.Name + " " + user.LastName;
+        customer = await userManager.FindByNameAsync(User.Identity.Name);
+        displayName = customer.Name + " " + customer.LastName;
 
     }
 }
@@ -16,6 +19,19 @@
 @inject IGroupRepository grouprepo
 @{
     var lstgroup = await grouprepo.SearchAsync(null, null, null);
+}
+@inject ICartRopository cartRepo
+@{ 
+    var cartItemCount = 0;
+    if (User.Identity.IsAuthenticated)
+    {
+        var cart = await cartRepo.Find(customer.Id);
+        @if (cart != null)
+        {
+            cartItemCount = cart.cartItems.Count;
+
+        }
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -51,9 +67,16 @@
                             </form>
                         </div>
 
-                        <div class="header-cell header-action">
-                            <span class="header-action-item header-action-item_border">
-                                <a href="/Cart" class="header-action-btn mdi mdi-cart-outline mdi-24px  cart"><span class="header-action-btn-txt  header-action-btn-txt--store">سبد خرید </span><span class="header-action-btn-cunt">35</span> </a>
+                        <div class="header-cell header-action cartt">
+                            <span class="header-action-item header-action-item_border ">
+                                @if (cartItemCount > 0)
+                                {
+                                    <a href="/Cart" class="header-action-btn mdi mdi-cart-outline cart"><span class="header-action-btn-txt  header-action-btn-txt--store">سبد خرید </span><span class="header-action-btn-cunt">@cartItemCount</span> </a>
+                                }
+                                else
+                                {
+                                    <a href="/Cart" class="header-action-btn mdi mdi-cart-outline cart"><span class="header-action-btn-txt  header-action-btn-txt--store">سبد خرید </span></a>
+                                }
 
                             </span>
 
@@ -80,8 +103,8 @@
                                         <input class="header-action-menu__checkbox" type="checkbox" id="chek-menu" />
                                         <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px profile"><span class="header-action-btn-txt"> @displayName </span></label>
                                         <span class="header-action-menu__content">
-                                            <a href="#" class="header-action-menu__item">حساب کاربری</a>
-                                            <a href="#" class="header-action-menu__item">سفارشات</a>
+                                            <a asp-controller="Profile" asp-action="Index" class="header-action-menu__item">حساب کاربری</a>
+                                            <a asp-controller="Cart" asp-action="Index" class="header-action-menu__item">سفارشات</a>
                                             <span class="header-action-menu__seprator"></span>
                                             <a asp-controller="Account" asp-action="Signout" class="header-action-menu__item">خروج</a>
                                         </span>
@@ -97,11 +120,11 @@
             </div>
             <nav class="nav">
                 <ul class="ul wrapper">
-    
+
                     @foreach (var item in lstgroup.Take(8))
                     {
                         <li class="li li-type-1">
-                            <a class="a" asp-controller="product" asp-action="ProductListByGroup" asp-route-Groupid="@item.Id" >@item.Title</a>
+                            <a class="a" asp-controller="product" asp-action="ProductListByGroup" asp-route-Groupid="@item.Id">@item.Title</a>
                         </li>
                     }
 
@@ -242,7 +265,7 @@
             </div>
         </div>
     </footer>
-    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="~/lib/jquery/jquery.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

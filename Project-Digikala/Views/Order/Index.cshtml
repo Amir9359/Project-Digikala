@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Address
+@{
     ViewData["Title"] = "ثبت سفارش";
 }
 @section Style{
@@ -9,11 +10,11 @@
     <h1 class="panel__title">سبد خرید</h1>
     <div class="panel__content">
         <div class="order__summary">
-            <p class="order-summary-text">مبلغ قابل پرداخت : 240,000 تومان</p>
+            <p class="order-summary-text">مبلغ قابل پرداخت : @ViewBag.TotalPrice تومان</p>
             <a class="button" href="/Cart"><span class="button-text">سبد خرید</span></a>
         </div>
 
-        <form action="/Order/Save" method="post" class="order-form" >
+        <form action="/Order/Save" method="post" class="order-form validnd" novalidate>
             <section class="order-form__section">
                 <h2 class="order-form__header">اطلاعات تماس</h2>
                 <div class="order-form__content">
@@ -21,8 +22,8 @@
                         <label class="order-form__label" for="txtprovince">استان: </label>
 
                         <div class="order-form__field">
-                            <input class="order-form__input" type="text" name="province" id="txtprovince"  />
-                             <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج استان الزامی است.</span>
+                            <input class="order-form__input" type="text" disabled value="@Model.Province" name="province" id="txtprovince" />
+                            <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج استان الزامی است.</span>
                         </div>
                     </div>
 
@@ -30,7 +31,7 @@
                         <label class="order-form__label" for="txtCity">شهر: </label>
 
                         <div class="order-form__field">
-                            <input class="order-form__input" type="text" name="city" id="txtCity" />
+                            <input class="order-form__input" type="text" disabled value="@Model.city" name="city" id="txtCity" />
                             <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج شهر الزامی است.</span>
                         </div>
                     </div>
@@ -39,7 +40,7 @@
                         <label class="order-form__label" for="txtAddress">آدرس: </label>
 
                         <div class="order-form__field">
-                            <textarea class="order-form__input  order-form__input--multiple" type="text" name="adderss" id="txtAddress" rows="5" cols="30"></textarea>
+                            <textarea class="order-form__input  order-form__input--multiple" disabled type="text" name="adderss" id="txtAddress" rows="5" cols="30">@Model.Location</textarea>
                             <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج آدرس الزامی است.</span>
                         </div>
                     </div>
@@ -48,8 +49,9 @@
                         <label class="order-form__label" for="txttel">شماره تماس: </label>
 
                         <div class="order-form__field">
-                            <input class="order-form__input " type="text" name="tel" id="txttel" />
-                         <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج شماره تماس الزامی است.</span></div>
+                            <input class="order-form__input " type="text" disabled value="@Model.Phone" name="tel" id="txttel" />
+                            <span class="order-form__validation mdi mdi-alert-circle-outline mdi-18px">درج شماره تماس الزامی است.</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -57,68 +59,104 @@
             <section class="order-form__section">
                 <h2 class="order-form__header">نحوه ارسال</h2>
                 <div class="order-form__content">
-                    <div class="order-form__group">
-                        <span class="order-form__label"></span>
-                        <div class="order-form__field">
-                            <label class="order-form-radio">
-                                <input class="order-form-radio__input" type="radio" name="shipping" value="1" checked />
-                                <span class="order-form-radio__cotent">
-                                    <span class="order-form-radio__title">پست پیشتاز  <span class="order-form-radio__title--highlight"> (8,000 تومان) </span></span>
-                                    <span class="order-form-radio__text">پس از ثبت سفارش تا 24 ساعت به دست شما میرسد.</span>
-                                </span>
-                            </label>
-                        </div>
-      
-                    </div>
+                    @foreach (var Shipping in EnumDescription.getDiscription(typeof(ShippingTypes)))
+                    {
+                        var Shippingid = ShippingTypes.Tipax;
+                        @if (Shipping == "تایپاکس")
+                        {
+                            Shippingid = ShippingTypes.Tipax;
+                        }
+                        else if (Shipping == "پست پیشتاز")
+                        {
+                            Shippingid = ShippingTypes.Pishtaz;
+                        }
+                        <div class="order-form__group">
+                            <span class="order-form__label"></span>
+                            <div class="order-form__field">
+                                <label class="order-form-radio">
+                                    <input class="order-form-radio__input" type="radio" name="shipping" value="@Shippingid" checked required />
+                                    <span class="order-form-radio__cotent">
+                                        <span class="order-form-radio__title">
+                                            @Shipping
+                                            @if (Shipping == "تایپاکس")
+                                            {<span class="order-form-radio__title--highlight"> (8,000 تومان) </span>}
+                                            else if (Shipping == "پست پیشتاز")
+                                            {
+                                                <span class="order-form-radio__title--highlight"> (10,000 تومان) </span>
+                                            }
+                                        </span>
 
-                    <div class="order-form__group">
-                        <span class="order-form__label"></span>
-                        <div class="order-form__field">
-                            <label class="order-form-radio">
-                                <input class="order-form-radio__input" type="radio" name="shipping" value="2" />
-                                <span class="order-form-radio__cotent">
-                                    <span class="order-form-radio__title">پست ویژه سایت  <span class="order-form-radio__title--highlight"> (10,000 تومان) </span></span>
-                                    <span class="order-form-radio__text">پس از ثبت سفارش تا 12 ساعت به دست شما میرسد.</span>
-                                </span>
-                            </label>
+                                        @if (Shipping == "پست پیشتاز")
+                                        {
+
+                                            <span class="order-form-radio__text">پس از ثبت سفارش تا 24 ساعت به دست شما میرسد.</span>
+                                        }
+                                        else
+                                        {
+
+
+                                            <span class="order-form-radio__text">پس از ثبت سفارش تا 12 ساعت به دست شما میرسد.</span>
+                                        }
+
+                                    </span>
+                                </label>
+                            </div>
+
                         </div>
-                    </div>
+                    }
+
                 </div>
             </section>
 
             <section class="order-form__section">
                 <h2 class="order-form__header">روش پرداخت</h2>
                 <div class="order-form__content">
+                    @foreach (var Payment in EnumDescription.getDiscription(typeof(PaymentTypes)))
+                    {
+                        var Paymentid = PaymentTypes.CartToCart;
+                        if (Payment == "کارت به کارت")
+                        {
+                            Paymentid = PaymentTypes.CartToCart;
+                        }
+                        else if (Payment == "واریز به حساب")
+                        {
+                            Paymentid = PaymentTypes.Variz;
+                        }
+                        else if (Payment == "پرداخت آنلاین")
+                        {
+                            Paymentid = PaymentTypes.Online;
+                        }
+
                     <div class="order-form__group">
                         <span class="order-form__label"></span>
                         <div class="order-form__field">
                             <label class="order-form-radio">
-                                <input class="order-form-radio__input" type="radio" name="payment" value="1" checked />
-                                <span class="order-form-radio__cotent">
-                                    <span class="order-form-radio__title">واریز به حساب</span>
-                                    <span class="order-form-radio__text">شماره فیش و تاریخ پرداخت پس از ثبت سفارش را ارسال کنید.</span>
-                                </span>
-                            </label>
+                                <input class="order-form-radio__input" type="radio" name="payment" value="@Paymentid" checked required />
 
+                                <span class="order-form-radio__cotent">
+                                    <span class="order-form-radio__title">@Payment </span>
+                                    @if (Payment == "کارت به کارت")
+                                    {
+                                        <span class="order-form-radio__text">شماره فیش و تاریخ پرداخت پس از ثبت سفارش را ارسال کنید.</span>
+                                    }
+                                    else if (Payment == "واریز به حساب")
+                                    {
+                                        <span class="order-form-radio__text">شماره ارجاع و تاریخ انتقال را پس از ثبت سفارش را ارسال کنید.</span>
+                                    }
+                                </span>
+                               
+                            </label>
+                            
                         </div>
+                        
                     </div>
 
-                    <div class="order-form__group">
-                        <span class="order-form__label"></span>
-                        <div class="order-form__field">
-                            <label class="order-form-radio">
-                                <input class="order-form-radio__input" type="radio" name="payment" value="2" />
-                                <span class="order-form-radio__cotent">
-                                    <span class="order-form-radio__title">کارت به کارت</span>
-                                    <span class="order-form-radio__text">شماره ارجاع و تاریخ انتقال را پس از ثبت سفارش را ارسال کنید.</span>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
+                    }
+
                     <div class="order-form__group order-form__group--btn">
                         <span class="order-form__label"></span>
                         <div class="order-form__field">
-                           <button class="button" type="submit"><span class="button-text">ثبت سفارش </span></button>
+                            <button class="button" type="submit"><span class="button-text">ثبت سفارش </span></button>
                         </div>
                     </div>
 
@@ -127,3 +165,28 @@
         </form>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.validnd')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+}

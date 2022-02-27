@@ -3,13 +3,16 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Project_Digikala.Models.Order;
 using Project_Digikala.Models.Products;
 using Project_Digikala.Models.Products.Brands;
+using Project_Digikala.Models.Products.Cart;
 using Project_Digikala.Models.Products.Groups;
 using Project_Digikala.Models.Products.KeyPoints;
 using Project_Digikala.Models.Products.ProductItem;
 using Project_Digikala.Models.Products.Specifications;
 using Project_Digikala.Models.Products.Tags;
+using Project_Digikala.Models.Profile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +33,11 @@ namespace Project_Digikala.Models
         public DbSet<SpecificationGroup> SpecificationGroups { get; set; }
         public DbSet<ProductItem> ProductItems { get; set; }
         public DbSet<ItemTagValue> ItemTagValues { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
+        public DbSet<Order.Order> Orders { get; set; }
+        public DbSet<OrderItems> OrderItems { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> op) : base(op)
         {
            

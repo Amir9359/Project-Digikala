@@ -11,6 +11,7 @@ namespace Project_Digikala.Models.Products.ProductItem
         Task AddItemTagValue(List<ItemTagValue> ItemTagValues);
         Task MergeItemTagValue(List<ItemTagValue> ItemTagValues);
         Task Update(ProductItem productItem);
+        Task Update(List<ProductItem>  productItem);
         Task Delete(int? id);
         Task<List<ProductItem>> search(int Productid);
         Task<ProductItem> Find(int id);
