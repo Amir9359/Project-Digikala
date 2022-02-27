@@ -41,7 +41,7 @@
 }
 
     .cart-table__body:nth-child(2n+1) {
-        background-color: #f6f6f6;
+        background-color: #f9f9f9;
     }
 
 .cart-table__td--row {

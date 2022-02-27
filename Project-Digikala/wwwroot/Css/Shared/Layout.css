@@ -23,7 +23,7 @@
 }
 
 .wrapper-footer {
-    max-width: 1200px;
+    max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 .5rem;
@@ -129,6 +129,8 @@
 }
 
 .header-action {
+    align-items: flex-start;
+    display: flex;
     height: 40px;
     width: 1%;
     margin: 20px 0;
@@ -204,9 +206,9 @@
 
     .header-action-item.login {
         border-right: 2px solid #777;
-        padding: 7px 0px;
+        padding: 2px 6px;
         /* vertical-align: middle; */
-        margin: 7px 23px;
+        margin: 3px 20px;
         position: relative;
         top: 16px;
         padding-left: 1rem;
@@ -219,20 +221,20 @@
     }
 
     .header-action-item:first-child {
-        margin: 10px 10px;
-        padding: 7px 4px 14px;
+        padding: 3px 3px;
     }
 
 .header-action-item_border {
     border: 1px solid darkorange;
     border-radius: 4px;
     position: relative;
-    top: 11px;
+    top: 9px;
 }
+ 
 
-.header-search-form {
-    width: 100%;
-}
+    .header-search-form {
+        width: 100%;
+    }
 
 .header-search-form-input-wrapper {
     margin-left: auto;
@@ -293,7 +295,7 @@
     line-height: 1;
     font-size: 16px;
     vertical-align: middle;
-    margin: 8px 7px;
+    margin: 3px 4px;
     text-decoration: none;
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
@@ -342,7 +344,7 @@
     position: relative;
     right: -11px;
     color: #777;
-    top: 2px;
+    top: -1px;
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
     -o-transition: 500ms all;
@@ -357,7 +359,7 @@
     color: #333333;
     position: relative;
     /* top: -4px; */
-    /* right: -10px;*/
+    right: -4px;
     line-height: 1.8;
     padding-left: .5rem;
     display: inline-block;
@@ -381,8 +383,8 @@
         }
 
 .header-action-btn-txt--store {
-    top: 5px;
-    left: 4px;
+    top: 3px;
+    left: 3px;
 }
 
 .header-action-btn {
@@ -397,19 +399,19 @@
 
 .header-action-btn-cunt {
     background-color: #666666;
-    width: 8px;
-    height: 3px;
-    line-height: 1;
+    width: 5px;
+    height: 5px;
+    line-height: 0;
     color: #fff;
-    vertical-align: middle;
-    font-size: 16px;
+    /* vertical-align: middle; */
+    font-size: 13px;
     border-radius: 50%;
-    padding: 0 8px;
+    padding: 1px 9px;
     text-align: center;
     /* margin-right: 10px; */
     position: relative;
-    top: -3px;
-    right: 2px;
+    top: -6px;
+    right: -1px;
 }
 /*endregion container*/
 /*endregion header*/

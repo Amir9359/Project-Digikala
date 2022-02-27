@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Digikala.Models;
 
 namespace ProjectDigikala.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220227072646_order_migration")]
+    partial class order_migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -597,29 +599,6 @@ namespace ProjectDigikala.Migrations
                     b.ToTable("TagValues");
                 });
 
-            modelBuilder.Entity("Project_Digikala.Models.Profile.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CustomerId");
-
-                    b.Property<string>("Location");
-
-                    b.Property<string>("Phone");
-
-                    b.Property<string>("Province");
-
-                    b.Property<string>("city");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Addresses");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -860,13 +839,6 @@ namespace ProjectDigikala.Migrations
                     b.HasOne("Project_Digikala.Models.Products.Tags.Tag", "Tag")
                         .WithMany("TagValue")
                         .HasForeignKey("TagId");
-                });
-
-            modelBuilder.Entity("Project_Digikala.Models.Profile.Address", b =>
-                {
-                    b.HasOne("Project_Digikala.Models.operator", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
                 });
 #pragma warning restore 612, 618
         }

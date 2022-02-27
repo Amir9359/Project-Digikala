@@ -1,59 +1,66 @@
-﻿@{
+﻿@model Cart
+@{
     ViewData["Title"] = "سبد خرید";
+    int count = 0;
+    var imageUrl = "";
+    double totalPrice = 0;
 }
 @section Style{
 
     <link href="~/Css/Cart/Index.css" rel="stylesheet" />
 }
-<div id="cart" class="panel body-wrapper" >
+<div id="cart" class="panel body-wrapper">
     <h1 class="panel__title">سبد خرید</h1>
-    <div class="panel__content">
-        <div class="cart-table">
-            <div class="cart-table__head">
-                <div class="cart-table__td cart-table__td--row"></div>
-                <div class="cart-table__td cart-table__td--product">کالا</div>
-                <div class="cart-table__td cart-table__td--count">تعداد</div>
-                <div class="cart-table__td cart-table__td--price">قیمت</div>
-                <div class="cart-table__td cart-table__td--totalp">مجموع</div>
-                <div class="cart-table__td cart-table__td--action"></div>
-            </div>
-            <div class="cart-table__body">
-                <div class="cart-table__td cart-table__td--row">1</div>
-                <div class="cart-table__td cart-table__td--product">
-                    <div class="cart-product">
-                        <a href="#" class="cart-product__photo-link" ><img class="cart-product__photo" src="~/Images/Products/222.jpg" title="کرم دست" alt="کرم دست" /></a>
-                        <div class="cart-product__titles">
-                            <a class="cart-product__primary-title">کرم دست مدل arman</a><br />
-                            <a class="cart-product__secondary-title">Arman Hand Cream</a>
+    @if (Model != null)
+    {
+
+
+        <div class="panel__content">
+            <div class="cart-table">
+                <div class="cart-table__head">
+                    <div class="cart-table__td cart-table__td--row"></div>
+                    <div class="cart-table__td cart-table__td--product">کالا</div>
+                    <div class="cart-table__td cart-table__td--count">تعداد</div>
+                    <div class="cart-table__td cart-table__td--price">قیمت</div>
+                    <div class="cart-table__td cart-table__td--totalp">مجموع</div>
+                    <div class="cart-table__td cart-table__td--action"></div>
+                </div>
+                @foreach (var item in Model.cartItems)
+                {
+                    count++;
+                    imageUrl = item.ProductItems.Product.Id + ".jpg";
+                    totalPrice = item.ProductItems.Price * item.Quantity;
+                    <div class="cart-table__body">
+                    <div class="cart-table__td cart-table__td--row">@count</div>
+                    <div class="cart-table__td cart-table__td--product">
+                        <div class="cart-product">
+                            <a href="#" class="cart-product__photo-link"><img class="cart-product__photo" src="~/Images/Product/@imageUrl" title="کرم دست" alt="کرم دست" /></a>
+                            <div class="cart-product__titles">
+                                <a class="cart-product__primary-title">@item.ProductItems.Product.PrimaryTitle</a><br />
+                                <a class="cart-product__secondary-title">@item.ProductItems.Product.SecondaryTitle</a>
+                            </div>
                         </div>
                     </div>
+                    <div class="cart-table__td cart-table__td--count">@item.Quantity</div>
+                    <div class="cart-table__td cart-table__td--price">@item.ProductItems.Price.ToString("N0") تومان</div>
+                    <div class="cart-table__td cart-table__td--totalp">@totalPrice.ToString("N0") تومان</div>
+                    <div class="cart-table__td cart-table__td--action"><a   asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id" class="button"><span class="button-text">حذف</span></a></div>
                 </div>
-                <div class="cart-table__td cart-table__td--count">2</div>
-                <div class="cart-table__td cart-table__td--price">20,000 تومان</div>
-                <div class="cart-table__td cart-table__td--totalp">40,000 تومان</div>
-                <div class="cart-table__td cart-table__td--action"><a href="/Cart/remove/1" class="button" ><span class="button-text">حذف</span></a></div>
+            }
+
+
             </div>
-            <div class="cart-table__body">
-                <div class="cart-table__td cart-table__td--row">2</div>
-                <div class="cart-table__td cart-table__td--product">
-                    <div class="cart-product">
-                        <a href="#" class="cart-product__photo-link"><img class="cart-product__photo"  src="~/Images/Products/344.jpg" alt="کفش ملی مدل ارین" /></a>
-                        <div class="cart-product__titles">
-                            <a class="cart-product__primary-title">کفش ملی مدل ارین</a><br />
-                            <a class="cart-product__secondary-title">Arian Shoes 24</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="cart-table__td cart-table__td--count">1</div>
-                <div class="cart-table__td cart-table__td--price">190,000 تومان</div>
-                <div class="cart-table__td cart-table__td--totalp">190,000 تومان</div>
-                <div class="cart-table__td cart-table__td--action"><a href="/Cart/remove/2" class="button"><span class="button-text">حذف</span></a></div>
+
+            <div class="cart__footer">
+                <div class="cart__totalprice"> مبلغ قابل پرداخت : @Model.cartItems.Sum(p=>p.ProductItems.Price * p.Quantity).ToString("N0") تومان</div>
+                <a href="/Order" class="button"><span class="button-text">تکمیل سبد خرید</span></a>
             </div>
         </div>
-         
-        <div class="cart__footer">
-            <div class="cart__totalprice"> مبلغ قابل پرداخت : 230,000 تومان</div> 
-            <a href="/Order" class="button"><span class="button-text">تکمیل سبد خرید</span></a>
+    }
+    else
+    {
+        <div class="products__empty">
+            <span class="products__empty-title">هیچ موردی برای نمایش وجود ندارد.</span>
         </div>
+    }
     </div>
-</div>

@@ -36,8 +36,9 @@ namespace Project_Digikala.Repository.EF
         public async Task<Product> ProductDetailAsync(int Productid)
         {
             return await context.Products.Include(b => b.brand).Include(g => g.group).ThenInclude(sg => sg.SpecificationGroups)
-                .ThenInclude(s => s.Specifications).Include(item=>item.ProductItems).ThenInclude(s => s.ItemTagValues)
-                .ThenInclude(s => s.TagValues).ThenInclude(s => s.Tag).Where(p => p.Id == Productid).ToAsyncEnumerable().SingleOrDefault();
+                .ThenInclude(s => s.Specifications).ThenInclude(sg => sg.SpecificationValues).ThenInclude(sg => sg.Product).Include(item=>item.ProductItems)
+                .ThenInclude(s => s.ItemTagValues).ThenInclude(s => s.TagValues).ThenInclude(s => s.Tag).Include(k=>k.keypoints)
+                .Where(p => p.Id == Productid).FirstOrDefaultAsync();
         }
 
         public async Task saveAsync()

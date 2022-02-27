@@ -1,5 +1,8 @@
-﻿@{
+﻿@model Product
+@{
     ViewData["Title"] = "جزئیات کالا";
+    var imageUrl = Model?.Id + ".jpg";
+    var quantity = 0;
 }
 @section Style{
 
@@ -10,67 +13,78 @@
         <div class="product__gallery">
             <div class="product-gallery">
                 <div class="product-gallery__photo-wrap">
-                    <img src="~/Images/products/222.jpg" class="product-gallery__photo" alt="کرم دست" />
+                    <img src="~/Images/product/@imageUrl" class="product-gallery__photo" alt="@Model.PrimaryTitle" />
 
                 </div>
             </div>
         </div>
         <div class="product__detail">
             <section class="product__titles">
-                <div class="product__primary-title">سامسونگ گلکسی اس 8</div>
-                <div class="product__secondary-title">Samsung Galaxy S8</div>
+                <div class="product__primary-title">@Model.PrimaryTitle</div>
+                <div class="product__secondary-title">@Model.SecondaryTitle</div>
                 <ul class="product-info">
-                    <li class="product-info__item">گروه:<span class="product-info__value">موبایل</span></li>
-                    <li class="product-info__item">برند:<span class="product-info__value">سامسونگ</span></li>
+                    <li class="product-info__item">گروه:<span class="product-info__value">@Model.group.Title</span></li>
+                    <li class="product-info__item">برند:<span class="product-info__value">@Model.brand.Title</span></li>
                 </ul>
             </section>
             <form class="product-detail" action="/Cart/Index">
-                @*<div class="product-detail__empty">کالای مورد نظر درحال حاضر موجود نمی باشد.</div>*@
+                @if (Model.ProductItems.Count == 0)
+                {
+                    @*<div class="product-detail__empty">کالای مورد نظر درحال حاضر موجود نمی باشد.</div>*@
+
+                }
+                else
+                {
+
+                }
                 <span class="product-detail__title">لطفا کالای مورد نظر خود را انتخاب کنید:</span>
                 <ul class="product-detail__items">
-                    <li class="product-detail__item">
-                        <label class="product-detail__label">
-                            <input class="product-detail__input" type="radio" name="productitemsid" value="1" checked />
-                            <span class="product-detail__text">رنگ: مشکی - گارانتی: مادایران</span>
-                            <span class="product-detail__price">20,000 تومان</span>
-                        </label>
+                    @foreach (var ProductItem in Model.ProductItems)
+                    {
+                        string tags = "";
+                        int counter = 0;
+                        if (ProductItem.ItemTagValues != null)
+                        {
+                            @foreach (var tag in ProductItem.ItemTagValues)
+                            {
+                                if (counter == 0)
+                                {
+                                    tags += $"{tag.TagValues.Tag.Title} : {tag.TagValues.Title}";
+                                    counter++;
+                                }
+                                else
+                                {
+                                    tags += $" - {tag.TagValues.Tag.Title} : {tag.TagValues.Title}";
+                                }
 
-                    </li>
+                            }
+                            quantity = ProductItem.Quantity;
+                        }
+                        <li class="product-detail__item">
+                            <label class="product-detail__label">
+                                <input class="product-detail__input" type="radio" name="productitemsid" value="@ProductItem.Id" checked />
+                                <span class="product-detail__text">@tags</span>
+                                <span class="product-detail__price"> @ProductItem.Price.ToString("N0") تومان </span>
+                            </label>
 
-                    <li class="product-detail__item">
-                        <label class="product-detail__label">
-                            <input class="product-detail__input" type="radio" name="productitemsid" value="2" />
-                            <span class="product-detail__text">رنگ: آبی - گارانتی: مادایران</span>
-                            <span class="product-detail__price">22,000 تومان</span>
-                        </label>
+                        </li>
+                    }
 
-                    </li>
 
-                    <li class="product-detail__item">
-                        <label class="product-detail__label">
-                            <input class="product-detail__input" type="radio" name="productitemsid" value="3" />
-                            <span class="product-detail__text">رنگ: مشکی - گارانتی: سام سرویس</span>
-                            <span class="product-detail__price">25,000 تومان</span>
-                        </label>
-
-                    </li>
-
-                    <li class="product-detail__item">
-                        <label class="product-detail__label">
-                            <input class="product-detail__input" type="radio" name="productitemsid" value="4" />
-                            <span class="product-detail__text">رنگ: آبی - گارانتی: سام سرویس</span>
-                            <span class="product-detail__price">27,000 تومان</span>
-                        </label>
-
-                    </li>
                 </ul>
 
                 <div class="product-detail-action">
                     <div class="product-detail__counts">
                         <span class="product-detail-action__text">تعداد:</span>
-                        <input class="product-detail-action__count" type="number" name="count" />
+                        <select class="product-detail-action__count" name="count">
+                            @for (int i = 1; i <= quantity; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+
+                        </select>
                     </div>
-                    <input type="submit" value="" id="product-detail-input" class="product-detail-action__input" />
+                    <input type="submit"  id="product-detail-input" class="product-detail-action__input" />
                     <label class="product-detail-action__button button mdi mdi-cart-plus " for="product-detail-input" title="افزودن به سبد خرید"> <span class="button-text">افزودن به سبد خرید</span></label>
 
 
@@ -82,136 +96,139 @@
         <div class="product-description">
             <span class="product-description__icon mdi mdi-information-outline mdi-36px"></span>
             <p class="product-description__text">
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-                <br /> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.<br /> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
-            </p>
-        </div>
-        <div class="product-keypoint">
-            <div class="product-keypoint__col">
-                <h3 class="product-keypoint__title">نقاط مثبت</h3>
-                <ul class="product-keypoint__list">
-                    <li class="product-keypoint__item">انعطاف پذیری بالا</li>
-                    <li class="product-keypoint__item">کیفیت تصویر</li>
-                    <li class="product-keypoint__item">پردازنده قوی</li>
-                </ul>
-            </div>
-            <div class="product-keypoint__col">
-                <h3 class="product-keypoint__title">نقاط منفی</h3>
-                <ul class="product-keypoint__list">
-                    <li class="product-keypoint__item">جنس ضعیف</li>
-                    <li class="product-keypoint__item">قیمت بالا</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <section class="product-tab">
-        <input type="radio" class="product-tab__radio" name="tab-radio" id="rd-tab-1" checked />
-        <input type="radio" class="product-tab__radio" name="tab-radio" id="rd-tab-2"  />
-        <div class="product-tab__header">
-            <label class="product-tab__button" for="rd-tab-1" data-tab="1">مشخصات فنی</label>
-            <label class="product-tab__button" for="rd-tab-2" data-tab="2">نظرات کاربران</label>
-        </div>
-        <div class="product-tab__content" data-tab="1">
-            <ul class="product-spec">
-                <li class="product-spec__group">
-                    <h4 class="product-spec__title">مشخصات کلی</h4>
-                    <ul class="product-spec__list">
-                        <li class="product-spec__item"><span class="product-spec__caption">حافظه داخلی: </span><strong class="product-spec__value">16 گیگابایت</strong></li>
-                        <li class="product-spec__item"><span class="product-spec__caption">حافظه جانبی: </span><strong class="product-spec__value">64 گیگابایت</strong></li>
-                        <li class="product-spec__item"><span class="product-spec__caption">اندروید: </span><strong class="product-spec__value">8.0</strong></li>
-                        <li class="product-spec__item"><span class="product-spec__caption">حافظه داخلی: </span><strong class="product-spec__value">16 گیگابایت</strong></li>
-                        <li class="product-spec__item"><span class="product-spec__caption">حافظه جانبی: </span><strong class="product-spec__value">64 گیگابایت</strong></li>
-                        <li class="product-spec__item"><span class="product-spec__caption">اندروید: </span><strong class="product-spec__value">8.0</strong></li>
-                    </ul>
-                </li>
+                @Model.Description
+        </p>
+    </div>
+    <div class="product-keypoint">
+        <div class="product-keypoint__col">
+            <h3 class="product-keypoint__title">نقاط مثبت</h3>
+            <ul class="product-keypoint__list">
+                @foreach (var keypoints in Model.keypoints.Where(k => k.type == Project_Digikala.Models.Products.KeyPoints.keypointType.Positive))
+                {
+                    <li class="product-keypoint__item">@keypoints.Title</li>
+                }
 
-                <li class="product-spec__group">
-                    <h4 class="product-spec__title">صفحه نمایش</h4>
-                    <ul class="product-spec__list">
-                        <li class="product-spec__item"><span class="product-spec__caption">تفکیک پذیری: </span><strong class="product-spec__value">1024</strong></li>
-                        <li class="product-spec__item"><span class="product-spec__caption">رنگ: </span><strong class="product-spec__value">2 میلیون رنگ</strong></li>
-                    </ul>
-                </li>
             </ul>
         </div>
-        <div class="product-tab__content" data-tab="2">
-            <div class="product-comments">
-                <div class="product-comments__actions">
-
-                    <div class="product-comments__message-wrap">
-                <p class="product-comments__message">برای ارسال نظر باید ابتدا در سایت وارد شوید.</p>
-                <a href="#" class="button" ><span class="button-text">ورود به سایت</span></a>
-            </div>
-
-                    <form class="product-comments__form" method="post" action="/Product/SendComment">
-                        <input type="hidden" name="ProductId" value="1" />
-                        <textarea class="product-comments__txtarea" name="comment" placeholder="متن مورد نظر خود را وارد کنید..." rows="5" cols="100"></textarea>
-                        <button type="submit" class="button"><span class="button-text">ارسال نظر</span></button>
-                    </form>
-                </div>
-                @*<p class="empty-title">هیچ موردی برای نمایش وجود ندارد.</p>*@
-
-                <div class="pager-actions">
-            <div class="pager__info">
-                <select class="pager-actions__select">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="40">40</option>
-                </select>
-                <span class="pager__total">220 کالا</span>
-            </div>
-            <div class="pager-actions-pager">
-                <a class="pager__button">1</a>
-                <span class="pager__seperator">....</span>
-                <a class="pager__button pager__button--current">8</a>
-                <a class="pager__button">9</a>
-                <a class="pager__button">10</a>
-                <span class="pager__seperator">....</span>
-                <a class="pager__button">15</a>
-            </div>
+        <div class="product-keypoint__col">
+            <h3 class="product-keypoint__title">نقاط منفی</h3>
+            <ul class="product-keypoint__list">
+                @foreach (var keypointsn in Model.keypoints.Where(k => k.type == Project_Digikala.Models.Products.KeyPoints.keypointType.Negeticve))
+                {
+                    <li class="product-keypoint__item">@keypointsn.Title</li>
+                }
+            </ul>
         </div>
+    </div>
+</section>
+<section class="product-tab">
+    <input type="radio" class="product-tab__radio" name="tab-radio" id="rd-tab-1" checked />
+    <input type="radio" class="product-tab__radio" name="tab-radio" id="rd-tab-2" />
+    <div class="product-tab__header">
+        <label class="product-tab__button" for="rd-tab-1" data-tab="1">مشخصات فنی</label>
+        <label class="product-tab__button" for="rd-tab-2" data-tab="2">نظرات کاربران</label>
+    </div>
+    <div class="product-tab__content" data-tab="1">
+        <ul class="product-spec">
+ 
+            @foreach (var SpecificationGroup in Model.group.SpecificationGroups)
+            {
+                <li class="product-spec__group">
+                    <h4 class="product-spec__title">@SpecificationGroup.Title</h4>
+                    <ul class="product-spec__list">
+                        @foreach (var Specification in SpecificationGroup.Specifications)
+                        {
+                            @if (SpecificationGroup.Id == Specification.SpecificationGroup.Id && Model.SpecificationValues!=null)
+                            {
+                                <li class="product-spec__item"><span class="product-spec__caption">@Specification.Title: </span><strong class="product-spec__value">@Model.SpecificationValues.FirstOrDefault(v =>  v.Product.Id  == Model.Id && v.specification.Id == Specification.Id).Value</strong></li>
 
-                <ul class="product-comments__list">
-            <li class="product-comments__item">
-                <div class="product-comments__header">
-                    <span class="product-comments__sender">امیر حسین خوشبخت </span>
-                    <span class="product-comments__date">1400/11/19 شنبه</span>
-                </div>
-                <p class="product-comments__text">خرید را توصیه نمیکنم  و از محصول ناراضی هستم  .<br />کیفیت پاییت</p>
-            </li>
+                            }
 
-            <li class="product-comments__item">
-                <div class="product-comments__header">
-                    <span class="product-comments__sender">مهرداد تقوی </span>
-                    <span class="product-comments__date">1400/11/27 دوشنبه</span>
-                </div>
-                <p class="product-comments__text">خرید را توصیه میکنم  و از محصول راضی هستم  .<br />کیفیت بالا</p>
-            </li>
+                        }
+                    </ul>
+                </li>
+            }
+
         </ul>
+    </div>
+    <div class="product-tab__content" data-tab="2">
+        <div class="product-comments">
+            <div class="product-comments__actions">
 
-                <div class="pager-actions">
-            <div class="pager__info">
-                <select class="pager-actions__select">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="40">40</option>
-                </select>
-                <span class="pager__total">220 کالا</span>
+                <div class="product-comments__message-wrap">
+                    <p class="product-comments__message">برای ارسال نظر باید ابتدا در سایت وارد شوید.</p>
+                    <a href="#" class="button"><span class="button-text">ورود به سایت</span></a>
+                </div>
+
+                <form class="product-comments__form" method="post" action="/Product/SendComment">
+                    <input type="hidden" name="ProductId" value="1" />
+                    <textarea class="product-comments__txtarea" name="comment" placeholder="متن مورد نظر خود را وارد کنید..." rows="5" cols="100"></textarea>
+                    <button type="submit" class="button"><span class="button-text">ارسال نظر</span></button>
+                </form>
             </div>
-            <div class="pager-actions-pager">
-                <a class="pager__button">1</a>
-                <span class="pager__seperator">....</span>
-                <a class="pager__button pager__button--current">8</a>
-                <a class="pager__button">9</a>
-                <a class="pager__button">10</a>
-                <span class="pager__seperator">....</span>
-                <a class="pager__button">15</a>
+            @*<p class="empty-title">هیچ موردی برای نمایش وجود ندارد.</p>*@
+
+            <div class="pager-actions">
+                <div class="pager__info">
+                    <select class="pager-actions__select">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="40">40</option>
+                    </select>
+                    <span class="pager__total">220 کالا</span>
+                </div>
+                <div class="pager-actions-pager">
+                    <a class="pager__button">1</a>
+                    <span class="pager__seperator">....</span>
+                    <a class="pager__button pager__button--current">8</a>
+                    <a class="pager__button">9</a>
+                    <a class="pager__button">10</a>
+                    <span class="pager__seperator">....</span>
+                    <a class="pager__button">15</a>
+                </div>
             </div>
+
+            <ul class="product-comments__list">
+                <li class="product-comments__item">
+                    <div class="product-comments__header">
+                        <span class="product-comments__sender">امیر حسین خوشبخت </span>
+                        <span class="product-comments__date">1400/11/19 شنبه</span>
+                    </div>
+                    <p class="product-comments__text">خرید را توصیه نمیکنم  و از محصول ناراضی هستم  .<br />کیفیت پاییت</p>
+                </li>
+
+                <li class="product-comments__item">
+                    <div class="product-comments__header">
+                        <span class="product-comments__sender">مهرداد تقوی </span>
+                        <span class="product-comments__date">1400/11/27 دوشنبه</span>
+                    </div>
+                    <p class="product-comments__text">خرید را توصیه میکنم  و از محصول راضی هستم  .<br />کیفیت بالا</p>
+                </li>
+            </ul>
+
+            <div class="pager-actions">
+                <div class="pager__info">
+                    <select class="pager-actions__select">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="40">40</option>
+                    </select>
+                    <span class="pager__total">220 کالا</span>
+                </div>
+                <div class="pager-actions-pager">
+                    <a class="pager__button">1</a>
+                    <span class="pager__seperator">....</span>
+                    <a class="pager__button pager__button--current">8</a>
+                    <a class="pager__button">9</a>
+                    <a class="pager__button">10</a>
+                    <span class="pager__seperator">....</span>
+                    <a class="pager__button">15</a>
+                </div>
+            </div>
+
+
         </div>
-
-
-            </div>
-        </div>
-    </section>  
+    </div>
+</section>
 
 </div>

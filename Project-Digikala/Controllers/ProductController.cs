@@ -16,9 +16,10 @@ namespace Project_Digikala.Controllers
         {
             _ProductRepository = ProductRepository;
         }
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
-            return View();
+            var product = await _ProductRepository.ProductDetailAsync(id);
+            return View(product);
         }
         public async Task<IActionResult> List(string keyword, int? fromprice, int? toprice, int? brands, int[] specs)
         {

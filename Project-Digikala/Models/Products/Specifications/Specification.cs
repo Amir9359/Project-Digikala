@@ -19,5 +19,6 @@ namespace Project_Digikala.Models.Products.Specifications
 
         public @operator LastModifier { get; set; }
         public DateTime? LastModifyDate { get; set; }
+        public List<SpecificationValue> SpecificationValues { get; set; }
     }
 }
