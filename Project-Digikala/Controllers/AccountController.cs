@@ -78,6 +78,7 @@ namespace Project_Digikala.Controllers
                 };
                 var signup = await UserManager.CreateAsync(customer, password);
 
+                await Signin(email, password, true);
                 if (signup.Succeeded)
                 {
                    var claim= await UserManager.AddClaimAsync(customer, new System.Security.Claims.Claim("UserType", "Customer"));

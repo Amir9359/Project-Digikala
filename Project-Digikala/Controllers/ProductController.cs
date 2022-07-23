@@ -33,7 +33,7 @@ namespace Project_Digikala.Controllers
                 {
                     Id = item.Id,
                     PrimaryTitle = item.PrimaryTitle,
-                    SecondaryTitle = item.SecondaryTitle,
+                    SecondaryTitle = item.SecondaryTitle, 
                     ImageUrl = $"{item.Id}.jpg",
                     Price = item.ProductItems.LastOrDefault().Quantity == 0 ? "0" : item.ProductItems.Select(p => p.Price).LastOrDefault().ToString("N0"),
                     Brand = item.brand,
@@ -64,7 +64,7 @@ namespace Project_Digikala.Controllers
         }
         public IActionResult SendComment(string comment, int ProductId)
         {
-            //todo : save camment
+            
             return new RedirectResult("/Product/Index/" + ProductId);
         }
     }

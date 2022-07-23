@@ -3,25 +3,44 @@
 }
 @section style{
 
-<link href="~/Css/Home/home.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="New folder/sliderengine/amazingslider-1.css">
+    <link href="~/Css/Home/home.css" rel="stylesheet" />
+}
+@section Scripts
+{
+    <script src="New folder/sliderengine/jquery.js"></script>
+    <script src="New folder/sliderengine/initslider-1.js"></script>
+    <script src="New folder/sliderengine/amazingslider.js"></script>
 }
 <div class="wrapper-footer" id="home">
     <section class="home-section home-top-banner home-round home-section-shadow">
     </section>
     <section class="home-section">
-        <div class="home-gallery-wrapper home-round home-section-shadow">
-            <div class="home-gallery-content">
-                <a class="home-gallery-content-item" style="background-image: url('Images/1.jpg' )"></a><a class="home-gallery-content-item " style="background-image: url('Images/02.jpg')"></a><a class="home-gallery-content-item" style="background-image: url('Images/03.jpg')"></a><a class="home-gallery-content-item " style="background: url('Images/06.jpg')"></a>
-            </div>
-            <a class="home-gallery-btn mdi mdi-chevron-right right disable"></a>
-            <a class="home-gallery-btn mdi mdi-chevron-left left"></a>
-            <div class="home-gallery-pager">
-                <a class="home-gallery-pager-btn selected"></a>
-                <a class="home-gallery-pager-btn"></a>
-                <a class="home-gallery-pager-btn"></a>
-                <a class="home-gallery-pager-btn"></a>
+        <div id="amazingslider-wrapper-1" style="display:block;position:relative;max-width:1300px;margin:0px auto 12px;">
+            <div id="amazingslider-1" style="display:block;position:relative;margin:0 auto; z-index: 10;">
+                <ul class="amazingslider-slides" style="display:none;">
+                    <li>
+                        <img src="New folder/images/1.jpg" alt="1" title="1" />
+                    </li>
+                    <li>
+                        <img src="New folder/images/02.jpg" alt="02" title="02" />
+                    </li>
+                    <li>
+                        <img src="New folder/images/03.jpg" alt="03" title="03" />
+                    </li>
+                    <li>
+                        <img src="New folder/images/06.jpg" alt="06" title="06" />
+                    </li>
+                </ul>
+                <ul class="amazingslider-thumbnails" style="display:none;">
+                    <li><img src="New folder/images/1-tn.jpg" alt="1" title="1" /></li>
+                    <li><img src="New folder/images/02-tn.jpg" alt="02" title="02" /></li>
+                    <li><img src="New folder/images/03-tn.jpg" alt="03" title="03" /></li>
+                    <li><img src="New folder/images/06-tn.jpg" alt="06" title="06" /></li>
+                </ul>
             </div>
         </div>
+
     </section>
     <section class="home-section-wrapper-i home-round home-section-shadow">
         <div class="home-spec-offer-wrapper ">
@@ -179,7 +198,7 @@
                             <span class="home-showcase-gallery-item-inner">
                                 <span class="home-showcase-gallery-item-img-cont">
                                     <span class="home-showcase-gallery-item-img-lay">
-                                        <img class="home-showcase-gallery-item-img" title="bag" src="~/Images/products/554.jpg" >
+                                        <img class="home-showcase-gallery-item-img" title="bag" src="~/Images/products/554.jpg">
                                     </span>
                                 </span>
                             </span>

@@ -12,5 +12,7 @@ namespace Project_Digikala.Models.Products.Cart
         public Cart Cart { get; set; }
         public Project_Digikala.Models.Products.ProductItem.ProductItem ProductItems { get; set; }
         public int Quantity { get; set; }
+        public double Price { get; set; }
+
     }
 }

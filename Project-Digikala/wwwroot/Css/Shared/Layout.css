@@ -207,15 +207,15 @@
 
     .header-action-item.login {
         border-right: 2px solid #777;
-<<<<<<< HEAD
+ 
         padding: 0 6px;
         /* vertical-align: middle; */
         margin: 0 20px;
-=======
+ 
         padding: 2px 6px;
         /* vertical-align: middle; */
         margin: 3px 20px;
->>>>>>> a85c2f4a96f978fb299bbc397f5b51f49d795c13
+ 
         position: relative;
         top: 20px;
         padding-left: 1rem;
@@ -235,11 +235,11 @@
     border: 1px solid darkorange;
     border-radius: 4px;
     position: relative;
-<<<<<<< HEAD
+ 
     top: 12px;
-=======
+
     top: 9px;
->>>>>>> a85c2f4a96f978fb299bbc397f5b51f49d795c13
+ 
 }
  
 
@@ -306,11 +306,8 @@
     line-height: 1;
     font-size: 1rem;
     vertical-align: middle;
-<<<<<<< HEAD
     margin: 0px 4px;
-=======
     margin: 3px 4px;
->>>>>>> a85c2f4a96f978fb299bbc397f5b51f49d795c13
     text-decoration: none;
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;
@@ -324,7 +321,6 @@
 
 .header-action-item:hover {
 }
-
 
 
 
@@ -461,13 +457,13 @@
     *zoom: 1;
     margin: 0;
     position: relative;
-    top: 0px;
+    top: -10px;
 }
 
 .li_last {
  
     background-color: #555;
-    top: 0px;
+    top: -10px;
     right: 100px;
 }
 
@@ -1090,4 +1086,10 @@ A.button:hover, LABEL.button:hover {
     color: #777;
     margin: 1rem .5rem 0 0;
     text-align: right;
+}
+@media (max-width:768px ) {
+    .button-text-spec {
+        font-size: .98rem;
+        line-height: 1rem;
+    }
 }
