@@ -14,8 +14,10 @@ namespace Project_Digikala.Models.Products.Cart
         Task<List<Cart>> search(string customeerId);
         Task Update(CartItem item);
         Task Delete(int cartItemId);
+ 
         Task DeleteCart(int cartId);
         void  DeletCartItems(List<CartItem> CartItems);
+ 
         Task save();
     }
 }

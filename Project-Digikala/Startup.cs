@@ -56,7 +56,9 @@ namespace Users
             services.AddScoped<IProductItemRepository, ProductItemRepository>();
             services.AddScoped<ICartRopository, CartRopository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+ 
             services.AddScoped<IOrderRepository, OrderRepository>();
+ 
 
             services.ConfigureApplicationCookie(option =>
             {

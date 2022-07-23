@@ -8,9 +8,11 @@ namespace Project_Digikala.Models.Order
 {
     public enum ShippingTypes : byte
     {
+ 
         [Description("تایپاکس")]
         Tipax =1,
         [Description("پست پیشتاز")]
         Pishtaz =2
+ 
     }
 }

@@ -207,9 +207,15 @@
 
     .header-action-item.login {
         border-right: 2px solid #777;
+<<<<<<< HEAD
         padding: 0 6px;
         /* vertical-align: middle; */
         margin: 0 20px;
+=======
+        padding: 2px 6px;
+        /* vertical-align: middle; */
+        margin: 3px 20px;
+>>>>>>> a85c2f4a96f978fb299bbc397f5b51f49d795c13
         position: relative;
         top: 20px;
         padding-left: 1rem;
@@ -229,7 +235,11 @@
     border: 1px solid darkorange;
     border-radius: 4px;
     position: relative;
+<<<<<<< HEAD
     top: 12px;
+=======
+    top: 9px;
+>>>>>>> a85c2f4a96f978fb299bbc397f5b51f49d795c13
 }
  
 
@@ -296,7 +306,11 @@
     line-height: 1;
     font-size: 1rem;
     vertical-align: middle;
+<<<<<<< HEAD
     margin: 0px 4px;
+=======
+    margin: 3px 4px;
+>>>>>>> a85c2f4a96f978fb299bbc397f5b51f49d795c13
     text-decoration: none;
     -webkit-transition: 500ms all;
     -moz-transition: 500ms all;

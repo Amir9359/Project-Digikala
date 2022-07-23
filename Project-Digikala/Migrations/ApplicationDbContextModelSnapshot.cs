@@ -192,6 +192,7 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<string>("CustomerId");
 
+ 
                     b.Property<string>("FishNumber");
 
                     b.Property<DateTime>("OrderDate");
@@ -202,6 +203,10 @@ namespace ProjectDigikala.Migrations
 
                     b.Property<byte>("PaymentType");
 
+ 
+                    b.Property<DateTime>("OrderDate");
+
+ 
                     b.Property<double>("TotlaPrice");
 
                     b.Property<byte>("shippingType");

@@ -25,23 +25,26 @@ namespace Project_Digikala.Repository.EF
             await _Context.CartItem.AddAsync(cartItem);
         }
 
+ 
         public void DeletCartItems(List<CartItem> CartItems)
         {
             _Context.CartItem.RemoveRange(CartItems);
         }
-
+ 
         public async Task Delete(int cartItemId)
         {
             var cartItem = await _Context.CartItem.FindAsync(cartItemId);
             _Context.CartItem.Remove(cartItem);
         }
 
+ 
         public async Task DeleteCart(int cartId)
         {
             var Cart=  await _Context.Cart.FindAsync(cartId);
             _Context.Cart.Remove(Cart);
         }
 
+ 
         public async Task<Cart> Find(int cartid)
         {
             var cart = await _Context.Cart.FindAsync(cartid);

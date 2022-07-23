@@ -1,7 +1,11 @@
+
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Project_Digikala.Models;
 using Project_Digikala.Models.Profile;
+ 
+﻿using Microsoft.AspNetCore.Mvc;
+ 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +15,7 @@ namespace Project_Digikala.Controllers
 {
     public class ProfileController : Controller
     {
+ 
         private IAddressRepository _AddressRepository;
         private UserManager<@operator> _UserManager;
         public ProfileController(IAddressRepository AddressRepository, UserManager<@operator> UserManager)
@@ -18,10 +23,12 @@ namespace Project_Digikala.Controllers
             _UserManager = UserManager;
             _AddressRepository = AddressRepository;
         }
+ 
         public IActionResult Index()
         {
             return View();
         }
+ 
         [HttpPost]
         public async Task<IActionResult> save(string province, string city, string address, string tel)
         {
@@ -37,5 +44,6 @@ namespace Project_Digikala.Controllers
             await _AddressRepository.save();
             return View("Index");
         }
+ 
     }
 }
