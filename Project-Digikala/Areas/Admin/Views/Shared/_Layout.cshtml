@@ -16,10 +16,12 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title </title>
-    @RenderSection("title", required:false)
+    @RenderSection("title", required: false)
     <meta name="viewport" content="width=device-width" />
-    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Css/Admin/style.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
     @RenderSection("style", required: false)
 </head>
 <body>
@@ -72,12 +74,12 @@
                             برچسب
                         </a>
                         <ul class="dropdown-menu me-3 mt-1 p-0" style="right:5px; left:auto;margin-right:0;" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item text-right" style="text-align:right;" asp-area="Admin" asp-controller="Tag" asp-action="List"  >لیست برچسب ها</a></li>
+                            <li><a class="dropdown-item text-right" style="text-align:right;" asp-area="Admin" asp-controller="Tag" asp-action="List">لیست برچسب ها</a></li>
                             <li> <a class="dropdown-item text-right" style="text-align:right;" asp-area="Admin" asp-controller="Tag" asp-action="Add">افرزودن برچسب</a></li>
                         </ul>
 
                 </ul>
-                 <span class="navbar-text d-inline-flex align-items-center" ><a   asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-link text-white decor-none  btn-sm">@displayName  </a>|<a  asp-area="Admin" asp-controller="Account" asp-action="Signout" class="btn decor-none btn-sm btn-link">خروج</a></span>
+                <span class="navbar-text d-inline-flex align-items-center"><a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-link text-white decor-none  btn-sm  no-under">@displayName  </a>|<a asp-area="Admin" asp-controller="Account" asp-action="Signout" class="btn decor-none btn-sm btn-link no-under">خروج</a></span>
             </div>
         </div>
     </nav>
@@ -85,13 +87,14 @@
     <div dir="rtl" class="container-fluid  mt-3">
 
         @RenderSection("breadcrumb", required: false)
-    
+
 
         @RenderBody()
     </div>
-        <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
-        <script src="~/lib/jquery/jquery.min.js"></script>
-        @RenderSection("Scripts", required: false)
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>

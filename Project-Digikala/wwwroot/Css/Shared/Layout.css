@@ -82,6 +82,7 @@
     overflow-y: hidden;
 }
 
+
 .header-cell {
     display: table-cell;
     vertical-align: middle;
@@ -138,7 +139,7 @@
     right: -110px;
     white-space: nowrap;
     position: relative;
-    right: 209px;
+    right: 250px;
     top:-3px;
 }
 
@@ -149,7 +150,10 @@
 }
 
 .header-action-menu__checkbox {
-    display: none;
+    display: block;
+    top: 26px;
+    padding: 10px 65px;
+    position: relative;
 }
 
 .header-action-menu__content {
@@ -206,16 +210,13 @@
 }
 
     .header-action-item.login {
-        border-right: 2px solid #777;
- 
+        border-right: 2px solid #aea7a766;
         padding: 0 6px;
         /* vertical-align: middle; */
         margin: 0 20px;
- 
         padding: 2px 6px;
         /* vertical-align: middle; */
         margin: 3px 20px;
- 
         position: relative;
         top: 20px;
         padding-left: 1rem;
@@ -232,14 +233,10 @@
     }
 
 .header-action-item_border {
-    border: 1px solid darkorange;
+    border: 2px solid #ff8c0087;
     border-radius: 4px;
     position: relative;
- 
     top: 12px;
-
-    top: 9px;
- 
 }
  
 
@@ -338,8 +335,8 @@
     float: left;
     color: darkorange;
     position: relative;
-    right: 0px;
-    top: 8px;
+    right: 20px;
+    top: 4px;
     z-index: 5;
 }
 
@@ -350,6 +347,7 @@
     right: 17px;
     top: 4px;
     z-index: 5;
+
 }
 
 .header-action-btn.cart:before {
@@ -388,7 +386,10 @@
 }
 
     .header-action-btn-txt.login {
-        padding: .2rem .2rem .2rem 2rem
+        padding: .2rem .2rem .2rem 2rem;
+        position: relative;
+        top: -5px;
+        right: 20px;
     }
 
         .header-action-btn-txt.login:hover {
@@ -396,7 +397,7 @@
         }
 
 .header-action-btn-txt--store {
-    top: 3px;
+    top: 2px;
     left: 3px;
 }
 
@@ -457,13 +458,13 @@
     *zoom: 1;
     margin: 0;
     position: relative;
-    top: -10px;
+    top: 0px;
 }
 
 .li_last {
  
     background-color: #555;
-    top: -10px;
+    top: 0;
     right: 100px;
 }
 
@@ -1087,9 +1088,61 @@ A.button:hover, LABEL.button:hover {
     margin: 1rem .5rem 0 0;
     text-align: right;
 }
+.phone-header {
+    display: block;
+}
+.phone-header {
+    display: none;
+}
+ 
 @media (max-width:768px ) {
     .button-text-spec {
         font-size: .98rem;
         line-height: 1rem;
     }
-}
+    .desk-header {
+        display: none;
+    }
+    .phone-header {
+        display: block;
+    }
+    .header-search {
+        height: 100px;
+        width: 85%;
+        white-space: nowrap;
+        background-color: transparent;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin: 45px 0 30px 0px;
+        position: relative;
+        top: 35px;
+        right: -19px;
+    }
+    .header-search-form-input {
+        width: 80%;
+        margin-top: 20px;
+        left: 62px;
+        font-size: .7rem;
+    }
+    .header-action {
+        margin: 103px 0;
+        right: -300px;
+        top: 45px;
+    }
+    .header-search-form-label {
+        top: 38px;
+        right: 93%;
+        position: absolute;
+    }
+    .navbar-light .collapsed {
+        position: relative;
+        left: 10px;
+        top: 20px;
+    }
+    .toggle-btn {
+        position: relative;
+        top: 20px;
+        left: 0;
+    }
+    }
+ 

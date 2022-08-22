@@ -56,7 +56,8 @@
                         <div class="header-cell header-logo ">
                             <a class="tbl-logo-btn" href="/"><img class="tbl-logo-img" src="/Images/Home.png"><img /> </a>
                         </div>
-
+                        
+                        <div class="desk-header">
                         <div class="header-cell header-search ">
                             <form class="header-search-form" method="post" asp-controller="Product" asp-action="List">
                                 <span class="header-search-form-input-wrapper ">
@@ -115,7 +116,78 @@
 
                             </span>
                         </div>
+                        </div>
+                        <div class="phone-header">
+                            <div class="collapse" id="navbarToggleExternalContent">
+                                <div class=" p-4">
+                                    <div class="header-cell header-search ">
+                                        <form class="header-search-form" method="post" asp-controller="Product" asp-action="List">
+                                            <span class="header-search-form-input-wrapper ">
+                                                <input type="submit" class="header-search-form-submit-btn" id="headerSearchSubmitBtn">
+                                                <label for="headerSearchSubmitBtn"   class="header-search-form-label mdi mdi-magnify "></label>
+                                                <input class="header-search-form-input"  name="keyword" placeholder="لطفا نام محصول یا گروه کالا یا برند را وارد کنید ..." autocomplete="off">
+                                            </span>
+                                        </form>
+                                    </div>
 
+                                    <div class="header-cell header-action cartt">
+                                        <span class="header-action-item header-action-item_border ">
+                                            @if (cartItemCount > 0)
+                                            {
+                                                <a href="/Cart" class="header-action-btn mdi mdi-cart-outline cart"><span class="header-action-btn-txt  header-action-btn-txt--store">سبد خرید </span><span class="header-action-btn-cunt">@cartItemCount</span> </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/Cart" class="header-action-btn mdi mdi-cart-outline cart"><span class="header-action-btn-txt  header-action-btn-txt--store">سبد خرید </span></a>
+
+                                            }
+
+
+                                        </span>
+
+
+
+
+                                        <span class="header-action-item login">
+                                            @if (string.IsNullOrEmpty(displayName))
+                                            {
+
+                                                <span class="header-action-menu">
+                                                    <input class="header-action-menu__checkbox" type="checkbox" id="chek-menu" />
+                                                    <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px prof"><span class="header-action-btn-txt login"> ورود ، ثبت نام </span></label>
+                                                    <span class="header-action-menu__content">
+                                                        <a href="/Account/Signin" class="header-action-menu__item">ورود به سایت</a>
+                                                        <a href="/Account/Signup" class="header-action-menu__item">ثبت نام</a>
+                                                    </span>
+                                                </span>
+                                            }
+
+                                            else
+                                            {
+                                                <span class="header-action-menu">
+                                                    <input class="header-action-menu__checkbox" type="checkbox" id="chek-menu" />
+                                                    <label for="chek-menu" class="header-action-btn login  mdi mdi-chevron-down mdi-24px profile"><span class="header-action-btn-txt"> @displayName </span></label>
+                                                    <span class="header-action-menu__content">
+                                                        <a asp-controller="Profile" asp-action="Index" class="header-action-menu__item">حساب کاربری</a>
+                                                        <a asp-controller="Cart" asp-action="Index" class="header-action-menu__item">سفارشات</a>
+                                                        <span class="header-action-menu__seprator"></span>
+                                                        <a asp-controller="Account" asp-action="Signout" class="header-action-menu__item">خروج</a>
+                                                    </span>
+                                                </span>
+                                            }
+
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav class="navbar navbar-light">
+                                <div class="container-fluid" style=" justify-content: end;">
+                                    <button id="toggle-btn" onclick='togglebtn()' class="navbar-toggler  toggle-btn"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                </div>
+                            </nav>
+                        </div>
                     </div>
 
                 </div>
@@ -270,5 +342,17 @@
     <script src="~/lib/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="~/lib/jquery/jquery.min.js"></script>
     @RenderSection("Scripts", required: false)
+<script>
+    function togglebtn() {
+        if (document.getElementById("toggle-btn").style.left === "36px") {
+            document.getElementById("toggle-btn").style.left = "0";
+            document.getElementById("toggle-btn").style.top = "20px";
+        } else {
+            
+            document.getElementById("toggle-btn").style.left = "36px";
+            document.getElementById("toggle-btn").style.top = "-20px";
+        }
+    }
+</script>
 </body>
 </html>
